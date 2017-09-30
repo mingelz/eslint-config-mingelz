@@ -7,6 +7,11 @@
 
 module.exports = {
   "plugins": ["react"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+    },
+  },
 
   // TODO：待完善
   "rules": {
