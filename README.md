@@ -2,7 +2,7 @@
 
 [![Version](https://img.shields.io/npm/v/eslint-config-mingelz.svg?style=flat)](https://www.npmjs.com/package/eslint-config-mingelz)
 
-A shared ESLint configuration with Chinese comments by mingelz.
+A shared [ESLint](https://eslint.org) configuration with Chinese comments by mingelz.
 
 请打开 [rules](./rules) 目录下的文件，阅读每个规则的详细说明。
 
@@ -45,7 +45,7 @@ module.exports = {
 }
 ```
 
-### Vue configuration
+### [WIP] Vue configuration
 
 Please install **eslint-plugin-vue** first: `npm install -D eslint-plugin-vue`
 
@@ -60,7 +60,7 @@ module.exports = {
 }
 ```
 
-### React configuration
+### [WIP] React configuration
 
 Please install **eslint-plugin-react** first: `npm install -D eslint-plugin-react`
 
