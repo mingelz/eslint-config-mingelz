@@ -70,15 +70,7 @@ module.exports = {
   },
 
   // 规则，在使用了上述的 extends 外，如果还有不满意，可以写在这里覆盖默认设置，可参考 https://eslint.org/docs/rules/
-  "rules": {
-    // 为了保证文件格式看起来一致，也为了方便向 JSON 迁移，统一使用双引号，且配置文件中的 key 一律加引号
-    // "quote-props": [2,
-    //   "always",
-    // ],
-    // "quotes": [2,
-    //   "double",
-    // ],
-  },
+  // "rules": {},
 
   // 针对某些文件的特殊定义，比如单独配置测试文件的运行环境变量
   // "overrides": [
