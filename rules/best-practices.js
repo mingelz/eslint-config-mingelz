@@ -79,7 +79,7 @@ module.exports = {
     "guard-for-in": 2,
 
     // 避免使用 alert, confirm, prompt
-    "no-alert": isProd ? 1 : 0,
+    "no-alert": isProd ? 2 : 0,
 
     // 不允许使用 `arguments.caller` 或 `arguments.callee`，在 strict 模式下已经不支持了
     "no-caller": 2,
