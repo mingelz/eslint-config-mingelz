@@ -33,8 +33,7 @@ module.exports = {
         "quote-props": [2, "always"],
         "quotes": [2, "double"],
 
-        // 为了支持 Node 4 环境，使用 var 变量，并关闭解构赋值
-        "no-var": 0,
+        // 为了支持 Node 4 环境，关闭解构赋值
         "prefer-destructuring": 0,
 
         // 在配置规则时，数组的第一项为规则提示级别，为了与后边的配置区分，此项与规则名同行，所以关闭相关检测
