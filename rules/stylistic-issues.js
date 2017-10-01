@@ -763,14 +763,17 @@ module.exports = {
 
     // 函数后的小括号前是否要加空格
     "space-before-function-paren": [2,
-      {
-        // 针对匿名函数
-        "anonymous": "always",
-        // 针对具名函数
-        "named": "never",
-        // 针对 async 箭头函数
-        "asyncArrow": "always",
-      },
+      // 可以使用字符串 always, never，或者使用一个对象约定更具体的情况
+      "always",
+      // 如果使用对象，则对象的每一项可以使用 always, never 或 ignore 三项
+      // {
+      //   // 针对匿名函数，如 `function () {}`
+      //   "anonymous": "always",
+      //   // 针对具名函数，如 `function foo () {}`
+      //   "named": "never",
+      //   // 针对 async 箭头函数，如 `async () => {}`
+      //   "asyncArrow": "always",
+      // },
     ],
 
     // 小括号内是否要加空格
