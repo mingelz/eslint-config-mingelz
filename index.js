@@ -52,8 +52,8 @@ module.exports = {
   // 默认解析器为 Espree, 另有 Esprima, Babel-ESLint 等，可参考 https://eslint.org/docs/user-guide/configuring#specifying-parser
   // parser: 'espree',
   "parserOptions": {
-    // 6 表示 ES2015，另外还可以用 3/5/6/7/8 或 ES 年份来表示，此项受 `env.es6` 配置的影响
-    "ecmaVersion": 6,
+    // 可以使用 ES 版本号或年份表示，如 3/5/6/7/8... 或 ES2015/ES2017...，此项受 `env.es6` 配置的影响
+    "ecmaVersion": 2017,
     // 源码模式，默认为 `script`，如果使用 ES Module，则设置为 `module`
     "sourceType": "module",
     // 针对一些特性支持情况
