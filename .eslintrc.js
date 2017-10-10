@@ -29,7 +29,7 @@ module.exports = {
         "rules/*.js",
       ],
       "rules": {
-        // 为了方便向 JSON 迁移，统一使用双引号，且配置文件中的 key 一律加引号
+        // 为了尽可能兼容 JSON 格式，统一使用双引号，且配置文件中的 key 一律加引号
         "quote-props": [2, "always"],
         "quotes": [2, "double"],
 
