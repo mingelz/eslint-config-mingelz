@@ -47,7 +47,8 @@ module.exports = {
 
 ### [WIP] Vue configuration
 
-Please install **eslint-plugin-vue** first: `npm install -D eslint-plugin-vue`
+There is no longer `eslint-plugin-vue` in `peerDependencies`.
+Please install **eslint-plugin-vue** manully first: `npm install -D eslint-plugin-vue`
 
 ```js
 module.exports = {
@@ -62,7 +63,8 @@ module.exports = {
 
 ### [WIP] React configuration
 
-Please install **eslint-plugin-react** first: `npm install -D eslint-plugin-react`
+There is no longer `eslint-plugin-vue` in `peerDependencies`.
+Please install **eslint-plugin-react** manully first: `npm install -D eslint-plugin-react`
 
 ```js
 module.exports = {
