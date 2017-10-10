@@ -1,7 +1,8 @@
 module.exports = {
   "rules": {
     // 数组的中括号与数组项之间是否需要另起一行
-    "array-bracket-newline": [2,
+    // 目前 array-bracket-newline, array-element-newline 两项在风格判断上仍无法让人满意，暂时关掉检测
+    "array-bracket-newline": [0,
       // 可以为关键字 always, never，也可以是一个对象
       {
         // 如果数组项有用换行分隔，则括号与项间也要跟换行
@@ -27,7 +28,7 @@ module.exports = {
     ],
 
     // 数组的项之间是否要另起一行，请与 array-bracket-newline 对照着看
-    "array-element-newline": [2,
+    "array-element-newline": [0,
       // 可以为关键字 always, never，也可以是一个对象
       {
         // 如果数组项有用换行分隔，则每一项都要用换行分隔
