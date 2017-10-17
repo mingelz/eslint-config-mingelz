@@ -31,13 +31,15 @@ module.exports = {
   // settings: {},
 
   // 代码可能运行的环境，及全局变量定义
+  // 建议根据自己的项目需要，在自己的 eslintrc 文件中添加相应的 env
   // 除了下边列出的三项，还有众多的配置可选，如 `jest`, `mocha`, `jquery` 等，可参考 https://eslint.org/docs/user-guide/configuring#specifying-environments
-  "env": {
-    "browser": true,
-    "node": true,
-    // ES6 特性，这个设置会修改 parserOptions.ecmaVersion 配置项为 6
-    "es6": true,
-  },
+  // "env": {
+  //   "browser": true,
+  //   "node": true,
+  //   // ES6 特性，这个设置会修改 parserOptions.ecmaVersion 配置项为 6
+  //   // 请特别注意，如果你的项目使用了 ES6 以上的语法，请不要设置此 es6 项，而应使用下边的 ecmaVersion 来指定
+  //   "es6": true,
+  // },
 
   // 全局变量
   // 只要 key 存在，就表示全局变量存在，对应的 value 表示此变量是否可被覆写
@@ -52,7 +54,7 @@ module.exports = {
   // 默认解析器为 Espree, 另有 Esprima, Babel-ESLint 等，可参考 https://eslint.org/docs/user-guide/configuring#specifying-parser
   // parser: 'espree',
   "parserOptions": {
-    // 可以使用 ES 版本号或年份表示，如 3/5/6/7/8... 或 ES2015/ES2017...，此项受 `env.es6` 配置的影响
+    // 可以使用 ES 版本号或年份表示，如 3/5/6/7/8... 或 2015/2017...，此项受 `env.es6` 配置的影响
     "ecmaVersion": 2017,
     // 源码模式，默认为 `script`，如果使用 ES Module，则设置为 `module`
     "sourceType": "module",
