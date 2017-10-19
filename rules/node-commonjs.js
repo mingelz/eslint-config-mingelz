@@ -60,6 +60,13 @@ module.exports = {
     "no-restricted-modules": [0,
       // 不允许使用的 Node 模块名称
       // "fs", "assert",
+      // 也可以提供自定义的提示：
+      // [
+      //   {
+      //     "name": "foo",
+      //     "message": "Please use bar-module instead.",
+      //   },
+      // ],
     ],
 
     // 禁用同步的方法，因为 Node.js 是以异步见长的，高并发下同步方法会带来问题

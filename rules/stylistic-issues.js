@@ -2,14 +2,17 @@ module.exports = {
   "rules": {
     // 数组的中括号与数组项之间是否需要另起一行
     // 目前 array-bracket-newline, array-element-newline 两项在风格判断上仍无法让人满意，暂时关掉检测
-    "array-bracket-newline": [0,
-      // 可以为关键字 always, never，也可以是一个对象
-      {
-        // 如果数组项有用换行分隔，则括号与项间也要跟换行
-        "multiline": true,
-        // 当数组达到多少项时，就需要在另一起行来写数组项，如为 0 则等同于 always，如果不做检查则设置为 null
-        "minItems": null,
-      },
+    "array-bracket-newline": [2,
+      // 可以为关键字 always, never, consistent
+      // consistent: 括号两边保持一致，要么都有换行，要么都没换行
+      "consistent",
+      // 也可以是一个对象
+      // {
+      //   // 如果数组项有用换行分隔，则括号与项间也要跟换行
+      //   "multiline": true,
+      //   // 当数组达到多少项时，就需要在另一起行来写数组项，如为 0 则等同于 always，如果不做检查则设置为 null
+      //   "minItems": null,
+      // },
     ],
 
     // 数组的中括号前后是否要加空格
@@ -323,22 +326,41 @@ module.exports = {
         "beforeBlockComment": true,
         // 在块注释后是否空一行
         "afterBlockComment": false,
-        // 在行注释前是否空一行
+        // 在单行注释前是否空一行
         "beforeLineComment": false,
-        // 在行注释后是否空一行
+        // 在单行注释后是否空一行
         "afterLineComment": false,
-        // 在 Block 第一行时，需要检查注释前是否有空行
+        // 在 Block 第一行时，是否检查注释前是否有空行
         "allowBlockStart": true,
         // 在 Block 最后一行时，是否检查注释后是否有空行
         "allowBlockEnd": true,
-        // 在 Object 第一行时，需要检查注释前是否有空行
+        // 在 Class 第一行时，是否检查注释前是否有空行（与 Block 类似）
+        "allowClassStart": true,
+        // 在 Class 最后一行时，是否检查注释后是否有空行（与 Block 类似）
+        "allowClassEnd": true,
+        // 在 Object 第一行时，是否检查注释前是否有空行
         "allowObjectStart": true,
         // 在 Object 最后一行时，是否检查注释后是否有空行
         "allowObjectEnd": true,
-        // 在 Array 第一行时，需要检查注释前是否有空行
+        // 在 Array 第一行时，是否检查注释前是否有空行
         "allowArrayStart": true,
         // 在 Array 最后一行时，是否检查注释后是否有空行
         "allowArrayEnd": true,
+        // 需要忽略的匹配，默认会忽略如 eslint, istanbul 等等的注释
+        // "ignorePattern": "",
+        // 当配置了 ignorePattern 时，是否仍然匹配默认的 ignorePattern
+        // "applyDefaultIgnorePatterns": true,
+      },
+    ],
+
+    // 在 Class 的方法与方法间，是否需要插入空行
+    "lines-between-class-members": [2,
+      // 有 never 和 always 可选
+      "always",
+      // 另有一个配置项
+      {
+        // 当某方法只有一行时，是否忽略检测
+        "exceptAfterSingleLine": false,
       },
     ],
 
@@ -402,6 +424,15 @@ module.exports = {
       {
         "max": 1,
       },
+    ],
+
+    // 多行注释的样式
+    "multiline-comment-style": [0,
+      // 以下配置三选一
+      // starred-block: 不允许出现多个连续的单行注释（就像现在这些注释这样），且使用块注释时，每行要用星号对齐
+      // bare-block: 不允许出现多个连续的单行注释，且使用块注释时，每行开头不能有多余星号
+      // separate-lines: 不允许使用块注释，而应该将每行拆分为多个单行注释（就像现在这些注释这样）
+      "starred-block",
     ],
 
     // 三元表达式的换行方案

@@ -91,6 +91,13 @@ module.exports = {
     "no-restricted-imports": [0,
       // 不被允许 import 的 module 都在后边列出
       // "jquery", "fs",
+      // 也可以提供自定义的提示：
+      // [
+      //   {
+      //     "name": "jquery",
+      //     "message": "Please use Zepto instead.",
+      //   },
+      // ],
     ],
 
     // 不允许在 super 前使用 this

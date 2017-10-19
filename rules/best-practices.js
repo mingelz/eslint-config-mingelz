@@ -91,7 +91,13 @@ module.exports = {
     "no-div-regex": 0,
 
     // 如果每个 if 及 if else 中都有 return，则在 else 中不再需要 return，转为在函数最后 return
-    "no-else-return": 2,
+    "no-else-return": [2,
+      {
+        // 在 return 后是否可出现 `else if`
+        // 因为 `else if` 与前边的 if 并不直接互斥，可能导致 `else if` 中想执行的代码，被前边的 return 阻断了
+        "allowElseIf": false,
+      }
+    ],
 
     // 不允许空函数，但如果函数中有注释，并不算空函数
     "no-empty-function": [2,

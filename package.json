@@ -24,10 +24,10 @@
     "lint": "eslint --fix index.js lib/ rules/"
   },
   "devDependencies": {
-    "eslint": "^4.7.0"
+    "eslint": "^4.9.0"
   },
   "peerDependencies": {
-    "eslint": "^4.7.0"
+    "eslint": "^4.9.0"
   },
   "files": [
     "lib",
