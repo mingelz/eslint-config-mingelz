@@ -1,7 +1,7 @@
 {
   "name": "eslint-config-mingelz",
   "description": "A shared ESLint configuration with Chinese comments by mingelz.",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "main": "index.js",
   "repository": {
     "type": "git",
