@@ -136,9 +136,9 @@ module.exports = {
 
     // 检查 JSDoc 语法注释，及其正确性
     "valid-jsdoc": [0,
-      {
-        // TODO: 有很多细节配置，因为目前 JSdoc 并非首选的文档工具，所以暂时不做配置
-      },
+      // 有很多细节配置，因为目前 JSdoc 并非首选的文档工具，所以暂时不做配置
+      // {
+      // },
     ],
 
     // 检查 typeof 后的拼写正确性，如：`typeof foo === 'nunber'` 会提示 `nunber` 拼写错误

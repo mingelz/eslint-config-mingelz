@@ -14,10 +14,10 @@ module.exports = {
 
     // 检查 Class 中的方法是否用到了 `this`，如果没用到建议转为 static 方法
     "class-methods-use-this": [2,
-      {
-        // 以下方法名可以不调用 `this`
-        "exceptMethods": [],
-      },
+      // {
+      //   // 以下方法名可以不调用 `this`
+      //   "exceptMethods": [],
+      // },
     ],
 
     // 最多有多少个 `if else`，嵌套太多的话建议拆分
@@ -96,7 +96,7 @@ module.exports = {
         // 在 return 后是否可出现 `else if`
         // 因为 `else if` 与前边的 if 并不直接互斥，可能导致 `else if` 中想执行的代码，被前边的 return 阻断了
         "allowElseIf": false,
-      }
+      },
     ],
 
     // 不允许空函数，但如果函数中有注释，并不算空函数

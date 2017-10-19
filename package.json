@@ -21,7 +21,7 @@
     "chinese"
   ],
   "scripts": {
-    "lint": "eslint --fix index.js lib/ rules/"
+    "lint": "NODE_ENV=production eslint --fix index.js lib/ rules/"
   },
   "devDependencies": {
     "eslint": "^4.9.0"
