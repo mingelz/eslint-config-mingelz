@@ -10,17 +10,6 @@ module.exports = {
     "node": true,
   },
 
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "globalReturn": false,
-      "impliedStrict": false,
-      "jsx": false,
-      "experimentalObjectRestSpread": false,
-    },
-  },
-
   // 针对规则文件单独处理
   "overrides": [
     {
