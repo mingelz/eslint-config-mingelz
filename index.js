@@ -1,7 +1,7 @@
 /**
  * 请谨记：不要无谓追求某条规则的「正确性」，而应该保证项目风格的一致性
  *
- * 所以，此项目的规则肯定无法满足每个人的要求，我们也无需试图「纠正」某个人的习惯
+ * 所以，此项目的规则肯定无法满足每个人的要求，我们也无需试图「纠正」他人的习惯
  * 建议你 Fork 此项目并根据自己的偏好做出修改
  */
 
@@ -25,10 +25,10 @@ module.exports = {
   ].map(require.resolve),
 
   // 插件，可为 ESLint 提供额外的能力，如 eslint-plugin-react 等
-  // plugins: [],
+  // "plugins": [],
 
   // 共享数据配置，主要是提供给自定义规则使用
-  // settings: {},
+  // "settings": {},
 
   // 代码可能运行的环境，及全局变量定义
   // 建议根据自己的项目需要，在自己的 eslintrc 文件中添加相应的 env
@@ -43,16 +43,16 @@ module.exports = {
 
   // 全局变量
   // 只要 key 存在，就表示全局变量存在，对应的 value 表示此变量是否可被覆写
-  // globals: {
+  // "globals": {
   //   // 值为 true，表示此变量可被覆写
-  //   foo: true,
+  //   "foo": true,
   //   // 值为 false，表示此变量不可被覆写
-  //   bar: false,
+  //   "bar": false,
   // },
 
   // 设置源码解析器，及设置解析器的配置项
   // 默认解析器为 Espree, 另有 Esprima, Babel-ESLint 等，可参考 https://eslint.org/docs/user-guide/configuring#specifying-parser
-  // parser: 'espree',
+  // "parser": 'espree',
   "parserOptions": {
     // 可以使用 ES 版本号或年份表示，如 3/5/6/7/8... 或 2015/2017...，此项受 `env.es6` 配置的影响
     "ecmaVersion": 2017,

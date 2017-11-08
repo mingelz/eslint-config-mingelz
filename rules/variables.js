@@ -70,7 +70,7 @@ module.exports = {
         "caughtErrors": "none",
         // 可被忽略的未使用的 catch 参数匹配正则
         "caughtErrorsIgnorePattern": "",
-        // 参数解构时，同级变量是否判断为未定义，如 `var {foo, ...bar} = data`，此时 foo 只为解构 bar 的同级变量
+        // 参数解构时，同级变量是否忽略未定义判断，如 `var {foo, ...bar} = data`，此时 foo 只为解构 bar 的同级变量
         "ignoreRestSiblings": true,
       },
     ],

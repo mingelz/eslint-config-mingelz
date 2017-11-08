@@ -562,7 +562,8 @@ module.exports = {
       },
     ],
 
-    // 不允许变量头尾使用下划线
+    // 不允许变量头尾使用下划线，因为下划线表示私有，但 JS 并没有私有概念，可能会让代码读者产生歧义
+    // 更多相关讨论（争论）：https://github.com/airbnb/javascript/issues/1024
     "no-underscore-dangle": [0,
       {
         // 例外列表
