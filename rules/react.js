@@ -1,12 +1,15 @@
 /**
- * React 相关的配置
+ * React 相关配置
  *
  * 请先安装依赖：`npm install eslint-plugin-react --save-dev`
  * 文档：https://github.com/yannickcr/eslint-plugin-react
  */
 
 module.exports = {
-  "plugins": ["react"],
+  "plugins": [
+    "react",
+  ],
+
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true,
