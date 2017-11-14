@@ -2,7 +2,13 @@ module.exports = {
   "rules": {
     // 定义变量的时候需要赋初始值
     "init-declarations": [0,
+      // always: 总需要有初始值
+      // never: 除了 `const` 之外，定义时不应该有初始值
       "always",
+      // 当设置为 never 时，可以增加下边的配置项，因为在 `for` 中定义循环变量的初始值是很经典的用法
+      // {
+      //   "ignoreForLoopInit": true,
+      // },
     ],
 
     // 在 IE8 中 catch 参数名会扩散到外部作用域，所以禁止 catch 的参数名与外部定义的变量名一样
@@ -16,9 +22,10 @@ module.exports = {
 
     // 不允许调用全局变量名，可参考 eslint-restricted-globals
     "no-restricted-globals": [2,
-      // 后边跟的数组的每一项，都表示一个变量名
+      // 后边跟的每一项，都表示一个变量名
+      // 即可以是字符串格式，表示变量名
       "error",
-      // 也可以自定义出错信息
+      // 也可以是对象格式，用来自定义出错信息
       {
         "name": "event",
         "message": "在 IE 下有全局的 event 事件，最佳实践建议仅调用局部的 event 变量",
@@ -31,6 +38,9 @@ module.exports = {
         // 是否可定义与内置方法/属性同名变量
         "builtinGlobals": false,
         // 当子作用域在前时，是否可被后边的定义覆盖，可以为 functions, all, never
+        // functions: 如果后边是 function 则提示出错
+        // all: 后边是 var/let/const 的变量，也提示出错
+        // never: 不报错
         "hoist": "functions",
         // 要排除的关键字
         "allow": [],
@@ -56,22 +66,33 @@ module.exports = {
     "no-undefined": 2,
 
     // 检测是否有未被使用的变量和函数
+    // 额外的，如果配置文件中有如下定义，可以使用 `/* exported foo */` 来表示 `foo` 变量要被用于外部，可以被定义而不报错
+    //    1. "env" 中指定了 `node` 或 `commonjs`
+    //    2. "parserOptions.sourceType" 为 `module`
+    //    3. "ecmaFeatures.globalReturn" 为 `true`
     "no-unused-vars": [1,
       {
-        // 检测所有的变量的使用情况，还是仅检测局部作用域下的变量
+        // 检测范围
+        // all: 检测所有变量的使用情况
+        // local: 仅检测局部作用域下的变量
         "vars": "all",
         // 可被忽略的未使用变量匹配正则
         "varsIgnorePattern": "^_",
-        // 函数参数在未使用前也被认为是未使用变量
+        // 函数参数检测
+        // alter-used: 参数在未使用前也被认为是未使用变量
+        // all: 所有参数必须要求都被使用
+        // none: 不检测函数参数
         "args": "after-used",
         // 可被忽略的未使用参数匹配正则
         "argsIgnorePattern": "^_",
+        // 参数解构时，同级变量是否忽略未定义判断，如 `var {foo, ...bar} = data`，此时 foo 只为解构 bar 的同级变量
+        "ignoreRestSiblings": true,
         // catch 参数
+        // none: 不检测 catch 参数
+        // all: catch 的参数要求一定被使用
         "caughtErrors": "none",
         // 可被忽略的未使用的 catch 参数匹配正则
         "caughtErrorsIgnorePattern": "",
-        // 参数解构时，同级变量是否忽略未定义判断，如 `var {foo, ...bar} = data`，此时 foo 只为解构 bar 的同级变量
-        "ignoreRestSiblings": true,
       },
     ],
 

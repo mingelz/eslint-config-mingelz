@@ -1,7 +1,7 @@
 /**
  * Vue 相关配置
  *
- * 请先安装依赖：`npm install eslint-plugin-vue --save-dev`
+ * 依赖：eslint-plugin-vue@3.13.1
  * 文档：https://github.com/vuejs/eslint-plugin-vue
  */
 
@@ -20,7 +20,7 @@ module.exports = {
 
   "rules": {
     /**
-     * ESLint: 一些 eslint 规则要针对 vue 环境做些适配
+     * ESLint: 一些 ESLint 规则要针对 Vue 环境做些适配
      */
 
     // 因为 Vue / Vuex 是双向数据绑定，经常会对数据或参数做更新，所以关闭此检测
@@ -32,7 +32,7 @@ module.exports = {
 
     // 在 `props`, `computed`, `methods` 中存在的 key 不允许重复
     "vue/no-dupe-keys": [2,
-      // 除了 vue 支持的 `computed`, `methods` ...，还在哪些 key 下去搜索重复的 key
+      // 除了 Vue 支持的 `computed`, `methods` ...，还在哪些 key 下去搜索重复的 key
       // "groups": []
     ],
 

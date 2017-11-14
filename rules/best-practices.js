@@ -32,16 +32,13 @@ module.exports = {
     // if, else, while, do, for 后是否需要使用大括号
     // 有些选项是互斥的，请根据情况选择
     "curly": [2,
-      // 所有情况都要有大括号
-      // "all",
-      // 当语句多于一句时才需要大括号，如果只有一句则去掉大括号
-      // "multi",
-      // 如果只有一句且与 if 等写在同一行，则不需要大括号
+      // all: 所有情况都要有大括号
+      // multi: 当语句多于一句时才需要大括号，如果只有一句则去掉大括号
+      // multi-line: 如果只有一句且与 if 等写在同一行，则不需要大括号
+      // multi-or-nest: 如果只有一句，则必须与 if 等写在同一行，且不写大括号
+      // consistent: 要求 `if/else`, `while/do` 对应的语句块行为一致，要么都加大括号，要么都不加
+      //             只有声明了上边任意 `multi*` 项，此项才有意义
       "multi-line",
-      // 如果只有一句，则必须与 if 等写在同一行，且不写大括号
-      // "multi-or-nest",
-      // 要求 `if/else`, `while/do` 对应的语句块行为一致，要么都加大括号，要么都不加
-      // 只有声明了上边任意 `multi*` 项，此项才有意义
       "consistent",
     ],
 
@@ -53,15 +50,17 @@ module.exports = {
       },
     ],
 
-    // 有换行时 `.` 操作符的位置，跟在 'object' 后，还是 'property' 前
+    // 有换行时 `.` 操作符的位置
     "dot-location": [2,
+      // object: 跟在 object 后
+      // property: 在 property 前
       "property",
     ],
 
     // 对象属性使用 `.` 获取，而不是 [] 获取
     "dot-notation": [2,
       {
-        // 是否允许关键字做 key，`foo['class']`
+        // 是否允许关键字做 key，如：`foo['class']`
         "allowKeywords": true,
         // 匹配以下规则时，可使用 [] 获取
         // "allowPattern": "",
@@ -70,15 +69,20 @@ module.exports = {
 
     // 使用 `===`
     "eqeqeq": [2,
-      // always 表示总是使用 `===`
-      // smart 表示两边无类型转换时，可以使用 `==`，包括：字面量比较、typeof 比较、针对 null 的比较
+      // always: 总是使用 `===`
+      // smart: 两边无类型转换时，可以使用 `==`，包括：字面量比较、typeof 比较、针对 null 的比较
       "smart",
+      // 当前一个设置项为 always 时，可以加此设置项，用来表示是否要忽略针对 null 的判断
+      // {
+      //   // 可以设置为 always, never, ignore
+      //   "null": "ignore",
+      // },
     ],
 
     // 在 `for in` 中过滤原型链继承属性
     "guard-for-in": 2,
 
-    // 避免使用 alert, confirm, prompt
+    // 不允许使用 alert, confirm, prompt
     "no-alert": isProd ? 2 : 0,
 
     // 不允许使用 `arguments.caller` 或 `arguments.callee`，在 strict 模式下已经不支持了
@@ -202,7 +206,7 @@ module.exports = {
       },
     ],
 
-    // 不允许使用 `\` 转义多行字符串每行结尾，此情况可以使用 ES6 模板字符串
+    // 不允许使用 `\` 转义多行字符串每行结尾，可以使用 ES6 模板字符串代替
     "no-multi-str": 2,
 
     // new 出的实例一定要赋值给变量
@@ -211,7 +215,8 @@ module.exports = {
     // 不允许使用 Function 构造函数
     "no-new-func": 2,
 
-    // 不允许使用原始对象构造实例，如：`var str = new String('Hello world'); typeof str === 'object'`
+    // 不允许使用原始对象构造实例，因为构造出的对象类型为 object
+    // 如：`var str = new String('Hello world'); typeof str === 'object'`
     "no-new-wrappers": 2,
 
     // 不使用以 0 开头的八进制字面量
@@ -227,7 +232,7 @@ module.exports = {
         "props": true,
         // 例外，以下修改不报错，这里参考自 airbnb-base
         "ignorePropertyModificationsFor": [
-          // 在 reduce 中，建议将循环体命名为 acc
+          // 在 reduce 中，建议将迭代变量命名为 acc
           "acc",
           // 事件或报错
           "e",
@@ -262,10 +267,8 @@ module.exports = {
 
     // 不允许 return 后跟表达式
     "no-return-assign": [2,
-      // 以下两项二选一
-      // 一律不允许
-      // "always",
-      // 除非表达式用括号括起来
+      // always: 一律不允许
+      // except-parens: 除非表达式用括号括起来
       "except-parens",
     ],
 
@@ -314,7 +317,8 @@ module.exports = {
     // 不允许不必要的转义，`'\"'` 中的转义就是非必要的
     "no-useless-escape": 2,
 
-    // 不允许无用的 return，没太理解这个规则和 `consistent-return` 的区别
+    // 不允许无用的 return
+    // FIXME: 没太理解这个规则和 `consistent-return` 的区别
     "no-useless-return": 2,
 
     // 不允许使用 void
@@ -352,8 +356,9 @@ module.exports = {
 
     // 自执行函数括号放在哪里，`(function(){}())` 或 `(function(){})()`
     "wrap-iife": [2,
-      // 任意一种都可以，但一定要把函数括起来，不能 `var foo = function(){}()`
-      // 其他还支持 "outside", "inside"
+      // outside: `(function(){})()`
+      // inside: `(function(){}())`
+      // any: 任意一种都可以，但一定要把函数括起来，不能 `var foo = function(){}()`
       "any",
       {
         // 使用 `call/apply` 调用时是否要包裹函数
@@ -362,9 +367,13 @@ module.exports = {
     ],
 
     // 比较表达式是否需要符合自然语义
+    // Yoda 是《星球大战》中的角色，他喜欢反着语序说话（倒装），可参考 https://www.guokr.com/article/441084/
     "yoda": [2,
-      // 当使用 always 时就不需要下边两个细节了
+      // always: 像 Yoda 那样，如 `if ('red' === color)`
+      //         Yoda 方案可以避免不小心将判断写成了赋值（只一个等号），因为 `if ('red' = color)` 会报错
+      // never: 按照自然语义，如 `if (color === 'red')`
       "never",
+      // 仅在前一个设置项为 never 时有意识，如果为 always 就不需要配置了
       {
         // 大小于对比要符合区间性，如：`if (1 < foo && foo < 5)`
         "exceptRange": true,

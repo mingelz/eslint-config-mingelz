@@ -22,7 +22,8 @@ module.exports = {
 
     // 箭头函数参数是否一定要用小括号
     "arrow-parens": [2,
-      // 大于一个时才需要
+      // always: 总使用小括号
+      // as-needed: 大于一个时才需要
       "as-needed",
       {
         // 为了表现一致，当函数体使用 `{}` 包裹时，参数哪怕只有一个，也要用 `()` 包裹
@@ -45,8 +46,13 @@ module.exports = {
 
     // generator 的 * 号前后是否要有空格
     "generator-star-spacing": [2,
-      // 此参数可以使用字符串关键字：before, after, both, neigher，分别表示前后有或没有空格
-      // 或者使用对象来描述更详细的情况
+      // before: 前要有空格
+      // after: 后要有空格
+      // both: 前后都要有空格
+      // neigher: 前后都不要空格
+      // 可以使用上述某一字符串表示所有情况
+      // "before",
+      // 或者像下边这样使用对象来描述更详细的情况
       {
         // * 号前有空格
         "before": false,
@@ -233,7 +239,8 @@ module.exports = {
 
     // 对象的 rest 解构与扩展运算符，与后边的表达式间是否要有空格，如 `{... foo} = bar`
     "rest-spread-spacing": [2,
-      // 可选 never 或 always
+      // never: 不要有空格
+      // always: 要有空格
       "never",
     ],
 
@@ -263,7 +270,8 @@ module.exports = {
 
     // 模板字符串表达式与大括号间是否要有空格，`${exp}` 或 `${ exp }`
     "template-curly-spacing": [2,
-      // 可选 never 或 always
+      // never: 不要有空格
+      // always: 要有空格
       "never",
     ],
 

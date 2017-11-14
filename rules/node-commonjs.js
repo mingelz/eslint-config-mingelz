@@ -47,7 +47,7 @@ module.exports = {
     // 不允许使用 __dirname 和 __filename 做字符串拼接，建议使用 path 模块
     "no-path-concat": 2,
 
-    // 不在 Node 下使用 `process.env` 获取环境变量
+    // 不使用 `process.env` 获取环境变量
     // 因为 `process.env` 会随环境变化，建议通过配置文件来保证所依赖数据的稳定性
     // 实际项目中，使用 `process.env` 本身就是为了获取环境信息，所以不太用管这一条
     "no-process-env": 0,

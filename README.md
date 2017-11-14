@@ -20,6 +20,9 @@ Add a `.eslintrc.js` file with following content to your project root directory:
 
 ```js
 module.exports = {
+  "env": {
+    "browser": true,
+  },
   "extends": [
     "mingelz",
   ],
@@ -47,8 +50,10 @@ module.exports = {
 
 ### Vue configuration
 
+**Dependencies: [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)@3.13.1**
+
 There is no longer `eslint-plugin-vue` in `peerDependencies`.
-Please install **eslint-plugin-vue** manully first: `npm install -D eslint-plugin-vue@3`
+Please install it manully first: `npm install -D eslint-plugin-vue@3`
 
 ```js
 module.exports = {
@@ -63,8 +68,10 @@ module.exports = {
 
 ### [WIP] React configuration
 
+**Dependencies: [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)@7.4.0**
+
 There is no longer `eslint-plugin-react` in `peerDependencies`.
-Please install **eslint-plugin-react** manully first: `npm install -D eslint-plugin-react`
+Please install it manully first: `npm install -D eslint-plugin-react`
 
 ```js
 module.exports = {
