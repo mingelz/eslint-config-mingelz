@@ -137,7 +137,8 @@ module.exports = {
     // 禁止在 `setState` 中调用 `this.state`，因为多次连续调用时，`this.state` 并未更新
     // 建议使用函数的方式：`this.setState(prevState => ({value: prevState.value + 1}))`
     // 如果希望在 State 更新后做某些事情，可以加第二个参数：`this.setState({value: 2}, () => { doSomething })`
-    "react/no-access-state-in-setstate": 2,
+    // FIXME: 此规则尚未发布
+    // "react/no-access-state-in-setstate": 2,
 
     // 不使用数组的 index 做 key
     // 原因是在 React 中 key 来表明对应的组件是否被改变了，如果 key 不变则 DOM 可被复用
@@ -510,7 +511,8 @@ module.exports = {
         // 忽略箭头函数，如：`<div onClick={e => this.foo(e)}`
         "allowArrowFunctions": true,
         // 忽略函数定义，如：`<div onClick={function foo () {}}`
-        "allowFunctions": false,
+        // FIXME: 此规则尚未发布
+        // "allowFunctions": false,
         // 忽略 bind，如：`<div onClick={this.foo.bind(this)}`
         "allowBind": false,
       },
@@ -631,22 +633,29 @@ module.exports = {
       // parens: 用括号包裹
       // parens-new-line: 不但要括号包裹，而且 JSX 需要新起一行，与括号不同行
       // ignore: 忽略检测
+      // FIXME: 新的配置项暂未发布，目前仅支持 true(==parens)/false(==ignore)，且仅部分配置可用
       {
-        // 定义时是否需要包裹
-        "declaration": "parens-new-line",
-        // 重新赋值时
-        "assignment": "parens-new-line",
-        // 跟在 `return` 后时
-        "return": "parens-new-line",
-        // 在箭头函数体时
-        "arrow": "parens-new-line",
-        // 在三元表达式里边时
-        "condition": "ignore",
-        // 在逻辑表达式里时
-        "logical": "ignore",
-        // 在属性中时
-        "prop": "ignore",
+        "declaration": true,
+        "assignment": true,
+        "return": true,
+        "arrow": true,
       },
+      // {
+      //   // 定义时是否需要包裹
+      //   "declaration": "parens-new-line",
+      //   // 重新赋值时
+      //   "assignment": "parens-new-line",
+      //   // 跟在 `return` 后时
+      //   "return": "parens-new-line",
+      //   // 在箭头函数体时
+      //   "arrow": "parens-new-line",
+      //   // 在三元表达式里边时
+      //   "condition": "ignore",
+      //   // 在逻辑表达式里时
+      //   "logical": "ignore",
+      //   // 在属性中时
+      //   "prop": "ignore",
+      // },
     ],
   },
 }
