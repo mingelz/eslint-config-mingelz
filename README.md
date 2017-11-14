@@ -66,7 +66,7 @@ module.exports = {
 }
 ```
 
-### [WIP] React configuration
+### React configuration
 
 **Dependencies: [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)@7.4.0**
 
