@@ -9,7 +9,7 @@ module.exports = {
     "getter-return": [2,
       {
         // 是否允许直接写 `return;` 来表示返回一个 undefined
-        "allowImplicit": true,
+        "allowImplicit": false,
       },
     ],
 
