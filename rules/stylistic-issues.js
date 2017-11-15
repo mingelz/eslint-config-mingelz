@@ -633,13 +633,14 @@ module.exports = {
 
     // 当整个对象在一行时，大括号前后是否要加空格
     "object-curly-spacing": [2,
-      // 可选 always 或 never
+      // always: 需要空格，此时有个例外，即空对象 `{}` 不要求有空格
+      // never: 不需要空格
       "always",
       {
-        // 针对嵌套对象的检测
-        "objectsInObjects": false,
-        // 针对嵌套数组的检测
-        "arraysInObjects": false,
+        // 针对嵌套对象的检测，如：`var foo = { bar: {} }` 中最后的 `}` 前是否要有空格
+        "objectsInObjects": true,
+        // 针对嵌套数组的检测，如：`var foo = { bar: [] }` 中最后的 `}` 前是否要有空格
+        "arraysInObjects": true,
       },
     ],
 
