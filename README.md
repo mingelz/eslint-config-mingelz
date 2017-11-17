@@ -4,7 +4,7 @@
 
 A shared [ESLint](https://eslint.org) configuration with Chinese comments by mingelz.
 
-请打开 [rules](./rules) 目录下的文件，阅读每个规则的详细说明。
+一份带有完整中文注释的 ESLint 规则。请打开 [rules](./rules) 目录下的文件，阅读每个规则的详细说明。
 
 ## Quick start
 
