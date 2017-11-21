@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-mingelz",
-  "description": "A shared ESLint configuration with Chinese comments by mingelz.",
+  "description": "A shared ESLint configuration with Chinese comments by mingelz. 一份带有完整中文注释的 ESLint 规则。",
   "version": "1.0.1",
   "main": "index.js",
   "repository": {
