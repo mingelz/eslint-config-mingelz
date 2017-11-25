@@ -376,7 +376,7 @@ module.exports = {
       // 一个 <tab> 算 4 个字符，注意这里指的是 <tab> 字符，而不是缩进对应的空格数
       4,
       {
-        // 是否检查计算注释
+        // 是否忽略注释
         "ignoreComments": true,
         // 是否忽略因为结尾注释才超过限定长度
         "ignoreTrailingComments": true,
