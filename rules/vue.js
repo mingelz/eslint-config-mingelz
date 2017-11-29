@@ -349,12 +349,13 @@ module.exports = {
     // 一行最多多少个属性
     "vue/max-attributes-per-line": [2,
       {
-        // 针对单行文件，最多支持 3 个属性，再多要换行
-        "singleline": 3,
-        // 多行
+        // 针对单行标签，最多支持多少个属性，再多要换行
+        "singleline": 5,
+        // 针对多行标签
         "multiline": {
+          // 多行标签最多每行多少个属性
           "max": 1,
-          // 第一行是否免于处罚
+          // 与属性名同行的标签是否独立算一行
           "allowFirstLine": false,
         },
       },
