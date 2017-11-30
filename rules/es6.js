@@ -101,6 +101,8 @@ module.exports = {
       // [
       //   {
       //     "name": "jquery",
+      //     // 如果仅希望禁止 import 模块下的某个方法，可以加此项
+      //     // "importNames": "foo",
       //     "message": "Please use Zepto instead.",
       //   },
       // ],
