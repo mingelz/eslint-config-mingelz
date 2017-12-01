@@ -128,11 +128,11 @@ module.exports = {
 
     // 禁止使用的 PropTypes
     "react/forbid-prop-types": [2,
-      // 是否同时检测 contextTypes
-      "checkContextTypes": false,
-      // 是否同时检测 childContextTypes
-      "checkChildContextTypes": false,
       {
+        // 是否同时检测 contextTypes
+        "checkContextTypes": false,
+        // 是否同时检测 childContextTypes
+        "checkChildContextTypes": false,
         // 具体不允许的 PropTypes
         "forbid": [
           // 应该明确指定 propTypes，不应该使用 any
