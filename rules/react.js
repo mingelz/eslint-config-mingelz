@@ -1,7 +1,7 @@
 /**
  * React 相关配置
  *
- * 依赖: eslint-plugin-react@7.4.0
+ * 依赖: eslint-plugin-react@^7.5.0
  * 文档：https://github.com/yannickcr/eslint-plugin-react
  */
 
@@ -66,6 +66,17 @@ module.exports = {
       },
     ],
 
+    // 对于 `<button>` 是否一定要定义 `type` 属性
+    "react/button-has-type": [2,
+      // 哪些 type 是否允许使用，不允许则为 false
+      {
+        // 如 `<button type="button">` 是否允许使用
+        "button": true,
+        "submit": true,
+        "reset": true,
+      },
+    ],
+
     // 对于 defaultProps 中的属性都应该对应上非必须的 PropTypes
     "react/default-props-match-prop-types": [2,
       {
@@ -75,7 +86,7 @@ module.exports = {
     ],
 
     // 对于 props/state/context 中的属性，是否要先解构再使用
-    // 即不能直接 `<div>{ this.props.foo }</div>`，而应该先 `const { foo, bar } = this.props`，再 `<div>{ foo }</div>`
+    // 即：不能直接 `<div>{ this.props.foo }</div>`，而应该先 `const { foo, bar } = this.props`，再 `<div>{ foo }</div>`
     "react/destructuring-assignment": [0,
       // always: 总是需要先解构再使用
       // never: 直接使用，不能解构
@@ -117,6 +128,10 @@ module.exports = {
 
     // 禁止使用的 PropTypes
     "react/forbid-prop-types": [2,
+      // 是否同时检测 contextTypes
+      "checkContextTypes": false,
+      // 是否同时检测 childContextTypes
+      "checkChildContextTypes": false,
       {
         // 具体不允许的 PropTypes
         "forbid": [
@@ -137,8 +152,7 @@ module.exports = {
     // 禁止在 `setState` 中调用 `this.state`，因为多次连续调用时，`this.state` 并未更新
     // 建议使用函数的方式：`this.setState(prevState => ({value: prevState.value + 1}))`
     // 如果希望在 State 更新后做某些事情，可以加第二个参数：`this.setState({value: 2}, () => { doSomething })`
-    // FIXME: 此规则尚未发布
-    // "react/no-access-state-in-setstate": 2,
+    "react/no-access-state-in-setstate": 2,
 
     // 不使用数组的 index 做 key
     // 原因是在 React 中 key 来表明对应的组件是否被改变了，如果 key 不变则 DOM 可被复用
@@ -286,7 +300,12 @@ module.exports = {
 
     // 对于每一个非必须的 prop 都要指定 defaultProps
     // 此规则和 react/default-props-match-prop-types 互相呼应，可以对照着看
-    "react/require-default-props": 2,
+    "react/require-default-props": [2,
+      {
+        // 对于 isRequired 的属性，是否允许定义默认值（其实定义了也没用，不过默认值可以为开发提供参照）
+        "forbidDefaultForRequired": false,
+      },
+    ],
 
     // 要求每个组件都有 `shouldComponentUpdate` 方法，用来判断是否需要更新，来提升组件性能
     "react/require-optimization": [0,
@@ -511,8 +530,7 @@ module.exports = {
         // 忽略箭头函数，如：`<div onClick={e => this.foo(e)}`
         "allowArrowFunctions": true,
         // 忽略函数定义，如：`<div onClick={function foo () {}}`
-        // FIXME: 此规则尚未发布
-        // "allowFunctions": false,
+        "allowFunctions": false,
         // 忽略 bind，如：`<div onClick={this.foo.bind(this)}`
         "allowBind": false,
       },
@@ -551,6 +569,9 @@ module.exports = {
         "allowGlobals": false,
       },
     ],
+
+    // 一行只能有一条表达式，包括 JSX 标签
+    "react/jsx-one-expression-per-line": 0,
 
     // 校验某些可能并不需要的大括号的情况，如 `<div>{'Foo'}</div>`
     // 此规则可以和 react/jsx-no-comment-textnodes, react/jsx-no-comment-textnodes 相互参考
@@ -633,29 +654,22 @@ module.exports = {
       // parens: 用括号包裹
       // parens-new-line: 不但要括号包裹，而且 JSX 需要新起一行，与括号不同行
       // ignore: 忽略检测
-      // FIXME: 新的配置项暂未发布，目前仅支持 true(==parens)/false(==ignore)，且仅部分配置可用
       {
-        "declaration": true,
-        "assignment": true,
-        "return": true,
-        "arrow": true,
+        // 定义时是否需要包裹
+        "declaration": "parens-new-line",
+        // 重新赋值时
+        "assignment": "parens-new-line",
+        // 跟在 `return` 后时
+        "return": "parens-new-line",
+        // 在箭头函数体时
+        "arrow": "parens-new-line",
+        // 在三元表达式里边时
+        "condition": "ignore",
+        // 在逻辑表达式里时
+        "logical": "ignore",
+        // 在属性中时
+        "prop": "ignore",
       },
-      // {
-      //   // 定义时是否需要包裹
-      //   "declaration": "parens-new-line",
-      //   // 重新赋值时
-      //   "assignment": "parens-new-line",
-      //   // 跟在 `return` 后时
-      //   "return": "parens-new-line",
-      //   // 在箭头函数体时
-      //   "arrow": "parens-new-line",
-      //   // 在三元表达式里边时
-      //   "condition": "ignore",
-      //   // 在逻辑表达式里时
-      //   "logical": "ignore",
-      //   // 在属性中时
-      //   "prop": "ignore",
-      // },
     ],
   },
 }
