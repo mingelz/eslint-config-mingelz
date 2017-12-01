@@ -1,7 +1,7 @@
 /**
  * Vue 相关配置
  *
- * 依赖：eslint-plugin-vue@3.13.1
+ * 依赖：eslint-plugin-vue@^4.0.0
  * 文档：https://github.com/vuejs/eslint-plugin-vue
  */
 
@@ -27,13 +27,33 @@ module.exports = {
     "no-param-reassign": 0,
 
     /**
-     * Vue: Possible Errors
+     * Vue: Base (Enabling Correct ESLint Parsing)
      */
+
+    // 在 jsx 中不允许使用未定义的变量
+    "vue/jsx-uses-vars": 2,
+
+    /**
+     * Vue: Priority A: Essential (Error Prevention)
+     */
+
+    // 不允许在 `computed` 中使用异步方法，如果确实有需求，请使用此插件：https://github.com/foxbenjaminfox/vue-async-computed
+    "vue/no-async-in-computed-properties": 2,
 
     // 在 `props`, `computed`, `methods` 中存在的 key 不允许重复
     "vue/no-dupe-keys": [2,
       // 除了 Vue 支持的 `computed`, `methods` ...，还在哪些 key 下去搜索重复的 key
       // "groups": []
+    ],
+
+    // 避免重复定义属性，如：`<div foo="bar" :foo="baz"></div>`
+    "vue/no-duplicate-attributes": [2,
+      {
+        // 允许 class 两种形式共存
+        "allowCoexistClass": true,
+        // 允许 style 两种形式共存
+        "allowCoexistStyle": true,
+      },
     ],
 
     // 忽略解析 <template> 时的语法报错
@@ -92,15 +112,28 @@ module.exports = {
     // 不允许可共享的 `data` 字段，即 `data` 字段只能是函数，不能是对象
     "vue/no-shared-component-data": 2,
 
+    // 不允许在 `computed` 中有无意义的修改，如：`this.foo = 'bar'; return baz`
+    "vue/no-side-effects-in-computed-properties": 2,
+
     // 不允许在 `<template>` 标签上加 `key`，如：`<template key="foo">`，其他标签是可以的
     "vue/no-template-key": 2,
 
-    // FIXME: 此规则尚未发布
+    // 不允许在 `<textarea>` 标签间使用 mustache 语法，如 `<textarea>{{ foo }}</textarea>`
+    // 因为它会不生效，请使用 `v-model`，如：`<textarea v-model="foo"`></textarea>`
+    "vue/no-textarea-mustache": 2,
+
     // 不允许未被定义的变量，主要是指在 <template> 中定义的项，如 `<div v-for="i in foo">{{ bar }}</div>`
-    // "vue/no-unused-vars": 2,
+    "vue/no-unused-vars": 2,
+
+    // 在 `<component>` 上要求有 `v-bind:is`
+    "vue/require-component-is": 2,
 
     // `render` 方法一定要有返回值
     "vue/require-render-return": 2,
+
+    // 每个 `v-for` 元素都要绑定 key，如 `<div v-for="foo in bar" :key="for"></div>`
+    // 不太理解这个细节和 "vue/valid-v-for" 的区别
+    "vue/require-v-for-key": 2,
 
     // 校验 props 中指定的属性类型与默认值，
     // 且如果属性类型为 Array, Object，要求默认值是函数形式，保证数据不会共享，
@@ -216,82 +249,7 @@ module.exports = {
     "vue/valid-v-text": 2,
 
     /**
-     * Vue: Best Practices
-     */
-
-    // FIXME: 此规则有 bug，官方已修复但尚未发布，且此规则与 vue/html-self-closing 略有重叠，暂关闭检测
-    // 校验结束标签：对于自闭合标签不允许使用结束标签，其他标签要求必须有结束标签
-    "vue/html-end-tags": 0,
-
-    // 不允许在 `computed` 中使用异步方法，如果确实有需求，请使用此插件：https://github.com/foxbenjaminfox/vue-async-computed
-    "vue/no-async-in-computed-properties": 2,
-
-    // 避免 `v-for` 和 `v-if` 在同一个标签上（如果在同一个标签，`v-for` 的优先级会更高一些）
-    "vue/no-confusing-v-for-v-if": 2,
-
-    // 避免重复定义属性，如：`<div foo="bar" :foo="baz"></div>`
-    "vue/no-duplicate-attributes": [2,
-      {
-        // 允许 class 两种形式共存
-        "allowCoexistClass": true,
-        // 允许 style 两种形式共存
-        "allowCoexistStyle": true,
-      },
-    ],
-
-    // 不允许在 `computed` 中有无意义的修改，如：`this.foo = 'bar'; return baz`
-    "vue/no-side-effects-in-computed-properties": 2,
-
-    // 不允许在 `<textarea>` 标签间使用 mustache 语法，如 `<textarea>{{ foo }}</textarea>`
-    // 因为它会不生效，请使用 `v-model`，如：`<textarea v-model="foo"`></textarea>`
-    "vue/no-textarea-mustache": 2,
-
-    // 在组件中针对每个 key （如 data, computed ...）排序
-    "vue/order-in-components": [0,
-      {
-        // 每个 key 的排序
-        "order": [
-          // 数组表示这几个 key 的权重是相同的
-          ["name", "delimiters", "functional", "model"],
-          ["components", "directives", "filters"],
-          ["parent", "mixins", "extends", "provide", "inject"],
-          "el",
-          "template",
-          "props",
-          "propsData",
-          "data",
-          "computed",
-          "watch",
-          "LIFECYCLE_HOOKS",
-          "methods",
-          "render",
-          "renderError",
-        ],
-      },
-    ],
-
-    // 在 `<component>` 上要求有 `v-bind:is`
-    "vue/require-component-is": 2,
-
-    // 要求每个 props 要有默认值
-    "vue/require-default-prop": 2,
-
-    // 要求每个 props 要有类型
-    "vue/require-prop-types": 2,
-
-    // 每个 `v-for` 元素都要绑定 key，如 `<div v-for="foo in bar" :key="for"></div>`
-    // 不太理解这个细节和 "vue/valid-v-for" 的区别
-    "vue/require-v-for-key": 2,
-
-    // 在 <template> 中不允许使用 `this`，默认环境就已经是 this 了
-    "vue/this-in-template": [2,
-      // always: 总是给模板变量加 this 前缀
-      // never: 从不在模板变量前加 this
-      "never",
-    ],
-
-    /**
-     * Vue: Stylistic Issues
+     * Vue: Priority B: Strongly Recommended (Improving Readability)
      */
 
     "vue/attribute-hyphenation": [2,
@@ -300,27 +258,23 @@ module.exports = {
       "always",
     ],
 
-    // FIXME: 此规则尚未发布
-    // 检查 HTML 元素的缩进
-    // "vue/html-indent": [2,
-    //   // 数字：每个缩进的空格数
-    //   // "tab"：使用 Tab 缩进
-    //   2,
-    //   {
-    //     // 属性的缩进
-    //     "attribute": 1,
-    //     // 结束符的缩进
-    //     "closeBracket": 0,
-    //     // 要忽略的节点
-    //     "ignores": [],
-    //   },
-    // ],
+    // 校验结束标签：对于自闭合标签不允许使用结束标签，其他标签要求必须有结束标签
+    // FIXME: 且此规则与 vue/html-self-closing 略有重叠，暂关闭检测
+    "vue/html-end-tags": 0,
 
-    // 校验 HTML 属性值的引号
-    "vue/html-quotes": [2,
-      // double: 双引号
-      // single: 单引号
-      "double",
+    // 检查 HTML 元素的缩进
+    "vue/html-indent": [2,
+      // 数字：每个缩进的空格数
+      // "tab"：使用 Tab 缩进
+      2,
+      {
+        // 属性的缩进
+        "attribute": 1,
+        // 结束符的缩进
+        "closeBracket": 0,
+        // 要忽略的节点
+        "ignores": [],
+      },
     ],
 
     // 标签的自闭合
@@ -379,6 +333,12 @@ module.exports = {
     // 检查标签中是否有多余的空格
     "vue/no-multi-spaces": 2,
 
+    // 要求每个 props 要有默认值
+    "vue/require-default-prop": 2,
+
+    // 要求每个 props 要有类型
+    "vue/require-prop-types": 2,
+
     // 针对 `v-bind` 建议使用的方案
     "vue/v-bind-style": [2,
       // shorthand: 缩短方案，如：`<div :foo="bar"></div>`
@@ -394,10 +354,48 @@ module.exports = {
     ],
 
     /**
-     * Vue: Variables
+     * Vue: Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
      */
 
-    // 在 jsx 中不允许使用未定义的变量
-    "vue/jsx-uses-vars": 2,
+    // 校验 HTML 属性值的引号
+    "vue/html-quotes": [2,
+      // double: 双引号
+      // single: 单引号
+      "double",
+    ],
+
+    // 避免 `v-for` 和 `v-if` 在同一个标签上（如果在同一个标签，`v-for` 的优先级会更高一些）
+    "vue/no-confusing-v-for-v-if": 2,
+
+    // 在组件中针对每个 key （如 data, computed ...）排序
+    "vue/order-in-components": [0,
+      {
+        // 每个 key 的排序
+        "order": [
+          // 数组表示这几个 key 的权重是相同的
+          ["name", "delimiters", "functional", "model"],
+          ["components", "directives", "filters"],
+          ["parent", "mixins", "extends", "provide", "inject"],
+          "el",
+          "template",
+          "props",
+          "propsData",
+          "data",
+          "computed",
+          "watch",
+          "LIFECYCLE_HOOKS",
+          "methods",
+          "render",
+          "renderError",
+        ],
+      },
+    ],
+
+    // 在 <template> 中不允许使用 `this`，默认环境就已经是 this 了
+    "vue/this-in-template": [2,
+      // always: 总是给模板变量加 this 前缀
+      // never: 从不在模板变量前加 this
+      "never",
+    ],
   },
 }
