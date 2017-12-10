@@ -378,11 +378,14 @@ module.exports = {
 
     // 每行的最大长度，太长了建议多换些行
     "max-len": [1,
-      // 每行 80 个字符
-      80,
-      // 一个 <tab> 算 4 个字符，注意这里指的是 <tab> 字符，而不是缩进对应的空格数
-      4,
+      // 之前 code/tabWidth 两项是单独拿出来的，从 4.13 开始统一放在了配置项里
       {
+        // 代码行每行 80 个字符
+        "code": 80,
+        // 一个 <tab> 算几个字符，注意这里指的是 <tab> 字符，而不是缩进对应的空格数
+        "tabWidth": 4,
+        // 注释最长多少个字符，默认和 code 相同
+        // "comments": 80,
         // 是否忽略注释
         "ignoreComments": true,
         // 是否忽略因为结尾注释才超过限定长度
@@ -396,7 +399,7 @@ module.exports = {
         // 是否忽略正则表达式
         "ignoreRegExpLiterals": true,
         // 其他要忽略的匹配，内容为正则字符串
-        "ignorePattern": "",
+        // "ignorePattern": "",
       },
     ],
 
