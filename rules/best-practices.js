@@ -6,7 +6,12 @@ module.exports = {
     "accessor-pairs": 0,
 
     // 在数组的递归回调函数中需要有 return，避免写 map/reduce 等方法时最后忘记加 return
-    "array-callback-return": 2,
+    "array-callback-return": [2,
+      {
+        // 是否允许隐式的 `return`，即 `return` 后没有值
+        "allowImplicit": false,
+      },
+    ],
 
     // 避免变量影响到语句块外（类C）`if (foo) { var bar = 1 }`
     // 因为 var 无块作用域，所以建议使用 let/const

@@ -662,15 +662,25 @@ module.exports = {
       },
     ],
 
-    // 一个函数中只有一个 var / const / let，是某些风格的推荐方案
+    // 在一个函数中，应该仅使用一个 var/const/let 定义变量，还是分别定义
     "one-var": [2,
-      // 可以使用字符串 always 或 never 来表示
-      // "never",
-      // 或者使用如下的对象描述更具体的情况
+      // 有以下三种配置项
+      // 第一种：使用字符串 always 或 never 来表示所有情况
+      // always: 仅使用一个定义
+      // never: 分别定义
+      // 第二种：分别针对 var/const/let 定义，同时可以设置是否要将 require 独立出来
+      // {
+      //   "let": "never",
+      //   "const": "always",
+      //   "var": "never",
+      //   // 不能将普通变量与 require 混在一起
+      //   "separateRequires": true,
+      // },
+      // 第三种：针对是否初始化情况来区分
       {
-        // 用于非初始化的变量，放在一个 var 里
+        // 用于无初始化值的变量，放在一个声明里
         "uninitialized": "always",
-        // 用于初始化的变量，每个变量一个 var
+        // 用于有初始化值的变量，每个变量一条声明
         "initialized": "never",
       },
     ],
