@@ -1,7 +1,7 @@
 /**
  * Vue 相关配置
  *
- * 依赖：eslint-plugin-vue@^4.0.0
+ * 依赖：eslint-plugin-vue@^4.1.0
  * 文档：https://github.com/vuejs/eslint-plugin-vue
  */
 
@@ -29,6 +29,10 @@ module.exports = {
     /**
      * Vue: Base (Enabling Correct ESLint Parsing)
      */
+
+    // 允许在 <template> 中使用 eslint-disable, eslint-enable, eslint-disable-line, eslint-disable-next-line 等指令
+    // 如可以用 `<!-- eslint-disable-next-line vue/max-attributes-per-line -->` 来控制某一行的规则
+    "vue/comment-directive": 2,
 
     // 在 jsx 中不允许使用未定义的变量
     "vue/jsx-uses-vars": 2,
@@ -396,6 +400,36 @@ module.exports = {
       // always: 总是给模板变量加 this 前缀
       // never: 从不在模板变量前加 this
       "never",
+    ],
+
+    /**
+     * Vue: Uncategorized
+     */
+
+    // HTML 标签的闭合尖括号是否要展示在新行
+    "vue/html-closing-bracket-newline": [2,
+      // never: 不要新起一行
+      // always: 总是新起一行
+      {
+        // 单行的 html 标签闭合括号是否要新起一行
+        "singleline": "never",
+        // 多行的 html 标签闭合括号是否要新起一行
+        "multiline": "always",
+      },
+    ],
+
+    // HTML 标签的尖括号与标签内容之间是否要空格
+    "vue/html-closing-bracket-spacing": [2,
+      // never: 不要加空格
+      // always: 要加空格
+      {
+        // 针对开始标签的规则
+        "startTag": "never",
+        // 针对结束标签的规则
+        "endTag": "never",
+        // 针对自闭合标签的规则，在 `/>` 前是否要加空格
+        "selfClosingTag": "always",
+      },
     ],
   },
 }
