@@ -24,10 +24,10 @@
     "lint": "NODE_ENV=production eslint --fix index.js lib/ rules/"
   },
   "devDependencies": {
-    "eslint": "^4.14.0"
+    "eslint": "^4.15.0"
   },
   "peerDependencies": {
-    "eslint": "^4.14.0"
+    "eslint": "^4.15.0"
   },
   "files": [
     "lib",

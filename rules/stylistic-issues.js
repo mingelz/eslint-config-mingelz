@@ -269,6 +269,8 @@ module.exports = {
         "flatTernaryExpressions": true,
         // 忽略检查的项，这个 Nodes 是个 ESLint 的 Selector，可参考 https://eslint.org/docs/developer-guide/selectors
         // "ignoredNodes": [],
+        // 是否忽略注释的缩进
+        "ignoreComments": false,
       },
     ],
 
