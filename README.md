@@ -20,10 +20,10 @@ Add a `.eslintrc.js` file with following content to your project root directory:
 
 ```js
 module.exports = {
-  "env": {
-    "browser": true,
+  env: {
+    browser: true,
   },
-  "extends": [
+  extends: [
     "mingelz",
   ],
 }
@@ -35,14 +35,14 @@ module.exports = {
 
 ```js
 module.exports = {
-  "env": {
-    "browser": true,
-    "node": true,
+  env: {
+    browser: true,
+    node: true,
   },
-  "extends": [
+  extends: [
     "mingelz",
   ],
-  "rules": {
+  rules: {
     // your special rules
   },
 }
@@ -58,7 +58,7 @@ Please install it manully first: `npm install -D eslint-plugin-vue`
 ```js
 module.exports = {
   // ...
-  "extends": [
+  extends: [
     "mingelz",
     "mingelz/rules/vue",
   ],
@@ -76,7 +76,7 @@ Please install it manully first: `npm install -D eslint-plugin-react`
 ```js
 module.exports = {
   // ...
-  "extends": [
+  extends: [
     "mingelz",
     "mingelz/rules/react",
   ],
