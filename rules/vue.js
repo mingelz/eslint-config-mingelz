@@ -1,7 +1,7 @@
 /**
  * Vue 相关配置
  *
- * 依赖：eslint-plugin-vue@^4.1.0
+ * 依赖：eslint-plugin-vue@^4.2.0
  * 文档：https://github.com/vuejs/eslint-plugin-vue
  */
 
@@ -429,6 +429,20 @@ module.exports = {
         "endTag": "never",
         // 针对自闭合标签的规则，在 `/>` 前是否要加空格
         "selfClosingTag": "always",
+      },
+    ],
+
+    // 在 .vue 文件中的 `<script>` 标签内的缩进配置，可以参考 stylistic-issues 中的 indent 规则
+    "vue/script-indent": [2,
+      // 此参数可为数字，表示缩进的空格数，或者使用 `tab` 表示使用 tab 来缩进
+      2,
+      {
+        // 在 `<script>` 标签内的内容，初始为几个缩进
+        "baseIndent": 0,
+        // switch 中的 case, default 的缩进，感觉与 stylistic-issues/indent 规则有重合
+        "switchCase": 1,
+        // 要忽略的 AST node selector，同样可参考 stylistic-issues/indent 中的 ignoredNodes 规则
+        "ignores": [],
       },
     ],
   },
