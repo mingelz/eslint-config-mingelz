@@ -769,19 +769,21 @@ module.exports = {
       "never",
 
       // 另外还可以多加一个参数用来配置细节：
-      // 当第一个参数为 always 时，可配置以下细节
-      // {
-      //   // 当一行中有多条语句时，是否省略最后一条语句后边的分号
-      //   "omitLastInOneLineBlock": true,
-      // },
-      // 当第一个参数为 never 时，可配置以下细节
-      // {
-      //   // 当后一句以 `[`, `(`, `/`, `+`, `-` 开头时，是否加分号
-      //   // any: 任意
-      //   // always: 总是加分号
-      //   // never: 不加分号
-      //   "beforeStatementContinuationChars": "any",
-      // },
+      {
+        // 【当第一个参数为 always 时，可配置以下细节】
+
+        // 当一行中同一语句块中有多条语句时，是否省略最后一条语句后边的分号，如 `if (foo) { bar(); baz() }`
+        // "omitLastInOneLineBlock": true,
+
+        // 【当第一个参数为 never 时，可配置以下细节】
+
+        // 当后一句以 `[`, `(`, `/`, `+`, `-` 开头时，当前行是否加分号
+        // 配合 semi-style, no-unexpected-multiline 两条规则，在此种情况下会报错，只要给后一句前加分号就可解决，所以此处不用强制校验
+        // any: 任意
+        // always: 总是加分号
+        // never: 不加分号
+        "beforeStatementContinuationChars": "any",
+      },
     ],
 
     // 分号前后是否要加空格
