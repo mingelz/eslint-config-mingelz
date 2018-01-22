@@ -124,6 +124,32 @@ module.exports = {
     // 当涉及多项之间的换行时，逗号在前还是在后
     "comma-style": [2,
       "last",
+
+      // 另有第二个参数，用于添加各种例外，忽略某种语句中的逗号风格
+      // "exceptions": {
+      //   // 数组表达式
+      //   "ArrayExpression": true,
+      //   // 数组的解构
+      //   "ArrayPattern": true,
+      //   // 箭头函数的参数
+      //   "ArrowFunctionExpression": true,
+      //   // 函数 `call` 方法中的参数
+      //   "CallExpression": true,
+      //   // 普通函数定义中的参数
+      //   "FunctionDeclaration": true,
+      //   // 函数表达式中的参数
+      //   "FunctionExpression": true,
+      //   // import 中的定义
+      //   "ImportDeclaration": true,
+      //   // 对象表达式
+      //   "ObjectExpression": true,
+      //   // 对象的解构
+      //   "ObjectPattern": true,
+      //   // 变量定义
+      //   "VariableDeclaration": true,
+      //   // new 表达式
+      //   "NewExpression": true,
+      // },
     ],
 
     // 在 ES2015 中属性名可以使用变量，变量中括号内，是否要有空格
@@ -660,7 +686,7 @@ module.exports = {
     "object-property-newline": [2,
       {
         // 允许所有属性在同一行，即：要么每个属性一行，要么所有属性在同一行，不允许一行多个还分多行的情况
-        "allowMultiplePropertiesPerLine": true,
+        "allowAllPropertiesOnSameLine": true,
       },
     ],
 
