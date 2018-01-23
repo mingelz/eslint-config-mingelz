@@ -433,7 +433,8 @@ module.exports = {
     ],
 
     // 在 .vue 文件中的 `<script>` 标签内的缩进配置，可以参考 stylistic-issues 中的 indent 规则
-    "vue/script-indent": [2,
+    // 在 eslint-plugin-vue@4.2.0 中存在 Bug，无法正确处理简短对象表达式缩进，暂时关闭此检测
+    "vue/script-indent": [0,
       // 此参数可为数字，表示缩进的空格数，或者使用 `tab` 表示使用 tab 来缩进
       2,
       {
