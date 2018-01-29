@@ -1,7 +1,7 @@
 /**
  * React 相关配置
  *
- * 依赖: eslint-plugin-react@^7.5.0
+ * 依赖: eslint-plugin-react@^7.6.0
  * 文档：https://github.com/yannickcr/eslint-plugin-react
  */
 
@@ -63,6 +63,8 @@ module.exports = {
         "propTypeNames": ["bool"],
         // 校验命名规则，默认是要求以 `is`/`has` 开头
         "rule": "^(is|has)[A-Z]([A-Za-z0-9]?)+",
+        // 自定义提示
+        "message": "布尔类型（{{ propName }}）需要以 is/has 开头",
       },
     ],
 
@@ -107,6 +109,14 @@ module.exports = {
       {
         // 禁止使用的属性名
         "forbid": ["className", "style"],
+      },
+    ],
+
+    // 禁止在 DOM 中使用某些属名，与前一个规则类似，这个是用在普通的 DOM 元素而不是组件上的
+    "react/forbid-dom-props": [0,
+      {
+        // 禁止使用的属性名
+        "forbid": [],
       },
     ],
 
@@ -226,6 +236,9 @@ module.exports = {
     // 第一是避免不小心拼错了，第二是避免你使用了有歧义的变量/方法名
     "react/no-typos": 2,
 
+    // 不允许在无状态组件中调用 this，SFC=stateless functional component
+    "react/no-this-in-sfc": 2,
+
     // 不允许给组件的 `ref` 属性指定字符串值，它应该是一个回调函数
     "react/no-string-refs": 2,
 
@@ -344,6 +357,10 @@ module.exports = {
           // Getter/Setter
           "getters",
           "setters",
+          // 其他实例变量
+          "instance-variables",
+          // 其他实例方法
+          "instance-methods",
           // 其他方法
           "everything-else",
           // `render` 方法
@@ -414,6 +431,9 @@ module.exports = {
       //   "never": [],
       // },
     ],
+
+    // 避免有歧义的 inline 元素间的换行，因为在 JSX 中换行会被吃掉，渲染时不会有空格
+    "react/jsx-child-element-spacing": 2,
 
     // 定义 JSX 的自闭合的结束尖括号的位置
     "react/jsx-closing-bracket-location": [2,
@@ -600,6 +620,15 @@ module.exports = {
       },
     ],
 
+    // 默认属性是否要排序
+    // 包括 getDefaultProps(), defaultProps, propTypes 等相关方法、属性中的定义
+    "react/jsx-sort-default-props": [0,
+      {
+        // 是否忽略大小写
+        "ignoreCase": true,
+      },
+    ],
+
     // 属性是否要进行排序
     "react/jsx-sort-props": [2,
       {
@@ -638,6 +667,8 @@ module.exports = {
         "beforeSelfClosing": "always",
         // 在开始标签的开头，`<` 与标签名之间是否要有空格，一个比较奇怪的设定，具体的 Case 可以参考官方文档：https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-tag-spacing.md
         "afterOpening": "never",
+        // 在闭合标签结尾括号前，是否可加空格，如：`</div >`
+        "beforeClosing": "never",
       },
     ],
 
