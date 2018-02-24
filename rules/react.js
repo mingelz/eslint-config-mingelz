@@ -313,7 +313,7 @@ module.exports = {
     ],
 
     // 当使用到 JSX 时，一定要在文件中通过 `import` 或 `require` 引入 React
-    // FIXME: 其实有点没明白和 react/jsx-uses-react 的区别
+    // 可与 react/jsx-uses-react 规则进行对比
     "react/react-in-jsx-scope": 2,
 
     // 对于每一个非必须的 prop 都要指定 defaultProps
@@ -684,7 +684,7 @@ module.exports = {
       },
     ],
 
-    // 检测 React 是否被正常引用，因为只有 JSX 语法的文件中，才需要引用 React
+    // 检测 React 是否被非正常引用，因为只有 JSX 语法的文件中，才需要引用 React
     "react/jsx-uses-react": 2,
 
     // 检测 JSX 定义的模块是否未被使用
