@@ -68,7 +68,7 @@ module.exports = {
 
 ### React configuration
 
-**Dependencies: [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)@^7.6**
+**Dependencies: [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)@^7.7**
 
 There is no longer `eslint-plugin-react` in `peerDependencies`.
 Please install it manully first: `npm install -D eslint-plugin-react`

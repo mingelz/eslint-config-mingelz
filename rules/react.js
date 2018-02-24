@@ -1,7 +1,7 @@
 /**
  * React 相关配置
  *
- * 依赖: eslint-plugin-react@^7.6.0
+ * 依赖: eslint-plugin-react@^7.7.0
  * 文档：https://github.com/yannickcr/eslint-plugin-react
  */
 
@@ -155,9 +155,14 @@ module.exports = {
       },
     ],
 
-    // 禁止使用的外部组件的 propTypes
-    // FIXME: 没太理解对应规则要避免的问题
-    "react/forbid-foreign-prop-types": 0,
+    // 禁止调用外部组件的 propTypes 属性，除非外部组件明确 export 出了自己的 propTypes
+    // 因为使用 babel-plugin-transform-react-remove-prop-types 插件可以为生产环境代码删除 propTypes 相关定义，从而可能产生隐患
+    "react/forbid-foreign-prop-types": [2,
+      {
+        // 是否可以在 propTypes 组件定义时，引用外部组件的 propTypes
+        "allowInPropTypes": false,
+      },
+    ],
 
     // 禁止在 `setState` 中调用 `this.state`，因为多次连续调用时，`this.state` 并未更新
     // 建议使用函数的方式：`this.setState(prevState => ({value: prevState.value + 1}))`
@@ -527,6 +532,13 @@ module.exports = {
 
     // 检查数组中的元素是否有 `key` 属性
     "react/jsx-key": 2,
+
+    // 最多可以嵌套几层的 JSX
+    "react/jsx-max-depth": [0,
+      {
+        "max": 10,
+      },
+    ],
 
     // 一行最多有多少个属性
     "react/jsx-max-props-per-line": [2,
