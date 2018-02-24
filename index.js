@@ -66,7 +66,7 @@ module.exports = {
       "impliedStrict": false,
       // 启用 JSX 支持
       "jsx": false,
-      // 启用 Object Rest/Spread 支持，这是一个 ES2016 中的实验性功能，但好用到爆
+      // 启用 Object Rest/Spread 支持，这是一个 ES2018 中的特性，因好用到爆，很多人在 ES2016 中就尝试使用
       "experimentalObjectRestSpread": true,
     },
   },

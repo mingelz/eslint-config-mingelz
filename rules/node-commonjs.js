@@ -36,7 +36,7 @@ module.exports = {
         // require 是否要按不同引用类型分组。
         // require 分 4 种引用类型：核心模块如 fs、node_modules 如 jquery、文件如 `./utils`、计算值如 `require(getName())`
         "grouping": false,
-        // 是否允许在引用时直接调用，如 `var foo = require(bar)(xxx)`
+        // 是否允许在引用时直接调用，如 `var foo = require(bar)(baz)`
         "allowCall": false,
       },
     ],

@@ -645,7 +645,7 @@ module.exports = {
       // 注意，以下三种方式只能选其一
 
       // 1. 只用 `always` 或 `never` 来表示是否允许换行
-      // 'never',
+      // "never",
 
       // 2. 用下边的对象形式描述更具体的情况
       {
@@ -661,10 +661,16 @@ module.exports = {
       // 定义的值，可以是上边描述的字符串形式，也可以是对象形式
       // {
       //   // 针对对象表达式
-      //   ObjectExpression: 'always',
+      //   "ObjectExpression": "always",
       //   // 针对对象解构
-      //   ObjectPattern: {
+      //   "ObjectPattern": {
       //     multiline: true,
+      //   },
+      //   // import 中涉及的对象形式
+      //   "ImportDeclaration": {
+      //   },
+      //   // export 中涉及的对象形式
+      //   "ExportDeclaration": {
       //   },
       // },
     ],
