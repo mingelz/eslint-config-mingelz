@@ -32,7 +32,14 @@ module.exports = {
     ],
 
     // return 后一定要有值，不能直接写 `return;`
-    "consistent-return": 2,
+    "consistent-return": [2,
+      {
+        // 是否允许明确的 `undefined` 值返回
+        // 当为 true 时，不允许 `return;`，但允许 `return void 0`
+        // 当为 false 时以上两种情况都不允许
+        "treatUndefinedAsUnspecified": false,
+      },
+    ],
 
     // if, else, while, do, for 后是否需要使用大括号
     // 有些选项是互斥的，请根据情况选择
@@ -322,8 +329,8 @@ module.exports = {
     // 不允许不必要的转义，`'\"'` 中的转义就是非必要的
     "no-useless-escape": 2,
 
-    // 不允许无用的 return
-    // FIXME: 没太理解这个规则和 `consistent-return` 的区别
+    // 不允许无用的 return，如在函数最后 `return;` 等
+    // 其实绝大多数无用 return 的情况，都与 consistent-return 规则重叠
     "no-useless-return": 2,
 
     // 不允许使用 void
