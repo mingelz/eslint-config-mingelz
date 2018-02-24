@@ -1,8 +1,9 @@
 /**
  * Vue 相关配置
  *
- * 依赖：eslint-plugin-vue@^4.2.2
+ * 依赖：eslint-plugin-vue@^4.3.0
  * 文档：https://github.com/vuejs/eslint-plugin-vue
+ * 另强烈建议参阅 Vue 官方的风格指南文档：https://cn.vuejs.org/v2/style-guide
  */
 
 module.exports = {
@@ -361,6 +362,36 @@ module.exports = {
      * Vue: Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
      */
 
+    // HTML 中属性的顺序
+    // 参考：https://vuejs.org/v2/style-guide/#Element-attribute-order-recommended
+    "vue/attributes-order": [2,
+      {
+        // 定义具体的顺序
+        "order": [
+          // 定义 (提供组件的选项)，如 `is`
+          "DEFINITION",
+          // 列表渲染 (创建多个变化的相同元素)，如 `v-for`
+          "LIST_RENDERING",
+          // 条件渲染 (元素是否渲染/显示)，如 `v-if`, `v-else-if`, `v-else`, `v-show`, `v-cloak`
+          "CONDITIONALS",
+          // 渲染方式 (改变元素的渲染方式)，如 `v-once`, `v-pre`
+          "RENDER_MODIFIERS",
+          // 全局感知 (跨组件的感知属性)，如 `id`
+          "GLOBAL",
+          // 唯一特性 (需要唯一值的特性)，如 `ref`, `key`, `slot`
+          "UNIQUE",
+          // 双向绑定 (把绑定和事件结合起来)，如 `v-model`
+          "BINDING",
+          // 其它特性 (所有普通的绑定或未绑定的特性)
+          "OTHER_ATTR",
+          // 事件 (组件事件监听器)，如 `v-on`
+          "EVENTS",
+          // 内容 (复写元素的内容)，如 `v-html`, `v-text`
+          "CONTENT",
+        ],
+      },
+    ],
+
     // 校验 HTML 属性值的引号
     "vue/html-quotes": [2,
       // double: 双引号
@@ -430,6 +461,13 @@ module.exports = {
         // 针对自闭合标签的规则，在 `/>` 前是否要加空格
         "selfClosingTag": "always",
       },
+    ],
+
+    // Prop 名大小写，这里指的是在 <script> 中的情形
+    // 参考：https://vuejs.org/v2/style-guide/#Prop-name-casing-strongly-recommended
+    "vue/prop-name-casing": [2,
+      // 可以使用 `camelCase` 或 `snake_case`
+      "camelCase",
     ],
 
     // 在 .vue 文件中的 `<script>` 标签内的缩进配置，可以参考 stylistic-issues 中的 indent 规则
