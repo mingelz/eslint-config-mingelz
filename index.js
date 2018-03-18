@@ -12,7 +12,7 @@ module.exports = {
 
   // 扩展检测方案
   // 可以是官方提供的如 `eslint:recommended`
-  // 可以是成熟的方案 `eslint-config-airbnb-base`
+  // 可以是成熟的方案 `eslint-config-airbnb-base`，使用时可以把 `eslint-config-` 前缀去掉
   // 也可以是自己写的一个符合规则的文件，就如下边这样
   "extends": [
     "./rules/possible-errors",
@@ -24,20 +24,20 @@ module.exports = {
     "./rules/es6",
   ].map(require.resolve),
 
-  // 插件，可为 ESLint 提供额外的能力，如 eslint-plugin-react 等
+  // 插件，可为 ESLint 提供额外的能力，如 eslint-plugin-react 等，使用时可以把 `eslint-plugin-` 前缀去掉
   // "plugins": [],
 
   // 共享数据配置，主要是提供给自定义规则使用
   // "settings": {},
 
   // 代码可能运行的环境，及全局变量定义
-  // 建议根据自己的项目需要，在自己的 eslintrc 文件中添加相应的 env
+  // 请根据自己的项目需要，在项目 `.eslintrc.js` 文件中添加相应的 env
   // 除了下边列出的三项，还有众多的配置可选，如 `jest`, `mocha`, `jquery` 等，可参考 https://eslint.org/docs/user-guide/configuring#specifying-environments
   // "env": {
   //   "browser": true,
   //   "node": true,
   //   // ES6 特性，这个设置会修改 parserOptions.ecmaVersion 配置项为 6
-  //   // 请特别注意，如果你的项目使用了 ES6 以上的语法，请不要设置此 es6 项，而应使用下边的 ecmaVersion 来指定
+  //   // 请特别注意，如果你的项目使用了 ES6 以上的语法，请不要设置此 es6 项，而应在 ecmaVersion 字段中指定
   //   "es6": true,
   // },
 
@@ -75,14 +75,14 @@ module.exports = {
   // "rules": {},
 
   // 针对某些文件的特殊定义，比如单独配置测试文件的运行环境变量
-  // 可以参考本项目的 .eslintrc.js 文件，用到了 overrides 配置
+  // 可以参考本项目的 `.eslintrc.js` 文件，用到了 overrides 配置
   // "overrides": [
   //   // overrides 是数组，这只是一项，可以加多项配置
   //   {
   //     // 要覆盖匹配的文件
   //     "files": [
   //       "test/**/*.spec.js",
-  //       "src/**/*.spec.js"
+  //       "src/**/*.spec.js",
   //     ],
   //     // 需要覆盖的字段
   //     "env": {

@@ -15,7 +15,9 @@ module.exports = {
       // never: 箭头后可能要跟很复杂的表达式，所以不建议选这个
       "as-needed",
       {
-        // 如果返回的是对象，是否允许使用小括号包裹的方式，仅 as-needed 时有效，如 `let foo = () => ({x: 1})`
+        // 如果返回的是对象，是否要求显式写明 `return`，即需要使用大括号包裹。仅 as-needed 时有效
+        // true 显式写明 return: `const foo = () => { return { bar: 1 } }`
+        // false 可使用小括号包裹: `const foo = () => ({ bar: 1 })`
         "requireReturnForObjectLiteral": false,
       },
     ],
