@@ -699,9 +699,10 @@ module.exports = {
     // 在一个函数中，应该仅使用一个 var/const/let 定义变量，还是分别定义
     "one-var": [2,
       // 有以下三种配置项
-      // 第一种：使用字符串 always 或 never 来表示所有情况
+      // 第一种：使用字符串 always, never 或 consecutive 来表示所有情况
       // always: 仅使用一个定义
       // never: 分别定义
+      // consecutive: 可以在多处定义，但是连续的定义要合并成一个
       // 第二种：分别针对 var/const/let 定义，同时可以设置是否要将 require 独立出来
       // {
       //   "let": "never",
