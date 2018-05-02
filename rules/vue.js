@@ -1,7 +1,7 @@
 /**
  * Vue 相关配置
  *
- * 依赖：eslint-plugin-vue@^4.3.0
+ * 依赖：eslint-plugin-vue@^4.5.0
  * 文档：https://github.com/vuejs/eslint-plugin-vue
  * 另强烈建议参阅 Vue 官方的风格指南文档：https://cn.vuejs.org/v2/style-guide
  */
@@ -378,7 +378,7 @@ module.exports = {
           "RENDER_MODIFIERS",
           // 全局感知 (跨组件的感知属性)，如 `id`
           "GLOBAL",
-          // 唯一特性 (需要唯一值的特性)，如 `ref`, `key`, `slot`
+          // 唯一特性 (需要唯一值的特性)，如 `ref`, `key`, `slot`, `slot-scope`
           "UNIQUE",
           // 双向绑定 (把绑定和事件结合起来)，如 `v-model`
           "BINDING",

@@ -50,7 +50,7 @@ module.exports = {
 
 ### Vue configuration
 
-**Dependencies: [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)@^4.3**
+**Dependencies: [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)@^4.5**
 
 There is no longer `eslint-plugin-vue` in `peerDependencies`.
 Please install it manully first: `npm install -D eslint-plugin-vue`
