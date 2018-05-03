@@ -213,9 +213,7 @@ module.exports = {
     "id-blacklist": [0,
       // 不允许的单词在后边列出
       "data",
-      "err",
-      "e",
-      "cb",
+      "error",
       "callback",
     ],
 

@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-mingelz",
-  "description": "A shared ESLint configuration with Chinese comments by mingelz. 一份带有完整中文注释的 ESLint 规则。",
+  "description": "A shared ESLint configuration with Chinese comments. 一份带有完整中文注释的 ESLint 规则。",
   "version": "1.5.0",
   "main": "index.js",
   "repository": {
@@ -16,18 +16,23 @@
     "eslint",
     "config",
     "eslintconfig",
+    "eslint-config",
+    "linting",
+    "linter",
+    "linter-config",
     "javascript",
     "styleguide",
+    "style-guide",
     "chinese"
   ],
   "scripts": {
     "lint": "NODE_ENV=production eslint --fix index.js lib/ rules/"
   },
   "devDependencies": {
-    "eslint": "^4.18.0"
+    "eslint": "^5.0.0-alpha.2"
   },
   "peerDependencies": {
-    "eslint": "^4.18.0"
+    "eslint": "^5.0.0-alpha.2"
   },
   "files": [
     "lib",

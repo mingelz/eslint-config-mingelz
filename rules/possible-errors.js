@@ -1,4 +1,4 @@
-const isProd = require("../lib/helper").isProd
+const { isProd } = require("../lib/helper")
 
 module.exports = {
   "rules": {

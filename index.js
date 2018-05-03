@@ -30,14 +30,14 @@ module.exports = {
   // 共享数据配置，主要是提供给自定义规则使用
   // "settings": {},
 
-  // 代码可能运行的环境，及全局变量定义
+  // 代码可能运行的环境，会根据设置添加相关的全局变量（如 `browser: true` 后就不会报 `window` 未定义了）
   // 请根据自己的项目需要，在项目 `.eslintrc.js` 文件中添加相应的 env
   // 除了下边列出的三项，还有众多的配置可选，如 `jest`, `mocha`, `jquery` 等，可参考 https://eslint.org/docs/user-guide/configuring#specifying-environments
   // "env": {
   //   "browser": true,
   //   "node": true,
-  //   // ES6 特性，这个设置会修改 parserOptions.ecmaVersion 配置项为 6
-  //   // 请特别注意，如果你的项目使用了 ES6 以上的语法，请不要设置此 es6 项，而应在 ecmaVersion 字段中指定
+  //   // ES6 中相关的全局变量，如 `Set`
+  //   // 请注意：此选项会默认支持 ES6 的语法，但如果仅想使用 ES6 及以上的语法而不想使用新全局变量，则应该在 parserOptions 中配置
   //   "es6": true,
   // },
 
@@ -54,8 +54,8 @@ module.exports = {
   // 默认解析器为 Espree, 另有 Esprima, Babel-ESLint 等，可参考 https://eslint.org/docs/user-guide/configuring#specifying-parser
   // "parser": 'espree',
   "parserOptions": {
-    // 可以使用 ES 版本号或年份表示，如 3/5/6/7/8... 或 2015/2017...，此项受 `env.es6` 配置的影响
-    "ecmaVersion": 2017,
+    // 可以使用 ES 版本号或年份表示，如 3/5/6/7/8/9... 或 2015(6)/2016(7)/2017(8)/2018(9)...，此项受 `env.es6` 配置的影响
+    "ecmaVersion": 2018,
     // 源码模式，默认为 `script`，如果使用 ES Module，则设置为 `module`
     "sourceType": "module",
     // 针对一些特性支持情况
@@ -66,8 +66,6 @@ module.exports = {
       "impliedStrict": false,
       // 启用 JSX 支持
       "jsx": false,
-      // 启用 Object Rest/Spread 支持，这是一个 ES2018 中的特性，因好用到爆，很多人在 ES2016 中就尝试使用
-      "experimentalObjectRestSpread": true,
     },
   },
 

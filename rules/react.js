@@ -374,7 +374,7 @@ module.exports = {
         // 在 order 中指定的每一类，都涉及了哪些方法名
         "groups": {
           // 以下为插件提供的默认值，生命周期方法包含的方法名
-          // FIXME: 不知道为什么 `displayName`, `propTypes` 都放在了 lifecycle 里
+          // NOTE: 不知道为什么 `displayName`, `propTypes` 都放在了 lifecycle 里
           "lifecycle": [
             "displayName",
             "propTypes",

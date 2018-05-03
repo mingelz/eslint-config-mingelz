@@ -257,9 +257,10 @@ module.exports = {
      * Vue: Priority B: Strongly Recommended (Improving Readability)
      */
 
+    // 模板属性使用连字符（减号），还是使用小驼峰形式
     "vue/attribute-hyphenation": [2,
       // always: 使用连字符，并统一使用小写
-      // never: 从不在模板变量前加 this
+      // never: 使用小驼峰形式
       "always",
     ],
 
