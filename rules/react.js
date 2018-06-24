@@ -108,6 +108,14 @@ module.exports = {
       {
         // 禁止使用的属性名
         "forbid": ["className", "style"],
+        // 同时也可以传对象来指明白名单，如：
+        // "forbid": [
+        //   // 以下表示不允许使用 someProp，但是在 SomeComponent 中可以使用
+        //   {
+        //     "propName": "someProp",
+        //     "allowedFor": ["SomeComponent"],
+        //   },
+        // ],
       },
     ],
 
@@ -187,6 +195,7 @@ module.exports = {
 
     // 不允许使用已经废弃的方法
     // 比如 `unmountComponentAtNode`, `findDOMNode`, `createClass` 等等
+    // 从 React@16 开始，`componentWillMount`, `componentWillReceiveProps`, `componentWillUpdate` 也不再推荐使用
     "react/no-deprecated": 2,
 
     // 不允许在 `componentDidMount` 中调用 `setState`，因为会引起二次 render
@@ -373,7 +382,7 @@ module.exports = {
         // 在 order 中指定的每一类，都涉及了哪些方法名
         "groups": {
           // 以下为插件提供的默认值，生命周期方法包含的方法名
-          // NOTE: 不知道为什么 `displayName`, `propTypes` 都放在了 lifecycle 里
+          // NOTE: 很好奇为什么 `displayName`, `propTypes` 都放在了 lifecycle 里，难道只是因为它们是 React 的关键字吗
           "lifecycle": [
             "displayName",
             "propTypes",
@@ -384,15 +393,21 @@ module.exports = {
             "defaultProps",
             "constructor",
             "getDefaultProps",
-            "getInitialState",
             "state",
+            "getInitialState",
             "getChildContext",
+            "getDerivedStateFromProps",
             "componentWillMount",
+            "UNSAFE_componentWillMount",
             "componentDidMount",
             "componentWillReceiveProps",
+            "UNSAFE_componentWillReceiveProps",
             "shouldComponentUpdate",
             "componentWillUpdate",
+            "UNSAFE_componentWillUpdate",
+            "getSnapshotBeforeUpdate",
             "componentDidUpdate",
+            "componentDidCatch",
             "componentWillUnmount",
           ],
         },
@@ -526,6 +541,7 @@ module.exports = {
     "react/jsx-indent-props": [2,
       // tab: 使用 Tab 缩进
       // N: 使用 N 个空格缩进
+      // first: 与第一个属性的位置对齐（常用于第一个属性与标签同行的情况）
       2,
     ],
 
@@ -590,8 +606,15 @@ module.exports = {
     ],
 
     // 不允许跳转到绝对路径的 `<a>` 标签使用 `target="_blank"`，即 `href` 值跳相对路径不会检查
-    // 如确实需要使用，请添加 `rel="noopener noreferrer"`
-    "react/jsx-no-target-blank": 2,
+    // 如确实需要使用，请添加 `rel="noopener noreferrer"`，否则会有安全隐患，可参考 https://mathiasbynens.github.io/rel-noopener
+    "react/jsx-no-target-blank": [2,
+      {
+        // 如果 href 属性是变量，是否做检查
+        // always: 检查，不允许变量形式的链接添加 `target="_blank"`
+        // never: 不检查变量属性
+        "enforceDynamicLinks": "always",
+      },
+    ],
 
     // 不允许使用未定义的变量
     "react/jsx-no-undef": [2,
@@ -630,6 +653,9 @@ module.exports = {
         "ignore": [],
       },
     ],
+
+    // 不允许在 JSX 标签的属性之间包含多个空格，如 `<foo  bar   baz />`
+    "jsx-props-no-multi-spaces": 2,
 
     // 默认属性是否要排序
     // 包括 getDefaultProps(), defaultProps, propTypes 等相关方法、属性中的定义
