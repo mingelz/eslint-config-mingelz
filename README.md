@@ -84,3 +84,57 @@ module.exports = {
   // ...
 }
 ```
+
+### *[WIP]* Node.js configuration
+
+**NOTICE**:
+This configuration is dependent on [eslint-plugin-node](https://github.com/mysticatea/eslint-plugin-node),
+and it is not added to `peerDependencies`,
+please install it manully first: `npm install -D eslint-plugin-node`
+
+```js
+module.exports = {
+  // ...
+  extends: [
+    'mingelz',
+    'mingelz/rules/node',
+  ],
+  // ...
+}
+```
+
+### *[WIP]* ES Module configuration
+
+**NOTICE**:
+This configuration is dependent on [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import),
+and it is not added to `peerDependencies`,
+please install it manully first: `npm install -D eslint-plugin-import`
+
+```js
+module.exports = {
+  // ...
+  extends: [
+    'mingelz',
+    'mingelz/rules/esmodule',
+  ],
+  // ...
+}
+```
+
+### *[WIP]* JSX accessibility configuration
+
+**NOTICE**:
+This configuration is dependent on [eslint-plugin-jsx-a11y](https://github.com/evcohen/eslint-plugin-jsx-a11y),
+and it is not added to `peerDependencies`,
+please install it manully first: `npm install -D eslint-plugin-jsx-a11y`
+
+```js
+module.exports = {
+  // ...
+  extends: [
+    'mingelz',
+    'mingelz/rules/jsx-a11y',
+  ],
+  // ...
+}
+```
