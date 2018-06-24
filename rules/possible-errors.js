@@ -143,11 +143,40 @@ module.exports = {
     // 使用 `isNaN(foo)` 来判断 `NaN`，而不是 `foo == NaN`
     "use-isnan": 2,
 
-    // 检查 JSDoc 语法注释，及其正确性
-    "valid-jsdoc": [0,
-      // 有很多细节配置，因为目前 JSdoc 并非首选的文档工具，所以暂时不做配置
-      // {
-      // },
+    // 检查 JSDoc 语法注释，及其正确性，此规则仅在有 JSDoc 注释时检查，如果没有相关注释不会报错
+    "valid-jsdoc": [2,
+      {
+        // 为了注释的一致性，对于有别名的注释给出倾向选项。如 `@param` 有两个别名： `@arg`, `@argument`
+        "prefer": {
+          // key 为要被替换的别名，value 为倾向的值
+          "arg": "param",
+          "argument": "param",
+          "returns": "return",
+          "class": "constructor",
+        },
+        // 在指定变量类型时，倾向于使用哪种方式来表示，如 `object` 还是 `Object`
+        "preferType": {
+          // key 为要被替换的别名，value 为倾向的值
+          // 建议简单类型使用小写，引用类型使用大写
+          "Boolean": "boolean",
+          "Number": "number",
+          "String": "string",
+          "object": "Object",
+          "array": "Array",
+        },
+        // 检测注释描述（一般为块注释的第一行，并不一定要是 `@desc`）是否符合某种格式，此项值为一个可构建正则的字符串
+        "matchDescription": ".+",
+        // 是否必须要有参数类型
+        "requireParamType": false,
+        // 是否必有要有参数描述
+        "requireParamDescription": false,
+        // 是否必须要有返回值说明（`@return` 或 `@returns`）
+        "requireReturn": false,
+        // 是否必须要有返回值类型
+        "requireReturnType": false,
+        // 是否必须要有返回值描述
+        "requireReturnDescription": false,
+      },
     ],
 
     // 检查 typeof 后的拼写正确性，如 `typeof foo === 'nunber'` 会提示 `nunber` 拼写错误
