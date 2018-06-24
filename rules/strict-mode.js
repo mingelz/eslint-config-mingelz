@@ -1,3 +1,8 @@
+/**
+ * @file strict 模式命令
+ * @desc 此文件中的配置项，是与 strict 模板有关的检测（目前仅一项）
+ */
+
 module.exports = {
   "rules": {
     // 是否要标记 use strict，以及标记的位置

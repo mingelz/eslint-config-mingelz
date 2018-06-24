@@ -1,8 +1,7 @@
 /**
- * React 相关配置
- *
- * 依赖: eslint-plugin-react@^7.7.0
- * 文档：https://github.com/yannickcr/eslint-plugin-react
+ * @file React & JSX 相关配置
+ * @desc 此文件中的配置项，均为与 React & JSX 相关的配置，同时会针对个别 ESLint 的规则做调整
+ * @see [eslint-plugin-react]{@link https://github.com/yannickcr/eslint-plugin-react}@^7.9.0
  */
 
 module.exports = {

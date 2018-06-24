@@ -1,3 +1,8 @@
+/**
+ * @file Node/CommonJS
+ * @desc 此文件中的配置项，均为 Node 及 CommonJS 相关的检查项
+ */
+
 module.exports = {
   "env": {
     "node": true,
