@@ -25,7 +25,7 @@ module.exports = {
     // 不允许 label 的名字与变量名相同
     "no-label-var": 2,
 
-    // 不允许调用全局变量名，可参考 eslint-restricted-globals
+    // 不允许使用的全局变量名，可参考 https://www.npmjs.com/package/eslint-restricted-globals
     "no-restricted-globals": [2,
       // 后边跟的每一项，都表示一个变量名
       // 即可以是字符串格式，表示变量名
@@ -67,7 +67,7 @@ module.exports = {
     "no-undef-init": 2,
 
     // 是否可以使用 undefined 字面量
-    // undefined 可被覆写，建议使用 `typeof foo === 'undefined'`，不要使用 `foo === undefined`
+    // 在 ES3 中 undefined 可被覆写，建议使用 `typeof foo === 'undefined'`，而不是 `foo === undefined`
     "no-undefined": 2,
 
     // 检测是否有未被使用的变量和函数

@@ -18,14 +18,15 @@ module.exports = {
       },
     ],
 
-    // 不允许在循环中使用 await，建议将所有的 await 给 `Promise.all` 统一 await
+    // 不允许在循环中使用 await，因为在每个循环中使用 await 无法充分利用异步并行的特性
+    // 建议将所有的 await 给 `Promise.all` 统一 await
     "no-await-in-loop": 2,
 
-    // 不要针对 `-0` 比较，因为 `+0 === -0` 返回 true
-    // 如果确定某个值是否为 -0，需要用 `Object.is(x, -0)`
+    // 不允许针对 `-0` 比较，因为 `+0 === -0` 返回 true
+    // 如果想判断 -0，需要用 `Object.is(x, -0)`
     "no-compare-neg-zero": 2,
 
-    // 不允许在条件语句中使用赋值语句 `if (x = 1)`
+    // 不允许在条件语句中使用赋值语句，如 `if (x = 1)`
     "no-cond-assign": [2,
       // always: 任何情况都不允许
       // except-parens: 如果赋值语句独立被括号包裹，则允许，如：`if ((x = 1))`
@@ -35,25 +36,25 @@ module.exports = {
     // 不允许有 console
     "no-console": isProd ? 1 : 0,
 
-    // 不允许在条件语句中使用静态判断 `if (true)`
+    // 不允许在条件语句中使用静态判断，如 `if (true)`
     "no-constant-condition": 2,
 
-    // 不允许在正则中使用控制字符(ASCII 0~31) `new RegExp("\x1f")`
+    // 不允许在正则中使用控制字符(ASCII 0~31)，如 `new RegExp("\x1f")`
     "no-control-regex": 2,
 
     // 不允许有 debugger
     "no-debugger": isProd ? 2 : 0,
 
-    // 函数参数名不允许重复 `function foo (a, b, a)`
+    // 不允许有重复的函数参数名，如 `function foo (a, b, a)`
     "no-dupe-args": 2,
 
-    // 对象的 key 不允许重复
+    // 不允许有重复的对象 key，如 `const obj = { foo: 1, foo: 2 }`
     "no-dupe-keys": 2,
 
-    // switch case 语句语句的条件不允许重复
+    // 不允许有重复的 switch case 语句值，如 `switch { case foo: bar; case foo: baz }`
     "no-duplicate-case": 2,
 
-    // 不允许使用空的语句块 `if (foo) {}`
+    // 不允许使用空的语句块，如 `if (foo) {}`
     "no-empty": [2,
       {
         // 允许空的 catch 语句
@@ -61,13 +62,14 @@ module.exports = {
       },
     ],
 
-    // 正则中不允许使用空字符类 `var foo = /^abc[]/`
+    // 不允许在正则使用空字符类，如 `var foo = /^abc[]/`
     "no-empty-character-class": 2,
 
-    // 不允许覆写 catch 语句的参数 `try {} catch (e) { e = 10 }`
+    // 不允许覆写 catch 语句的参数，如 `try {} catch (e) { e = 10 }`
     "no-ex-assign": 2,
 
-    // 在条件判断语句中本身就会隐式转换，所以不需要不必要的布尔转换，如：`if (!!foo)`
+    // 不允许在条件判断语句中使用不必要的布尔转换，如 `if (!!foo)`
+    // 因为在条件判断语句中本身就会隐式转换
     "no-extra-boolean-cast": 2,
 
     // 不允许多余的括号 `var foo = (1 + 2)`
@@ -112,28 +114,30 @@ module.exports = {
     // 不允许直接调用 `Math(), JSON()`
     "no-obj-calls": 2,
 
-    // 使用 `Object.create()` 可以给对象一个特别的 prototype，所以建议使用 `{}.hasOwnProperty.call(foo, 'bar')，而不是 `foo.hasOwnProperty('bar')`
+    // 不允许直接调用对象实例内建的原型方法，包括 `hasOwnProperty`, `isPrototypeOf`, `propertyIsEnumerable`，因为使用 `Object.create()` 可以给对象一个特别的 prototype
+    // 所以建议使用对象的构造函数上的方法，如使用 `{}.hasOwnProperty.call(foo, 'bar') 代替 `foo.hasOwnProperty('bar')`
     "no-prototype-builtins": 2,
 
-    // 在正则中不允许使用连续多个空格，而要用数量限定 `/foo {3}bar/`
+    // 不允许在正则中使用连续多个空格，而要用数量限定，如 `/foo {3}bar/`
     "no-regex-spaces": 2,
 
-    // 数组中需要指定每一项，不允许多个逗号连续出现 `['foo',,'bar']`
+    // 不允许在数组中有多个连续逗号，如 `['foo',,'bar']`
     "no-sparse-arrays": 2,
 
-    // 不允许在字符串里使用模板字符串变量格式，避免本应该使用模板字符串，结果使用了引号
+    // 不允许在字符串里使用模板字符串变量格式，如 `const str = 'foo${bar}'`
+    // 避免本应该使用模板字符串，结果使用了引号，导致模板字符串逻辑未生效
     "no-template-curly-in-string": 2,
 
     // 不允许多行歧义，在不使用分号的情况下容易出现
     "no-unexpected-multiline": 2,
 
-    // 在 return, throw, break, continue 后不允许再有语句
+    // 不允许在 return, throw, break, continue 后再有语句
     "no-unreachable": 2,
 
-    // 在 finally 中不允许使用 return, throw, break, continue 等语句，因为会先于 try 执行
+    // 不允许在 finally 中使用 return, throw, break, continue 等语句，因为会先于 try 执行
     "no-unsafe-finally": 2,
 
-    // in/instanceof 操作符前使用否定语句时要使用括号
+    // 在 in/instanceof 操作符前使用否定语句时要使用括号，如 `if (!(foo in bar))`
     "no-unsafe-negation": 2,
 
     // 使用 `isNaN(foo)` 来判断 `NaN`，而不是 `foo == NaN`
@@ -146,7 +150,7 @@ module.exports = {
       // },
     ],
 
-    // 检查 typeof 后的拼写正确性，如：`typeof foo === 'nunber'` 会提示 `nunber` 拼写错误
+    // 检查 typeof 后的拼写正确性，如 `typeof foo === 'nunber'` 会提示 `nunber` 拼写错误
     "valid-typeof": [2,
       {
         // typeof 后只能跟 string，此时 `typeof foo === bar` 将不被允许

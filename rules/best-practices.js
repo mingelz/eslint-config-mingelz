@@ -354,7 +354,7 @@ module.exports = {
 
     // 不允许注释中出现某些特殊标记关键字，如 TODO, FIXME 等（保证最终产出代码无未尽项）
     // 可约定的关键字很多，如 Atom 编辑器的语法插件: https://github.com/atom/language-todo
-    // 推荐参考：https://github.com/JohnPostlethwait/fixme ，其中列出的关键字都有较明确的用例说明，且基本覆盖常用情况
+    // 推荐参考: https://github.com/JohnPostlethwait/fixme ，其中列出的关键字都有较明确的用例说明，且基本覆盖常用情况
     "no-warning-comments": [isProd ? 1 : 0,
       {
         // 不允许出现的关键字列表

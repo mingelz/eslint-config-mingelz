@@ -52,13 +52,12 @@ module.exports = {
     // 不允许使用 __dirname 和 __filename 做字符串拼接，建议使用 path 模块
     "no-path-concat": 2,
 
-    // 不使用 `process.env` 获取环境变量
-    // 因为 `process.env` 会随环境变化，建议通过配置文件来保证所依赖数据的稳定性
-    // 实际项目中，使用 `process.env` 本身就是为了获取环境信息，所以不太用管这一条
+    // 不使用 `process.env` 获取环境变量，因为 `process.env` 会随环境变化，建议通过配置文件来保证所依赖数据的稳定性
+    // 但实际项目中，使用 `process.env` 本身就是为了获取环境信息，所以关闭此检测
     "no-process-env": 0,
 
-    // 不允许使用 `process.exit()`
-    // 因为它太危险会退出 Node 环境，建议使用抛异常的方式处理错误逻辑，除非真的在项目的最后需要返回给 Shell 结果
+    // 不允许使用 `process.exit()`，因为它太危险会退出 Node 环境，建议使用抛异常的方式处理错误逻辑，除非真的在项目的最后需要返回给 Shell 结果
+    // 但实际项目中，特别是 CLI 工具，在某些错误判断中确实需要退出 Node 环境，所以关闭此检测
     "no-process-exit": 0,
 
     // 禁用某些 Node.js 模块
