@@ -81,7 +81,7 @@ module.exports = {
         // 对象的属性名是否使用驼峰，可选 always 或 never。如为 never 则不检查
         "properties": "always",
         // 是否忽略变量解构中涉及的变量名，可为 true 或 false
-        "ignoreDestructing": true,
+        "ignoreDestructuring": true,
       },
     ],
 
