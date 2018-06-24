@@ -36,14 +36,20 @@ module.exports = {
     ],
 
     // 数组的项之间是否要另起一行，请与 array-bracket-newline 对照着看
-    "array-element-newline": [0,
-      // 可以为关键字 always, never，也可以是一个对象
-      {
-        // 如果数组项有用换行分隔，则每一项都要用换行分隔
-        "multiline": true,
-        // 当数组达到多少项时，就要求数组项间使用换行，如为 0 则等同于 always，如果不做检查则设置为 null
-        "minItems": null,
-      },
+    "array-element-newline": [2,
+      // 可以为关键字：
+      // always: 总是另起一行
+      // never: 所有项在同一行
+      // consistent: 要么都在一行，要么每行一个
+      "consistent",
+
+      // 也可以是一个对象，只要对象中的任意规则被满足，就要有换行，否则不允许有换行
+      // {
+      //   // 如果数组项内有换行（比函数中包含换行），则数组的每一项之间都要用换行分隔
+      //   "multiline": true,
+      //   // 当数组达到多少项时，就要求数组项间使用换行。如为 0 则等同于 always，如为 null 则不做检查
+      //   "minItems": null,
+      // },
     ],
 
     // 代码块前后是否要有空格
@@ -63,11 +69,13 @@ module.exports = {
       },
     ],
 
-    // 使用驼峰表示变量
+    // 使用驼峰形式表示变量时，一些细节配置
     "camelcase": [2,
       {
-        // 对象的属性名是否使用驼峰，可选 always 或 never
+        // 对象的属性名是否使用驼峰，可选 always 或 never。如为 never 则不检查
         "properties": "always",
+        // 是否忽略变量解构中涉及的变量名，可为 true 或 false
+        "ignoreDestructing": true,
       },
     ],
 
@@ -189,6 +197,8 @@ module.exports = {
       // 要求 `var foo = function foo () {}`
       "always",
       {
+        // 是否检查通过对象方法定义的函数，包括 `Object.create`, `Object.defineProperty`, `Object.defineProperties`, `Reflect.defineProperty`
+        "considerPropertyDescriptor": true,
         // 是否限制 CommonJs 的 `modole.exports`
         "includeCommonJSModuleExports": false,
       },
@@ -445,6 +455,20 @@ module.exports = {
       },
     ],
 
+    // 每个函数最多多少行
+    "max-lines-per-function": [2,
+      {
+        // 最多多少行
+        "max": 50,
+        // 忽略空行
+        "skipBlankLines": true,
+        // 忽略注释行
+        "skipComments": true,
+        // 包括 IIFE 中的代码行
+        "IIFEs": true,
+      },
+    ],
+
     // 最多嵌套多少层 callback
     "max-nested-callbacks": [0,
       3,
@@ -643,25 +667,25 @@ module.exports = {
       // },
     ],
 
-    // 对象的大括号内是否要换行，就是在 `{` 后是否要跟换行（不允许单行对象定义）
+    // 对象的大括号内是否要换行，就是在 `{` 后 和 `}` 前是否要跟换行
     "object-curly-newline": [2,
       // 注意，以下三种方式只能选其一
 
-      // 1. 只用 `always` 或 `never` 来表示是否允许换行
+      // 1. 只用 `always` 或 `never` 来表示是否允许有换行
       // "never",
 
       // 2. 用下边的对象形式描述更具体的情况
       {
-        // 仅当使用多行来表示对象时才需要（注意并不限制几个 key）
+        // 如果属性定义或属性之间有换行，大括号旁也要有换行
         "multiline": true,
-        // 当有指定个 key 时，则必须换行
-        // minProperties: 2,
-        // 要求 `{}` 的行为一致：当 `{` 后有换行时，`}` 前边也要有换行；或者 `{` 后边和 `}` 前边都没换行
+        // 当达到多少个 key 时，则必须换行
+        // minProperties: 3,
+        // 要求 `{` 与 `}` 的行为一致：当 `{` 后有换行时，`}` 前边也要有换行；或者 `{` 后边和 `}` 前边都没换行
         "consistent": true,
       },
 
-      // 3. 针对 对象表达式（如：foo = {}） 和对象解构（如：{foo} = bar） 分别定义
-      // 定义的值，可以是上边描述的字符串形式，也可以是对象形式
+      // 3. 针对 对象表达式（如 `foo = {}`） 和对象解构（如 `{foo} = bar`） 分别定义
+      //    定义的值可以是上边举例的任意一种
       // {
       //   // 针对对象表达式
       //   "ObjectExpression": "always",
@@ -762,6 +786,11 @@ module.exports = {
       { "blankLine": "always", "prev": "directive", "next": "*" },
       { "blankLine": "never", "prev": "directive", "next": "directive" },
     ],
+
+    // 在可能的情况下，建议使用对象的扩展操作符替代 Object.assign
+    // 1. Object.assign 的第一个参数为对象字面量时，会给出提示
+    // 2. Object.assign 只有一个参数时，给出警告（非必需）
+    "prefer-object-spread": 2,
 
     // 对象的属性是否需要引号
     "quote-props": [2,

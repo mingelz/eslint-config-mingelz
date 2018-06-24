@@ -23,16 +23,17 @@
     "javascript",
     "styleguide",
     "style-guide",
-    "chinese"
+    "chinese",
+    "mandarin"
   ],
   "scripts": {
     "lint": "NODE_ENV=production eslint --fix index.js lib/ rules/"
   },
   "devDependencies": {
-    "eslint": "^5.0.0-alpha.2"
+    "eslint": "^5.0.0"
   },
   "peerDependencies": {
-    "eslint": "^5.0.0-alpha.2"
+    "eslint": "^5.0.0"
   },
   "files": [
     "lib",

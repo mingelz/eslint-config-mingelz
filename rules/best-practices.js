@@ -99,6 +99,12 @@ module.exports = {
     // 在 `for in` 中过滤原型链继承属性
     "guard-for-in": 2,
 
+    // 每个文件中最多定义几个 Class，最佳实践建议每个文件仅包含一个 Class，多了会降低可维护性
+    "max-classes-per-file": [2,
+      // 每个文件可包含几个 Class
+      1,
+    ],
+
     // 不允许使用 alert, confirm, prompt
     "no-alert": isProd ? 2 : 0,
 
@@ -296,7 +302,12 @@ module.exports = {
     "no-script-url": 2,
 
     // 不允许自赋值 `foo = foo`
-    "no-self-assign": 2,
+    "no-self-assign": [2,
+      {
+        // 是否同时检测对象属性的自赋值
+        "props": true,
+      },
+    ],
 
     // 不允许对比自身，`if (x === x)`
     "no-self-compare": 2,
