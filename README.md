@@ -22,9 +22,10 @@ Add a `.eslintrc.js` file with following content to your project root directory:
 module.exports = {
   env: {
     browser: true,
+    node: true,
   },
   extends: [
-    "mingelz",
+    'mingelz',
   ],
 }
 ```
@@ -40,7 +41,7 @@ module.exports = {
     node: true,
   },
   extends: [
-    "mingelz",
+    'mingelz',
   ],
   rules: {
     // your special rules
@@ -50,17 +51,17 @@ module.exports = {
 
 ### Vue configuration
 
-**Dependencies: [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)@^4.5**
-
-There is no longer `eslint-plugin-vue` in `peerDependencies`.
-Please install it manully first: `npm install -D eslint-plugin-vue`
+**NOTICE**:
+This configuration is dependent on [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)@^4.5,
+and it is not added to `peerDependencies`,
+please install it manully first: `npm install -D eslint-plugin-vue`
 
 ```js
 module.exports = {
   // ...
   extends: [
-    "mingelz",
-    "mingelz/rules/vue",
+    'mingelz',
+    'mingelz/rules/vue',
   ],
   // ...
 }
@@ -68,17 +69,17 @@ module.exports = {
 
 ### React configuration
 
-**Dependencies: [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)@^7.7**
-
-There is no longer `eslint-plugin-react` in `peerDependencies`.
-Please install it manully first: `npm install -D eslint-plugin-react`
+**NOTICE**:
+This configuration is dependent on [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)@^7.9,
+and it is not added to `peerDependencies`,
+please install it manully first: `npm install -D eslint-plugin-react`
 
 ```js
 module.exports = {
   // ...
   extends: [
-    "mingelz",
-    "mingelz/rules/react",
+    'mingelz',
+    'mingelz/rules/react',
   ],
   // ...
 }
