@@ -85,10 +85,10 @@ module.exports = {
 }
 ```
 
-### *[WIP]* Node.js configuration
+### Node.js configuration
 
 **NOTICE**:
-This configuration is dependent on [eslint-plugin-node](https://github.com/mysticatea/eslint-plugin-node),
+This configuration is dependent on [eslint-plugin-node](https://github.com/mysticatea/eslint-plugin-node)@^6.0,
 and it is not added to `peerDependencies`,
 please install it manully first: `npm install -D eslint-plugin-node`
 
