@@ -1,6 +1,6 @@
 /**
  * @file React & JSX 相关配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.9
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.10
  * @see [eslint-plugin-react]{@link https://github.com/yannickcr/eslint-plugin-react}
  */
 
@@ -268,6 +268,10 @@ module.exports = {
       },
     ],
 
+    // 不允许使用 `UNSAFE_` 开头的方法
+    // `UNSAFE_` 在 React@16.3 中出现，包括 `UNSAFE_componentWillMount`, `UNSAFE_componentWillReceiveProps`, `UNSAFE_componentWillUpdate`
+    "react/no-unsafe": 2,
+
     // 不允许在 propTypes 中定义未被使用的 props
     "react/no-unused-prop-types": [2,
       {
@@ -282,7 +286,7 @@ module.exports = {
     // 不允许定义未使用的 State
     "react/no-unused-state": 2,
 
-    // 不允许在 `componentWillUpdate` 中调用 `setState`，因为会引起二次 render
+    // 不允许在 `componentWillUpdate` 和 `UNSAFE_componentWillUpdate` 中调用 `setState`，因为会引起二次 render
     "react/no-will-update-set-state": [2,
       // 不传此参数，则可以通过在 `componentWillUpdate` 中调用其他方法，再在其他方法中 `setState`
       // 此参数只有一个值，即 `disallow-in-func`，指定后则在调用的方法中也不允许 `setState`
