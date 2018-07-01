@@ -89,7 +89,7 @@ module.exports = {
         // 跳过检查的模块名
         "allowModules": [],
         // convertPath 的解释参考 no-unpublished-bin 规则
-        "convertPath": null,
+        "convertPath": {},
         // 尝试查找到文件后缀
         "tryExtensions": [".js", ".json", ".node"],
       },
@@ -100,7 +100,7 @@ module.exports = {
     "node/no-unpublished-require": [2,
       {
         "allowModules": [],
-        "convertPath": null,
+        "convertPath": {},
         "tryExtensions": [".js", ".json", ".node"],
       },
     ],
@@ -109,8 +109,8 @@ module.exports = {
     // 环境是否支持通过以下三点确认：ESLint 规则中的 `env.es6` 字段和 `parserOptions.ecmaVersion` 字段，以及 package.json 中的 `engines` 字段
     "node/no-unsupported-features": [2,
       {
-        // 如果在 package.json 中没有 `engines` 字段，那么默认要取的版本
-        "version": 4,
+        // 可以通过 version 字段强制指定要判断的版本
+        // "version": 4,
         // 如果项目会使用 Babel 等工具转换，可能一些新的方法也可以使用，那可以在这里列出要忽略的项
         // 支持分组忽略（如 `String.*` 忽略所有 `String` 下的方法），或特性忽略（如 `forOf` 忽略 `for .. of` 语法）
         // 具体的分组及特性关键字，可查阅此规则文档：https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-unsupported-features.md
@@ -127,7 +127,7 @@ module.exports = {
     "node/shebang": [2,
       {
         // convertPath 的解释参考 no-unpublished-bin 规则
-        "convertPath": null,
+        "convertPath": {},
       },
     ],
 
