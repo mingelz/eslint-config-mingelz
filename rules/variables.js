@@ -16,9 +16,6 @@ module.exports = {
       // },
     ],
 
-    // 在 IE8 中 catch 参数名会扩散到外部作用域，所以禁止 catch 的参数名与外部定义的变量名一样
-    "no-catch-shadow": 0,
-
     // 不允许使用 delete 删除使用 var 定义的变量
     "no-delete-var": 2,
 
