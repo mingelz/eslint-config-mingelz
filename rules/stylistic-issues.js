@@ -461,11 +461,11 @@ module.exports = {
       },
     ],
 
-    // 每个函数最多多少行
-    "max-lines-per-function": [2,
+    // 每个函数最多多少行，函数包含的内容太多，就应该拆成多个函数，单一职责
+    "max-lines-per-function": [1,
       {
         // 最多多少行
-        "max": 50,
+        "max": 100,
         // 忽略空行
         "skipBlankLines": true,
         // 忽略注释行
