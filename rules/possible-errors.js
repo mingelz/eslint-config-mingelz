@@ -144,7 +144,7 @@ module.exports = {
     "use-isnan": 2,
 
     // 检查 JSDoc 语法注释，及其正确性，此规则仅在有 JSDoc 注释时检查，如果没有相关注释不会报错
-    "valid-jsdoc": [2,
+    "valid-jsdoc": [1,
       {
         // 为了注释的一致性，对于有别名的注释给出倾向选项。如 `@param` 有两个别名： `@arg`, `@argument`
         "prefer": {
