@@ -1,6 +1,6 @@
 /**
  * @file Node 配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-node@6.0
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-node@7.0
  * @see [eslint-plugin-node]{@link https://github.com/mysticatea/eslint-plugin-node}
  */
 
@@ -105,17 +105,34 @@ module.exports = {
       },
     ],
 
-    // 不允许在代码中使用未被依赖环境支持的特性，如在 Node.js v4 下使用 `async/await` 语法
-    // 环境是否支持通过以下三点确认：ESLint 规则中的 `env.es6` 字段和 `parserOptions.ecmaVersion` 字段，以及 package.json 中的 `engines` 字段
-    "node/no-unsupported-features": [2,
-      {
-        // 可以通过 version 字段强制指定要判断的版本
-        // "version": 4,
-        // 如果项目会使用 Babel 等工具转换，可能一些新的方法也可以使用，那可以在这里列出要忽略的项
-        // 支持分组忽略（如 `String.*` 忽略所有 `String` 下的方法），或特性忽略（如 `forOf` 忽略 `for .. of` 语法）
-        // 具体的分组及特性关键字，可查阅此规则文档：https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-unsupported-features.md
-        "ignores": [],
-      },
+    // 不允许在代码中使用未被依赖环境支持的 ES 内置方法，如 `Array.from` 等
+    "node/no-unsupported-features/es-builtins": [2,
+      // {
+      //   // 依赖环境通过 package.json 中的 `engines` 字段确认，也可以在这里强制指定要判断的版本
+      //   "version": ">=6.0.0",
+      //   // 如果项目会使用 Babel 等工具转换，可能一些新的方法也可以使用，那可以在这里列出要忽略的项
+      //   // 具体接受的值可查阅此规则文档：https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-unsupported-features/es-builtins.md
+      //   "ignores": [],
+      // },
+    ],
+    // 不允许在代码中使用未被依赖环境支持的 ES 语法，如 `async/await` 等
+    // 请参考 node/no-unsupported-features/es-builtins 规则
+    "node/no-unsupported-features/es-syntax": [2,
+      // {
+      //   "version": ">=6.0.0",
+      //   // 具体接受的值可查阅此规则文档：https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-unsupported-features/es-syntax.md
+      //   "ignores": [],
+      // },
+    ],
+
+    // 不允许在代码中使用未被依赖环境支持的 Node.js 内置方法，如 `os.homedir` 等
+    // 请参考 node/no-unsupported-features/es-builtins 规则
+    "node/no-unsupported-features/node-builtins": [2,
+      // {
+      //   "version": ">=6.0.0",
+      //   // 具体接受的值可查阅此规则文档：https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-unsupported-features/node-builtins.md
+      //   "ignores": [],
+      // },
     ],
 
     // 将 process.exit() 等同于 throw，这样可以让 ESLint 中的 consistent-return 命令不再报错
@@ -158,6 +175,37 @@ module.exports = {
         // 是否允许批量指定，如 `module.exports = exports = { ... }`
         "allowBatchAssign": false,
       },
+    ],
+
+    // 在 Node.js 中，`Buffer` 被放在了全局作用域中，所以 `Buffer === require('buffer').Buffer`，编码时应该保证引用 `Buffer` 的方案统一
+    "node/prefer-global/buffer": [2,
+      // always: 总是使用全局作用域下的 `Buffer`
+      // never: 总是使用 `require('buffer').Buffer`
+      "always",
+    ],
+
+    // 在 Node.js 中，`console` 被放在了全局作用域中，所以 `console === require('console')`，编码时应该保证引用 `console` 的方案统一
+    // 请参考 node/prefer-global/buffer 规则
+    "node/prefer-global/console": [2,
+      "always",
+    ],
+
+    // 在 Node.js 中，`process` 被放在了全局作用域中，所以 `process === require('process')`，编码时应该保证引用 `process` 的方案统一
+    // 请参考 node/prefer-global/buffer 规则
+    "node/prefer-global/process": [2,
+      "always",
+    ],
+
+    // 在 Node.js 中，`URLSearchParams` 被放在了全局作用域中，所以 `URLSearchParams === require('url').URLSearchParams`，编码时应该保证引用 `URLSearchParams` 的方案统一
+    // 请参考 node/prefer-global/buffer 规则
+    "node/prefer-global/url-search-params": [2,
+      "always",
+    ],
+
+    // 在 Node.js 中，`URL` 被放在了全局作用域中，所以 `URL === require('url').URL`，编码时应该保证引用 `URL` 的方案统一
+    // 请参考 node/prefer-global/buffer 规则
+    "node/prefer-global/url": [2,
+      "always",
     ],
   },
 }
