@@ -1,6 +1,6 @@
 /**
  * @file Vue 相关配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-vue@4.5
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-vue@4.7
  * @see [eslint-plugin-vue]{@link https://github.com/vuejs/eslint-plugin-vue}
  * @see 另强烈建议参阅 [Vue 官方的风格指南文档]{@link https://cn.vuejs.org/v2/style-guide}
  */
@@ -261,6 +261,10 @@ module.exports = {
       // always: 使用连字符，并统一使用小写
       // never: 使用小驼峰形式
       "always",
+      {
+        // 需要忽略检测的属性
+        "ignore": [],
+      },
     ],
 
     // 校验结束标签：对于自闭合标签不允许使用结束标签，其他标签要求必须有结束标签
@@ -399,9 +403,6 @@ module.exports = {
       "double",
     ],
 
-    // 避免 `v-for` 和 `v-if` 在同一个标签上（如果在同一个标签，`v-for` 的优先级会更高一些）
-    "vue/no-confusing-v-for-v-if": 2,
-
     // 在组件中针对每个 key （如 data, computed ...）排序
     "vue/order-in-components": [0,
       {
@@ -462,6 +463,21 @@ module.exports = {
         "selfClosingTag": "always",
       },
     ],
+
+    // 不允许 `v-if` 和 `v-for` 在同一个标签上（如果在同一个标签，`v-for` 的优先级会更高一些）
+    // 两个混用有两种情况：
+    // 1. `<div v-if="item.show" v-for="item in list">`，if 判断基于每一个循环项
+    // 2. `<div v-if="foo" v-for="item in list">`，if 判断基于其他变量，此种情况是要避免的，空耗循环
+    // NOTE: 此规则与 vue/no-confusing-v-for-v-if 相同，建议使用此规则：https://github.com/vuejs/eslint-plugin-vue/issues/525
+    "vue/no-use-v-if-with-v-for": [2,
+      {
+        // 如果 `v-if` 中使用了 `v-for` 循环后的变量，则允许
+        "allowUsingIterationVar": true,
+      },
+    ],
+
+    // 不允许使用 `v-html`，因为这可能会带来 XSS 漏洞
+    "vue/no-v-html": 1,
 
     // Prop 名大小写，这里指的是在 <script> 中的情形
     // 参考：https://vuejs.org/v2/style-guide/#Prop-name-casing-strongly-recommended
