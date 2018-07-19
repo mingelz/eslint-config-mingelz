@@ -20,45 +20,44 @@ module.exports = {
 
     // 不允许通过 `import` 引用尚未在 package.json 中添加依赖的模块，在其他人重装时可能会因为缺少依赖而报错
     "node/no-extraneous-import": [2,
-      {
-        // 跳过检查的模块名
-        // 有些模块与环境有关，如 Electron 中有 `electron` 模块
-        "allowModules": [],
-      },
+      // {
+      //   // 跳过检查的模块名，比如有些模块与环境有关，如 Electron 中有 `electron` 模块
+      //   "allowModules": [],
+      // },
     ],
 
     // 不允许通过 `require` 引用尚未在 package.json 中添加依赖的模块，在其他人重装时可能会因为缺少依赖而报错
-    // 请参考 no-extraneous-import 规则
+    // 请参考 node/no-extraneous-import 规则
     "node/no-extraneous-require": [2,
-      {
-        "allowModules": [],
-      },
+      // {
+      //   "allowModules": [],
+      // },
     ],
 
     // 不允许通过 `import` 引用路径不存在的模块（相对路径引用或 node_modules 模块）
     "node/no-missing-import": [2,
-      {
-        // 跳过检查的模块名
-        "allowModules": [],
-        // 查找模块的路径，如果是相对路径，会通过 `process.cwd()` 取绝对路径
-        "resolvePaths": [],
-        // 尝试查找到文件后缀
-        "tryExtensions": [".js", ".json", ".node"],
-      },
+      // {
+      //   // 跳过检查的模块名
+      //   "allowModules": [],
+      //   // 查找模块的路径，如果是相对路径，会通过 `process.cwd()` 取绝对路径
+      //   "resolvePaths": [],
+      //   // 尝试查找到文件后缀
+      //   "tryExtensions": [".js", ".json", ".node"],
+      // },
     ],
 
     // 不允许通过 `require` 引用路径不存在的模块（相对路径引用或 node_modules 模块）
-    // 请参考 no-missing-import 规则
+    // 请参考 node/no-missing-import 规则
     "node/no-missing-require": [2,
-      {
-        "allowModules": [],
-        "resolvePaths": [],
-        "tryExtensions": [".js", ".json", ".node"],
-      },
+      // {
+      //   "allowModules": [],
+      //   "resolvePaths": [],
+      //   "tryExtensions": [".js", ".json", ".node"],
+      // },
     ],
 
     // 不允许 package.json 文件中 `bin` 字段指定的文件存在被 `npm publish` 忽略的情况
-    // `npm publish` 忽略有三种情况：package.json 中有 `file` 字段但不包含此文件、`.npmignore` 中包含此文件
+    // `npm publish` 忽略有两种情况：package.json 中有 `file` 字段但不包含此文件、`.npmignore` 中包含此文件
     "node/no-unpublished-bin": [2,
       // {
       //   // 有时候，bin 文件是通过 Babel 等工具编译后生成的，那么可以指定源文件地址，此配置支持对象形式或数组形式
@@ -83,26 +82,26 @@ module.exports = {
     ],
 
     // 不允许通过 `import` 引用会被 `npm publish` 忽略的模块，在其他人重装时可能会因为缺少依赖而报错
-    // 忽略规则参考 no-unpublished-bin 规则
+    // 忽略规则参考 node/no-unpublished-bin 规则
     "node/no-unpublished-import": [2,
-      {
-        // 跳过检查的模块名
-        "allowModules": [],
-        // convertPath 的解释参考 no-unpublished-bin 规则
-        "convertPath": {},
-        // 尝试查找到文件后缀
-        "tryExtensions": [".js", ".json", ".node"],
-      },
+      // {
+      //   // 跳过检查的模块名
+      //   "allowModules": [],
+      //   // convertPath 的解释参考 no-unpublished-bin 规则
+      //   "convertPath": {},
+      //   // 尝试查找的文件后缀
+      //   "tryExtensions": [".js", ".json", ".node"],
+      // },
     ],
 
     // 不允许通过 `require` 引用会被 `npm publish` 忽略的模块，在其他人重装时可能会因为缺少依赖而报错
-    // 请参考 no-unpublished-import 规则
+    // 请参考 node/no-unpublished-import 规则
     "node/no-unpublished-require": [2,
-      {
-        "allowModules": [],
-        "convertPath": {},
-        "tryExtensions": [".js", ".json", ".node"],
-      },
+      // {
+      //   "allowModules": [],
+      //   "convertPath": {},
+      //   "tryExtensions": [".js", ".json", ".node"],
+      // },
     ],
 
     // 不允许在代码中使用未被依赖环境支持的 ES 内置方法，如 `Array.from` 等
@@ -142,10 +141,10 @@ module.exports = {
     // 检查 shebang 的正确性（是否需要 shebang、以及 shebang 前的 Unicode BOM、换行符 等等）
     // 插件会检查 package.json 中的 `bin` 字段，每个对应文件都应该有正常的 shebang
     "node/shebang": [2,
-      {
-        // convertPath 的解释参考 no-unpublished-bin 规则
-        "convertPath": {},
-      },
+      // {
+      //   // convertPath 的解释参考 node/no-unpublished-bin 规则
+      //   "convertPath": {},
+      // },
     ],
 
     /**
@@ -155,12 +154,12 @@ module.exports = {
     // 不允许使用已经废弃的 API，如 fs.exists
     // 目前在 Node.js 中有很多的废弃项，就不一一列举了，可查阅此规则文档：https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-deprecated-api.md
     "node/no-deprecated-api": [2,
-      {
-        // 忽略检测的模块项，如 buffer.Buffer()
-        "ignoreModuleItems": [],
-        // 忽略检测的全局项，如 Buffer()
-        "ignoreGlobalItems": [],
-      },
+      // {
+      //   // 忽略检测的模块项，如 buffer.Buffer()
+      //   "ignoreModuleItems": [],
+      //   // 忽略检测的全局项，如 Buffer()
+      //   "ignoreGlobalItems": [],
+      // },
     ],
 
     /**
