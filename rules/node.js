@@ -176,34 +176,34 @@ module.exports = {
       },
     ],
 
-    // 在 Node.js 中，`Buffer` 被放在了全局作用域中，所以 `Buffer === require('buffer').Buffer`，编码时应该保证引用 `Buffer` 的方案统一
+    // 在 Node.js 0.1.103 中，`Buffer` 被放在了全局作用域中，所以 `Buffer === require('buffer').Buffer`，编码时应该保证引用 `Buffer` 的方案统一
     "node/prefer-global/buffer": [2,
       // always: 总是使用全局作用域下的 `Buffer`
       // never: 总是使用 `require('buffer').Buffer`
       "always",
     ],
 
-    // 在 Node.js 中，`console` 被放在了全局作用域中，所以 `console === require('console')`，编码时应该保证引用 `console` 的方案统一
+    // 在 Node.js 0.1.100 中，`console` 被放在了全局作用域中，所以 `console === require('console')`，编码时应该保证引用 `console` 的方案统一
     // 请参考 node/prefer-global/buffer 规则
     "node/prefer-global/console": [2,
       "always",
     ],
 
-    // 在 Node.js 中，`process` 被放在了全局作用域中，所以 `process === require('process')`，编码时应该保证引用 `process` 的方案统一
+    // 在 Node.js 0.1.7 中，`process` 被放在了全局作用域中，所以 `process === require('process')`，编码时应该保证引用 `process` 的方案统一
     // 请参考 node/prefer-global/buffer 规则
     "node/prefer-global/process": [2,
       "always",
     ],
 
-    // 在 Node.js 中，`URLSearchParams` 被放在了全局作用域中，所以 `URLSearchParams === require('url').URLSearchParams`，编码时应该保证引用 `URLSearchParams` 的方案统一
-    // 请参考 node/prefer-global/buffer 规则
-    "node/prefer-global/url-search-params": [2,
+    // 在 Node.js 10 中，`URLSearchParams` 被放在了全局作用域中，所以 `URLSearchParams === require('url').URLSearchParams`，编码时应该保证引用 `URLSearchParams` 的方案统一
+    // 请参考 node/prefer-global/buffer 规则，由于 v10 才支持，所以暂关闭此项检测
+    "node/prefer-global/url-search-params": [0,
       "always",
     ],
 
-    // 在 Node.js 中，`URL` 被放在了全局作用域中，所以 `URL === require('url').URL`，编码时应该保证引用 `URL` 的方案统一
-    // 请参考 node/prefer-global/buffer 规则
-    "node/prefer-global/url": [2,
+    // 在 Node.js 10 中，`URL` 被放在了全局作用域中，所以 `URL === require('url').URL`，编码时应该保证引用 `URL` 的方案统一
+    // 请参考 node/prefer-global/buffer 规则，由于 v10 才支持，所以暂关闭此项检测
+    "node/prefer-global/url": [0,
       "always",
     ],
   },
