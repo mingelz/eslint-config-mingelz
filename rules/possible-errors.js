@@ -18,6 +18,9 @@ module.exports = {
       },
     ],
 
+    // 不允许在 `new Promise` 时传入 async 函数，虽然语法允许，但通常这是不需要的且易导致出错
+    "no-async-promise-executor": 2,
+
     // 不允许在循环中使用 await，因为在每个循环中使用 await 无法充分利用异步并行的特性
     // 建议将所有的 await 给 `Promise.all` 统一 await
     "no-await-in-loop": 2,
@@ -111,6 +114,10 @@ module.exports = {
     // 不允许普通空格和制表符外的其他非常规空格，如零宽空格、换行符
     "no-irregular-whitespace": 2,
 
+    // 不允许使用有误导性的字符串
+    // 一些 Unicode 表情字符是使用两个字符拼接在一起生成的，但是在正则中这些字符会被分别匹配
+    "no-misleading-character-class": 0,
+
     // 不允许直接调用 `Math(), JSON()`
     "no-obj-calls": 2,
 
@@ -139,6 +146,11 @@ module.exports = {
 
     // 在 in/instanceof 操作符前使用否定语句时要使用括号，如 `if (!(foo in bar))`
     "no-unsafe-negation": 2,
+
+    // 在 await/yield 语句中，不允许即读又写同一变量
+    // 如 `foo += await getValue(bar)`，此语句会先读取 `foo` 再异步等待 `getValue` 结果，可能等待过程中 `foo` 会被修改
+    // 要避免此类问题，只需将读与写分开，如 `value = await getValue(bar); foo += value`
+    "require-atomic-updates": 2,
 
     // 使用 `isNaN(foo)` 来判断 `NaN`，而不是 `foo == NaN`
     "use-isnan": 2,

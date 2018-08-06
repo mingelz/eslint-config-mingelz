@@ -381,6 +381,11 @@ module.exports = {
     // 对于 async 一定要有 await 语句
     "require-await": 0,
 
+    // 建议所有正则表达式都添加 `u` 标记，`u` 标记有两个作用：
+    // 1. 支持 Unicode 字符，如 `/^[👍]$/u.test('👍')`
+    // 2. 取消针对 Annex B extensions 的支持，如 `/\w{1, 2/` 应该报错，但在 Annex B extensions 中会尝试匹配 `a{1, 2` 这个字符串
+    "require-unicode-regexp": 0,
+
     // 所有变量必须放在作用域顶部
     "vars-on-top": 0,
 

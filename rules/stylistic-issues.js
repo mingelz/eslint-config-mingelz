@@ -784,9 +784,8 @@ module.exports = {
 
     // 在语句前后是否要加空行，此规则较复杂，建议参考官方文档：https://eslint.org/docs/rules/padding-line-between-statements
     "padding-line-between-statements": [0,
-      // 可以有多个此类定义，每一项定义一句情况
-      // 比如下边这个块，可以翻译为：
-      // 当满足以下条件时需要有空行（always），此空行前（prev）随意，空行后（next）是 return 语句（翻译过来有些拗口，用英文的话会更通顺一些）
+      // 可以有多个此类定义，每一项定义一种情况
+      // 比如下边这一行，可以翻译为：当满足以下条件时需要有空行（always），此空行前（prev）随意，空行后（next）是 return 语句（翻译过来有些拗口，用英文的话会更通顺一些）
       { "blankLine": "always", "prev": "*", "next": "return" },
       // 比如下边这两条合起来，翻译为：指令（如 `use strict`, `use asm`）后要加空行，但当有多个指令时，指令间不加
       { "blankLine": "always", "prev": "directive", "next": "*" },
