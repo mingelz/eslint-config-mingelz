@@ -636,7 +636,9 @@ module.exports = {
       // none: 不允许任意多表达式在同一行
       // literal: 允许标签内包含字面量，如 `<Foo>Hello</Foo>`
       // single-child: 允许标签内包含单一子元素，包括字面量、表达式或其他元素，如 `<Foo>{'Hello'}</Foo>` 或 `<Foo><Bar /></Foo>`
-      "allow": "single-child",
+      {
+        "allow": "single-child",
+      },
     ],
 
     // 校验某些可能并不需要的大括号的情况，如 `<div>{'Foo'}</div>`
