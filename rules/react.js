@@ -1,6 +1,6 @@
 /**
  * @file React & JSX 相关配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.10
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.11
  * @see [eslint-plugin-react]{@link https://github.com/yannickcr/eslint-plugin-react}
  */
 
@@ -571,18 +571,20 @@ module.exports = {
       },
     ],
 
-    // 检查 bind 的使用是否更合适
-    // 在 `render` 中针对函数做 bind 操作，或者传入箭头函数，都可能引起性能问题，甚至重复渲染
-    // 大所有的 bind 操作及函数的定义，都应该在 `render` 函数之外事先完成
+    // 检查 handle/bind 的使用是否更合适
+    // 在 `render` 中针对元素或组件做 handle/bind 操作时，建议函数先在 `render` 之外定义，绑定时只传引用，这样也更易读
+    // 如果绑定的函数直接在 `render` 中定义，可能会导致重复渲染，引起性能问题
     "react/jsx-no-bind": [2,
       {
+        // 忽略原生 DOM 元素的 handler 操作
+        "ignoreDOMComponents": true,
         // 忽略 `ref`，如：`<div ref={e => this.foo(e)}`
         "ignoreRefs": true,
-        // 忽略箭头函数，如：`<div onClick={e => this.foo(e)}`
-        "allowArrowFunctions": true,
-        // 忽略函数定义，如：`<div onClick={function foo () {}}`
+        // 允许绑定箭头函数，如：`<div onClick={e => this.foo(e)}`
+        "allowArrowFunctions": false,
+        // 允许绑定函数，如：`<div onClick={function foo () {}}`
         "allowFunctions": false,
-        // 忽略 bind，如：`<div onClick={this.foo.bind(this)}`
+        // 允许函数 bind，如：`<div onClick={this.foo.bind(this)}`
         "allowBind": false,
       },
     ],
@@ -629,7 +631,13 @@ module.exports = {
     ],
 
     // 一行只能有一条表达式，包括 JSX 标签
-    "react/jsx-one-expression-per-line": 0,
+    "react/jsx-one-expression-per-line": [0,
+      // 允许哪种形式的多表达式
+      // none: 不允许任意多表达式在同一行
+      // literal: 允许标签内包含字面量，如 `<Foo>Hello</Foo>`
+      // single-child: 允许标签内包含单一子元素，包括字面量、表达式或其他元素，如 `<Foo>{'Hello'}</Foo>` 或 `<Foo><Bar /></Foo>`
+      "allow": "single-child",
+    ],
 
     // 校验某些可能并不需要的大括号的情况，如 `<div>{'Foo'}</div>`
     // 此规则可以和 react/jsx-no-comment-textnodes, react/jsx-no-comment-textnodes 相互参考
