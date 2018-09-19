@@ -195,8 +195,17 @@ module.exports = {
       "never",
     ],
 
-    // 函数是否一定要有名字，给匿名函数起名字主要是为了方便调试
-    "func-names": 1,
+    // 函数表达式（并非函数定义）是否一定要有名字，给匿名函数起名字主要是为了方便调试
+    "func-names": [1,
+      // always: 总要有名字
+      // as-needed: ES6 可以根据表达式推荐函数名，如 `const foo = function () {}`，此选项为仅在无法推理出函数名时要指定
+      // never: 不需要有名字，除了在递归调用时
+      "always",
+      {
+        // 额外的，提供了针对 generators 函数的检测，配置规则同前一个参数
+        "generators": "always",
+      },
+    ],
 
     // 函数名是否要和定义时的变量匹配上
     "func-name-matching": [0,
@@ -358,7 +367,8 @@ module.exports = {
     // 个人喜欢将单行注释另起一行，就像现在这个项目。有些人喜欢将注释与对应的代码写在同一行
     "line-comment-position": [2,
       {
-        // 位置，above: 在代码的上面；beside: 代码后边
+        // above: 在代码的上面
+        // beside: 代码后边
         "position": "above",
         // 忽略的正则匹配
         "ignorePattern": "",
