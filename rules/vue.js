@@ -1,6 +1,6 @@
 /**
  * @file Vue 相关配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-vue@4.7
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-vue@5.0
  * @see [eslint-plugin-vue]{@link https://github.com/vuejs/eslint-plugin-vue}
  * @see 另强烈建议参阅 [Vue 官方的风格指南文档]{@link https://cn.vuejs.org/v2/style-guide}
  */
@@ -126,11 +126,28 @@ module.exports = {
     // 因为它会不生效，请使用 `v-model`，如：`<textarea v-model="foo"`></textarea>`
     "vue/no-textarea-mustache": 2,
 
+    // 不允许未使用的 component
+    "vue/no-unused-components": 2,
+
     // 不允许未被定义的变量，主要是指在 <template> 中定义的项，如 `<div v-for="i in foo">{{ bar }}</div>`
     "vue/no-unused-vars": 2,
 
+    // 不允许 `v-if` 和 `v-for` 在同一个标签上（如果在同一个标签，`v-for` 的优先级会更高一些）
+    // 两个混用有两种情况：
+    // 1. `<div v-if="item.show" v-for="item in list">`，if 判断基于每一个循环项
+    // 2. `<div v-if="foo" v-for="item in list">`，if 判断基于其他变量，此种情况是要避免的，空耗循环
+    "vue/no-use-v-if-with-v-for": [2,
+      {
+        // 如果 `v-if` 中使用了 `v-for` 循环后的变量，则允许
+        "allowUsingIterationVar": true,
+      },
+    ],
+
     // 在 `<component>` 上要求有 `v-bind:is`
     "vue/require-component-is": 2,
+
+    // 在 `props` 中的类型，应该是构建函数而不是字符串，如 `type: Number` 而不是 `type: 'Number'`
+    "vue/require-prop-type-constructor": 2,
 
     // `render` 方法一定要有返回值
     "vue/require-render-return": 2,
@@ -267,6 +284,32 @@ module.exports = {
       },
     ],
 
+    // HTML 标签的闭合尖括号是否要展示在新行
+    "vue/html-closing-bracket-newline": [2,
+      // never: 不要新起一行
+      // always: 总是新起一行
+      {
+        // 单行的 html 标签闭合括号是否要新起一行
+        "singleline": "never",
+        // 多行的 html 标签闭合括号是否要新起一行
+        "multiline": "always",
+      },
+    ],
+
+    // HTML 标签的尖括号与标签内容之间是否要空格
+    "vue/html-closing-bracket-spacing": [2,
+      // never: 不要加空格
+      // always: 要加空格
+      {
+        // 针对开始标签的规则
+        "startTag": "never",
+        // 针对结束标签的规则
+        "endTag": "never",
+        // 针对自闭合标签的规则，在 `/>` 前是否要加空格
+        "selfClosingTag": "always",
+      },
+    ],
+
     // 校验结束标签：对于自闭合标签不允许使用结束标签，其他标签要求必须有结束标签
     // FIXME: 且此规则与 vue/html-self-closing 略有重叠，暂关闭检测
     "vue/html-end-tags": 0,
@@ -331,16 +374,26 @@ module.exports = {
       "always",
     ],
 
-    // 要求每个组件要有 `name` 值
-    "vue/name-property-casing": [0,
+    // 组件 `name` 值的风格
+    "vue/name-property-casing": [2,
       // camelCase: 小驼峰
       // PascalCase: 大驼峰
       // kebab-case: 连字符形式
-      "kekab-case",
+      "PascalCase",
     ],
 
     // 检查标签中是否有多余的空格
     "vue/no-multi-spaces": 2,
+
+    // 不允许在模板嵌套环境中使用同名变量，如： `<div v-for="i in 5"><span v-for="i in 10" /></div>`
+    "vue/no-template-shadow": 2,
+
+    // Prop 名大小写，这里指的是在 <script> 中的情形
+    // 参考：https://vuejs.org/v2/style-guide/#Prop-name-casing-strongly-recommended
+    "vue/prop-name-casing": [2,
+      // 可以使用 `camelCase` 或 `snake_case`
+      "camelCase",
+    ],
 
     // 要求每个 props 要有默认值
     "vue/require-default-prop": 2,
@@ -403,6 +456,9 @@ module.exports = {
       "double",
     ],
 
+    // 不允许使用 `v-html`，因为这可能会带来 XSS 漏洞
+    "vue/no-v-html": 1,
+
     // 在组件中针对每个 key （如 data, computed ...）排序
     "vue/order-in-components": [0,
       {
@@ -438,53 +494,27 @@ module.exports = {
      * Vue: Uncategorized
      */
 
-    // HTML 标签的闭合尖括号是否要展示在新行
-    "vue/html-closing-bracket-newline": [2,
-      // never: 不要新起一行
-      // always: 总是新起一行
+    // 自定义组件标签名使用的风格，如 `<my-component />` 还是 `<MyComponent />`
+    "vue/component-name-in-template-casing": [2,
+      // PascalCase: 大驼峰
+      // kebab-case: 连字符形式
+      "kebab-case",
       {
-        // 单行的 html 标签闭合括号是否要新起一行
-        "singleline": "never",
-        // 多行的 html 标签闭合括号是否要新起一行
-        "multiline": "always",
+        // 要忽略的标签名
+        "ignores": [],
       },
     ],
 
-    // HTML 标签的尖括号与标签内容之间是否要空格
-    "vue/html-closing-bracket-spacing": [2,
-      // never: 不要加空格
-      // always: 要加空格
+    // 当子元素有多个标签、或者子元素包含换行时，是否要求子元素另起一行
+    "vue/multiline-html-element-content-newline": [2,
+      // 要忽略的标签
       {
-        // 针对开始标签的规则
-        "startTag": "never",
-        // 针对结束标签的规则
-        "endTag": "never",
-        // 针对自闭合标签的规则，在 `/>` 前是否要加空格
-        "selfClosingTag": "always",
+        "ignores": ["pre", "textarea"],
       },
     ],
 
-    // 不允许 `v-if` 和 `v-for` 在同一个标签上（如果在同一个标签，`v-for` 的优先级会更高一些）
-    // 两个混用有两种情况：
-    // 1. `<div v-if="item.show" v-for="item in list">`，if 判断基于每一个循环项
-    // 2. `<div v-if="foo" v-for="item in list">`，if 判断基于其他变量，此种情况是要避免的，空耗循环
-    // NOTE: 此规则与 vue/no-confusing-v-for-v-if 相同，建议使用此规则：https://github.com/vuejs/eslint-plugin-vue/issues/525
-    "vue/no-use-v-if-with-v-for": [2,
-      {
-        // 如果 `v-if` 中使用了 `v-for` 循环后的变量，则允许
-        "allowUsingIterationVar": true,
-      },
-    ],
-
-    // 不允许使用 `v-html`，因为这可能会带来 XSS 漏洞
-    "vue/no-v-html": 1,
-
-    // Prop 名大小写，这里指的是在 <script> 中的情形
-    // 参考：https://vuejs.org/v2/style-guide/#Prop-name-casing-strongly-recommended
-    "vue/prop-name-casing": [2,
-      // 可以使用 `camelCase` 或 `snake_case`
-      "camelCase",
-    ],
+    // 在模板中，属性的等号左右不应有空格
+    "vue/no-spaces-around-equal-signs-in-attribute": 2,
 
     // 在 .vue 文件中的 `<script>` 标签内的缩进配置，可以参考 stylistic-issues 中的 indent 规则
     "vue/script-indent": [2,
@@ -497,6 +527,16 @@ module.exports = {
         "switchCase": 1,
         // 要忽略的 AST node selector，同样可参考 stylistic-issues/indent 中的 ignoredNodes 规则
         "ignores": [],
+      },
+    ],
+
+    // 当子元素仅有一行时，是否要求子元素折行
+    "vue/singleline-html-element-content-newline": [2,
+      {
+        // 忽略无属性的标签
+        "ignoreWhenNoAttributes": true,
+        // 要忽略的标签
+        "ignores": ["pre", "textarea"],
       },
     ],
   },

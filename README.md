@@ -52,7 +52,7 @@ module.exports = {
 ### Vue configuration
 
 **NOTICE**:
-This configuration is dependent on [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)@^4.7,
+This configuration is dependent on [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)@^5.0,
 and it is not added to `peerDependencies`,
 please install it manully first: `npm install -D eslint-plugin-vue`
 
