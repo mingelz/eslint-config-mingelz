@@ -82,6 +82,8 @@ module.exports = {
         "properties": "always",
         // 是否忽略变量解构中涉及的变量名，可为 true 或 false
         "ignoreDestructuring": true,
+        // 允许的例外情况，每项一个变量名
+        "allow": [],
       },
     ],
 
@@ -627,7 +629,12 @@ module.exports = {
     ],
 
     // 在代码及注释中不允许使用 Tab
-    "no-tabs": 2,
+    "no-tabs": [2,
+      {
+        // 是否允许用于缩进的 Tab
+        "allowIndentationTabs": false,
+      },
+    ],
 
     // 不允许使用三元运算符 `foo ? bar : baz`，改用 `if/else` 代替
     "no-ternary": 0,
