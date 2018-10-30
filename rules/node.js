@@ -1,6 +1,6 @@
 /**
  * @file Node 配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-node@7.0
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-node@8.0
  * @see [eslint-plugin-node]{@link https://github.com/mysticatea/eslint-plugin-node}
  */
 
@@ -192,6 +192,18 @@ module.exports = {
     // 在 Node.js 0.1.7 中，`process` 被放在了全局作用域中，所以 `process === require('process')`，编码时应该保证引用 `process` 的方案统一
     // 请参考 node/prefer-global/buffer 规则
     "node/prefer-global/process": [2,
+      "always",
+    ],
+
+    // 在 Node.js 11.0.0 中，`TextDecoder` 被放在了全局作用域中，所以 `TextDecoder === require('util').TextDecoder`，编码时应该保证引用 `TextDecoder` 的方案统一
+    // 请参考 node/prefer-global/buffer 规则，由于 v11 才支持，所以暂关闭此项检测
+    "node/prefer-global/text-decoder": [0,
+      "always",
+    ],
+
+    // 在 Node.js 11.0.0 中，`TextEncoder` 被放在了全局作用域中，所以 `TextEncoder === require('util').TextEncoder`，编码时应该保证引用 `TextEncoder` 的方案统一
+    // 请参考 node/prefer-global/buffer 规则，由于 v11 才支持，所以暂关闭此项检测
+    "node/prefer-global/text-encoder": [0,
       "always",
     ],
 
