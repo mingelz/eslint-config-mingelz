@@ -127,7 +127,12 @@ module.exports = {
     "vue/no-textarea-mustache": 2,
 
     // 不允许未使用的 component
-    "vue/no-unused-components": 2,
+    "vue/no-unused-components": [2,
+      {
+        // 是否忽略使用 `<component is>` 形式定义的组件
+        "ignoreWhenBindingPresent": true,
+      },
+    ],
 
     // 不允许未被定义的变量，主要是指在 <template> 中定义的项，如 `<div v-for="i in foo">{{ bar }}</div>`
     "vue/no-unused-vars": 2,
@@ -168,6 +173,9 @@ module.exports = {
         "treatUndefinedAsUnspecified": true,
       },
     ],
+
+    // 如果组件已经绑定了一个包含修饰符的 `v-on`，则要求另一个使用 `exact` 修饰符
+    "vue/use-v-on-exact": 2,
 
     // 检查在 `<template>` 下只有一个根元素
     // 要求：根元素只能是标签，不能为空，不能是纯文本，不能使用 `v-for`，不能是 `<template>` 或 `<slot>`
@@ -243,7 +251,12 @@ module.exports = {
     // 2. 不能加无效的修饰符，如：`<div v-on:click.foo="bar"></div>`
     // 3. 值不能为空，且无修饰符，如：`<div v-on:click></div>`
     // 注意，是可以像这样使用的：`<div @click.prevent></div>`
-    "vue/valid-v-on": 2,
+    "vue/valid-v-on": [2,
+      {
+        // 允许的修饰符，以字符串形式放在数组中，如 `["foo"]` 则表示可以使用 `@click.foo`
+        "modifiers": [],
+      },
+    ],
 
     // 检查 `v-once` 的正确性
     // 1. 不能有参数，如：`<div v-once:foo></div>`
@@ -383,7 +396,12 @@ module.exports = {
     ],
 
     // 检查标签中是否有多余的空格
-    "vue/no-multi-spaces": 2,
+    "vue/no-multi-spaces": [2,
+      {
+        // 是否忽略对象属性中的空格（属性名与冒号之间）
+        "ignoreProperties": false,
+      },
+    ],
 
     // 不允许在模板嵌套环境中使用同名变量，如： `<div v-for="i in 5"><span v-for="i in 10" /></div>`
     "vue/no-template-shadow": 2,
