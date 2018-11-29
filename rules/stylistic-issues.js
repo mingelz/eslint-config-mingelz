@@ -270,6 +270,10 @@ module.exports = {
       {
         // 是否检查对象属性名
         "properties": true,
+        // 是否仅检查声明（var, function, class）的名称，而不检查对象名
+        "onlyDeclarations": false,
+        // 是否忽略解构中的命名
+        "ignoreDestructuring": false,
       },
     ],
 
@@ -913,11 +917,17 @@ module.exports = {
 
     // 在大括号开始前是否要加空格
     "space-before-blocks": [2,
+      // 以下每项有3个可选值
+      // always: 总是要有空格
+      // never: 总是不要有空格
+      // off: 关闭此项检测
       {
-        // 针对函数体大括号前
+        // 针对函数体大括号前，如 `function ()_{}`
         "functions": "always",
-        // 针对关键字后的大括号前
+        // 针对关键字后的大括号前，如 `try_{} catch (e)_{}`
         "keywords": "always",
+        // 针对 Class 后的大括号前，如 `class Foo_{}`
+        "classes": "always",
       },
     ],
 
