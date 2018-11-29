@@ -6,6 +6,20 @@ A shared [ESLint](https://eslint.org) configuration with Chinese comments by min
 
 一份带有完整中文注释的 ESLint 规则。请打开 [rules](./rules) 目录下的文件，阅读每个规则的详细说明。
 
+## TOC
+
+* [Quick start](#quick-start)
+  * [Installation](#installation)
+  * [Configure](#configure)
+* [Documentation](#documentation)
+  * [Basic configuration](#basic-configuration)
+  * [Vue configuration](#vue-configuration)
+  * [React configuration](#react-configuration)
+  * [Node.js configuration](#nodejs-configuration)
+  * [*[WIP]* ES Module configuration](#wip-es-module-configuration)
+  * [*[WIP]* JSDoc configuration](#wip-jsdoc-configuration)
+  * [*[WIP]* JSX accessibility configuration](#wip-jsx-accessibility-configuration)
+
 ## Quick start
 
 ### Installation
