@@ -850,7 +850,8 @@ module.exports = {
     ],
 
     // 函数是否有符合 JSDoc 格式的注释
-    "require-jsdoc": 0,
+    // 此规则已经不再推荐，请改用 /rules/jsdoc.js 规则
+    // "require-jsdoc": 0,
 
     // 语句后是否要加分号
     // 这个见仁见智，不要吵架，也不要试图说服别人，让自己的代码符合自己的审美就可以了
