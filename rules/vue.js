@@ -344,13 +344,24 @@ module.exports = {
       // "tab"：使用 Tab 缩进
       2,
       {
+        // 多个属性是否要垂直对齐
+        "alignAttributesVertically": false,
         // 属性的缩进
         "attribute": 1,
+        // 基础缩进
+        "baseIndent": 1,
         // 结束符的缩进
         "closeBracket": 0,
         // 要忽略的节点
         "ignores": [],
       },
+    ],
+
+    // 校验 HTML 属性值的引号
+    "vue/html-quotes": [2,
+      // double: 双引号
+      // single: 单引号
+      "double",
     ],
 
     // 标签的自闭合
@@ -393,8 +404,10 @@ module.exports = {
 
     // 当子元素有多个标签、或者子元素包含换行时，是否要求子元素另起一行
     "vue/multiline-html-element-content-newline": [2,
-      // 要忽略的标签
       {
+        // 忽略无子元素的标签
+        "ignoreWhenEmpty": true,
+        // 要忽略的标签
         "ignores": ["pre", "textarea"],
       },
     ],
@@ -444,6 +457,8 @@ module.exports = {
     // 当子元素仅有一行时，是否要求子元素折行
     "vue/singleline-html-element-content-newline": [2,
       {
+        // 忽略无子元素的标签
+        "ignoreWhenEmpty": true,
         // 忽略无属性的标签
         "ignoreWhenNoAttributes": true,
         // 要忽略的标签
@@ -497,13 +512,6 @@ module.exports = {
           "CONTENT",
         ],
       },
-    ],
-
-    // 校验 HTML 属性值的引号
-    "vue/html-quotes": [2,
-      // double: 双引号
-      // single: 单引号
-      "double",
     ],
 
     // 不允许使用 `v-html`，因为这可能会带来 XSS 漏洞
