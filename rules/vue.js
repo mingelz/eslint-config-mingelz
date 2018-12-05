@@ -402,8 +402,10 @@ module.exports = {
       },
     ],
 
-    // 当子元素有多个标签、或者子元素包含换行时，是否要求子元素另起一行
-    "vue/multiline-html-element-content-newline": [2,
+    // 针对多行元素，是否要求子元素折行。可参考 singleline-html-element-content-newline 规则
+    // 多行元素，是指标签占据了多行，如某些属性另起一行、内容另起一行、内容包含多行、结束标签另起一行等
+    // 因为行内元素可能会有属性换行，但不希望内容换行的情况，所以暂关闭此检测
+    "vue/multiline-html-element-content-newline": [0,
       {
         // 忽略无子元素的标签
         "ignoreWhenEmpty": true,
@@ -439,6 +441,7 @@ module.exports = {
     "vue/no-spaces-around-equal-signs-in-attribute": 2,
 
     // 不允许在模板嵌套环境中使用同名变量，如： `<div v-for="i in 5"><span v-for="i in 10" /></div>`
+    // 同时也会检测在模板中定义了 data/props 上的变量，如： `<template><div v-for="i in 5"></div></template><script>export default { props: ['i'] }</script>`
     "vue/no-template-shadow": 2,
 
     // Prop 名大小写，这里指的是在 <script> 中的情形
@@ -454,8 +457,9 @@ module.exports = {
     // 要求每个 props 要有类型
     "vue/require-prop-types": 2,
 
-    // 当子元素仅有一行时，是否要求子元素折行
-    "vue/singleline-html-element-content-newline": [2,
+    // 针对单行元素，是否要求子元素折行。可参考 multiline-html-element-content-newline 规则
+    // 单行元素，是指标签起始、属性、内容、结束标签都在同一行
+    "vue/singleline-html-element-content-newline": [0,
       {
         // 忽略无子元素的标签
         "ignoreWhenEmpty": true,
