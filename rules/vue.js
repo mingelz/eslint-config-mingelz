@@ -297,6 +297,17 @@ module.exports = {
       },
     ],
 
+    // 自定义组件标签名使用的风格，如 `<my-component />` 还是 `<MyComponent />`
+    "vue/component-name-in-template-casing": [2,
+      // PascalCase: 大驼峰
+      // kebab-case: 连字符形式
+      "kebab-case",
+      {
+        // 要忽略的标签名
+        "ignores": [],
+      },
+    ],
+
     // HTML 标签的闭合尖括号是否要展示在新行
     "vue/html-closing-bracket-newline": [2,
       // never: 不要新起一行
@@ -380,6 +391,14 @@ module.exports = {
       },
     ],
 
+    // 当子元素有多个标签、或者子元素包含换行时，是否要求子元素另起一行
+    "vue/multiline-html-element-content-newline": [2,
+      // 要忽略的标签
+      {
+        "ignores": ["pre", "textarea"],
+      },
+    ],
+
     // 在 mustache 中定义值与括号间是否要空格
     "vue/mustache-interpolation-spacing": [2,
       // always: 在大括号内部左右各加一个空格
@@ -403,6 +422,9 @@ module.exports = {
       },
     ],
 
+    // 在模板中，属性的等号左右不应有空格
+    "vue/no-spaces-around-equal-signs-in-attribute": 2,
+
     // 不允许在模板嵌套环境中使用同名变量，如： `<div v-for="i in 5"><span v-for="i in 10" /></div>`
     "vue/no-template-shadow": 2,
 
@@ -418,6 +440,16 @@ module.exports = {
 
     // 要求每个 props 要有类型
     "vue/require-prop-types": 2,
+
+    // 当子元素仅有一行时，是否要求子元素折行
+    "vue/singleline-html-element-content-newline": [2,
+      {
+        // 忽略无属性的标签
+        "ignoreWhenNoAttributes": true,
+        // 要忽略的标签
+        "ignores": ["pre", "textarea"],
+      },
+    ],
 
     // 针对 `v-bind` 建议使用的方案
     "vue/v-bind-style": [2,
@@ -512,28 +544,6 @@ module.exports = {
      * Vue: Uncategorized
      */
 
-    // 自定义组件标签名使用的风格，如 `<my-component />` 还是 `<MyComponent />`
-    "vue/component-name-in-template-casing": [2,
-      // PascalCase: 大驼峰
-      // kebab-case: 连字符形式
-      "kebab-case",
-      {
-        // 要忽略的标签名
-        "ignores": [],
-      },
-    ],
-
-    // 当子元素有多个标签、或者子元素包含换行时，是否要求子元素另起一行
-    "vue/multiline-html-element-content-newline": [2,
-      // 要忽略的标签
-      {
-        "ignores": ["pre", "textarea"],
-      },
-    ],
-
-    // 在模板中，属性的等号左右不应有空格
-    "vue/no-spaces-around-equal-signs-in-attribute": 2,
-
     // 在 .vue 文件中的 `<script>` 标签内的缩进配置，可以参考 stylistic-issues 中的 indent 规则
     "vue/script-indent": [2,
       // 此参数可为数字，表示缩进的空格数，或者使用 `tab` 表示使用 tab 来缩进
@@ -545,16 +555,6 @@ module.exports = {
         "switchCase": 1,
         // 要忽略的 AST node selector，同样可参考 stylistic-issues/indent 中的 ignoredNodes 规则
         "ignores": [],
-      },
-    ],
-
-    // 当子元素仅有一行时，是否要求子元素折行
-    "vue/singleline-html-element-content-newline": [2,
-      {
-        // 忽略无属性的标签
-        "ignoreWhenNoAttributes": true,
-        // 要忽略的标签
-        "ignores": ["pre", "textarea"],
       },
     ],
   },
