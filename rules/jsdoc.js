@@ -51,7 +51,8 @@ module.exports = {
     ],
 
     // 检查 `@param` 后的类型是否未在代码中定义，且对应的变量/方法名未被添加 `no-unused-vars` 注释
-    // 注意此时如指定为 `HTMLElement` 等类型会报错
+    // `null` 不是有效类型，可以用 `{?}` 表示，如 `@return {?number}` 表示返回值为 `number` 或 `null`，详见 http://usejsdoc.org/tags-type.html
+    // 如需要使用如 `MyClass` 等非原生支持类型，或者在代码中有 `MyClass` 的定义，或者通过 `@typedef` 来指定相关外部类型，详见 http://usejsdoc.org/tags-typedef.html
     "jsdoc/no-undefined-types": 1,
 
     // 检查函数是否有 `@description` 来说明其用途
