@@ -339,6 +339,9 @@ module.exports = {
     // 不允许不必要的 .call() 和 .apply()
     "no-useless-call": 2,
 
+    // 不允许不必要的 .catch 从句，比如在里边只是 `catch (e) { throw e }`
+    "no-useless-catch": 2,
+
     // 不允许多个常量字符串拼接，但换行拼接不受影响
     "no-useless-concat": 2,
 

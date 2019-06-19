@@ -293,11 +293,14 @@ module.exports = {
         // 用这里的数字乘前边的缩进数，就是具体要缩进的量，下同
         "SwitchCase": 1,
         // 定义变量的时候如果使用逗号分隔一行一个，如何缩进
-        "VariableDeclarator": {
-          "var": 2,
-          "let": 2,
-          "const": 3,
-        },
+        // 可以分别指定 var, let, const 的缩进量，如下
+        // "VariableDeclarator": {
+        //   "var": 2,
+        //   "let": 2,
+        //   "const": 3,
+        // },
+        // 也可以标志为 first，表示与第一个缩进对齐，它目前等同于 var:2, let:2, const: 3
+        "VariableDeclarator": "first",
         // 文件级别的 IIFE 内容有几个缩进
         "outerIIFEBody": 1,
         // 属性的缩进
