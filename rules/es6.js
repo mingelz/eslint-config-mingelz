@@ -258,6 +258,8 @@ module.exports = {
       {
         // 忽略大小写
         "ignoreCase": true,
+        // 忽略定义的顺序
+        "ignoreDeclarationSort": true,
         // 忽略解构时每一项的排序
         "ignoreMemberSort": false,
         // 具体的排序规则
