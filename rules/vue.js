@@ -335,7 +335,7 @@ module.exports = {
     ],
 
     // 校验结束标签：对于自闭合标签不允许使用结束标签，其他标签要求必须有结束标签
-    // FIXME: 且此规则与 vue/html-self-closing 略有重叠，暂关闭检测
+    // NOTE: 此规则与 vue/html-self-closing 略有重叠，暂关闭检测
     "vue/html-end-tags": 0,
 
     // 检查 HTML 元素的缩进
