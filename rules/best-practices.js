@@ -370,6 +370,9 @@ module.exports = {
     // 不允许使用 with
     "no-with": 2,
 
+    // 建议为正则捕获命名，方便后续直接使用 `result.groups[name]` 取结果，而不需要再用数组下标
+    "prefer-named-capture-group": 2,
+
     // 建议调用 Promise.reject 时，返回的是 Error 对象，如 `Promise.reject(new Error('Foo'))`
     "prefer-promise-reject-errors": [0,
       {
