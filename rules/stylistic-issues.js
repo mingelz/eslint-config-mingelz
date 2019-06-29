@@ -803,7 +803,19 @@ module.exports = {
 
     // 在语句块 `{}` 前后是否需要一个空行分隔
     "padded-blocks": [2,
+      // 第1个配置项有两种表达方式：
+      // 1. 使用 always, never
       "never",
+      // 2. 分别定义 blocks, classes, switches 语句块中的行为
+      // {
+      //   "blocks": "never",
+      //   "classes": "never",
+      //   "switches": "never",
+      // },
+      // 第2个配置项，`{}` 中只有一条语句时，是否允许分多行成块
+      // {
+      //   "allowSingleLineBlocks": true,
+      // },
     ],
 
     // 在语句前后是否要加空行，此规则较复杂，建议参考官方文档：https://eslint.org/docs/rules/padding-line-between-statements

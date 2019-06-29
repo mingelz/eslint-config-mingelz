@@ -50,6 +50,7 @@ module.exports = {
     ],
 
     // 不允许定义的方法名与已有方法相同
+    // 从 5.14 开始允许使用 `var undefined` 定义一个 undefined。看起来多余，其实可以用于代码压缩
     "no-shadow-restricted-names": 2,
 
     // 不允许使用未定义变量
