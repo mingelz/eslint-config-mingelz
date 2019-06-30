@@ -1,6 +1,6 @@
 /**
  * @file React & JSX 相关配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.13
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.14
  * @see [eslint-plugin-react]{@link https://github.com/yannickcr/eslint-plugin-react}
  */
 
@@ -529,6 +529,21 @@ module.exports = {
     // 该规则没有配置项，只会检查有子元素的多行标签的结束标签位置，要求结束标签必须和开始标签对齐
     "react/jsx-closing-tag-location": 2,
 
+    // 定义 JSX 中的大括号内部，与内容之间是否要加换行
+    "react/jsx-curly-newline": [2,
+      // consistent: 要么前后都有换行，要么前后都没换行
+      // never: 不能有换行
+      "consistent",
+      // 或者分别针对单行或多行定义，可以使用：
+      // consistent: 要么前后都有换行，要么前后都没换行
+      // forbid: 不能有换行
+      // require: 要有换行
+      {
+        "multiline": "consistent",
+        "singleline": "forbid",
+      },
+    ],
+
     // 定义 JSX 大括号中是否要有空格
     // 这个规则定义较复杂，且有多种定义方式，如需了解更多请参阅文档：https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md
     "react/jsx-curly-spacing": [2,
@@ -605,7 +620,12 @@ module.exports = {
     ],
 
     // 检查数组中的元素是否有 `key` 属性
-    "react/jsx-key": 2,
+    "react/jsx-key": [2,
+      {
+        // 是否检查数组或迭代中的 `<></>` 元素
+        "checkFragmentShorthand": true,
+      },
+    ],
 
     // 最多可以嵌套几层的 JSX
     "react/jsx-max-depth": [0,
