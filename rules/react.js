@@ -1,6 +1,6 @@
 /**
  * @file React & JSX 相关配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.11
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.12
  * @see [eslint-plugin-react]{@link https://github.com/yannickcr/eslint-plugin-react}
  */
 
@@ -20,9 +20,12 @@ module.exports = {
     "react": {
       // 指定的编译库，默认是 `React`，如果用的是 preact 的话，则设置为 `h`
       "pragma": "React",
-      // 编译库的版本
-      // "version": "15.0",
+      // 编译库的版本，可以使用版本号，或者使用 'detect' 字符串，由插件自己检测
+      // "version": "detect",
     },
+    // 可添加需要限定的属性名
+    // "propWrapperFunctions": [
+    // ],
   },
 
   "rules": {
@@ -539,6 +542,10 @@ module.exports = {
       // tab: 使用 Tab 缩进
       // N: 使用 N 个空格缩进
       2,
+      {
+        // 是否检查属性的对齐
+        "checkAttributes": true,
+      },
     ],
 
     // 在 JSX 中标签属性的缩进
@@ -656,6 +663,13 @@ module.exports = {
       //   // 在子元素中是否用大括号，如：`<div>{'bar'}</div>`
       //   "children": "never",
       // },
+    ],
+
+    // 在定义一段 fragment 时，使用 `<React.Fragment>` 还是 `<>`
+    "react/jsx-fragments": [2,
+      // syntax: 使用 `<><Foo /></>` 方式
+      // element: 使用 `<React.Fragment><Foo /></React.Fragment>` 方式
+      "syntax",
     ],
 
     // 使用 Pascal（大驼峰）方案来定义组件名

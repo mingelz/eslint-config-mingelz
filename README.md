@@ -84,7 +84,7 @@ module.exports = {
 ### React configuration
 
 **NOTICE**:
-This configuration is dependent on [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)@^7.11,
+This configuration is dependent on [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)@^7.12,
 and it is not added to `peerDependencies`,
 please install it manully first: `npm install -D eslint-plugin-react`
 
