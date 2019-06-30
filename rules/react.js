@@ -1,6 +1,6 @@
 /**
  * @file React & JSX 相关配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.12
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.13
  * @see [eslint-plugin-react]{@link https://github.com/yannickcr/eslint-plugin-react}
  */
 
@@ -25,6 +25,13 @@ module.exports = {
     },
     // 可添加需要限定的属性名
     // "propWrapperFunctions": [
+    // ],
+    // 在 react/jsx-no-target-blank 规则中，除了限定 `<a>` ，还要限定哪些组件，主要用于自定义的链接/路由组件
+    // "linkComponents": [
+    //   // 字符串形式，对应的链接属性名也是 `href`
+    //   "Hyperlink",
+    //   // 对象形式，可以自定义链接属性名
+    //   { "name": "Link", "linkAttribute": "to" },
     // ],
   },
 
@@ -67,6 +74,8 @@ module.exports = {
         "rule": "^(is|has)[A-Z]([A-Za-z0-9]?)+",
         // 自定义提示
         "message": "布尔类型（{{ propName }}）需要以 is/has 开头",
+        // 是否同时检查嵌套的 prop
+        "validateNested": true,
       },
     ],
 
@@ -256,12 +265,27 @@ module.exports = {
     "react/no-this-in-sfc": 2,
 
     // 不允许给组件的 `ref` 属性指定字符串值，它应该是一个回调函数
-    "react/no-string-refs": 2,
+    "react/no-string-refs": [2,
+      {
+        // 是否禁止传入模板字符串
+        "noTemplateLiterals": true,
+      },
+    ],
 
     // 不允许在 JSX 的大括号中（JS 执行部分）使用未转义的实体字符
     // 包括：`>`, `"`, `'`, '}' 几个字符，不包括 `<` 和 `{`，因为如果有实体字符会语法报错
     // 可以通过 HTML 转义，或者使用字符串，如 `<div> &gt; </div>` 或 `<div>{'>'}</div>`
-    "react/no-unescaped-entities": 2,
+    "react/no-unescaped-entities": [2,
+      // {
+      //   // 可以配置覆盖默认的检查字符，同时提供可提供的项
+      //   "forbid": [
+      //     {
+      //       "char": ">",
+      //       "alternatives": ["&gt;"],
+      //     },
+      //   ],
+      // },
+    ],
 
     // 不允许指定未知的属性名，比如 `class`，或者要把连字符形式的属性转为 React 要求的小驼峰形式
     "react/no-unknown-property": [2,
@@ -302,6 +326,9 @@ module.exports = {
       // never: 不建议使用 ES6 Class，而使用 `createReactClass`
       "always",
     ],
+
+    // 是否限制传入的属性只读
+    "react/prefer-read-only-props": 2,
 
     // 建议使用无状态的组件
     // 当符合以下要求时，会建议使用无状态的组件：
@@ -435,6 +462,25 @@ module.exports = {
       },
     ],
 
+    // 定义 state 放在哪里，是 Class 的静态属性，还是放在 constructor 中
+    "react/state-in-constructor": [2,
+      // always: 放在 constructor 里
+      // never: 放在 Class 的静态属性里
+      "always",
+    ],
+
+    // 检查静态属性（childContextTypes, contextTypes, contextType, defaultProps, displayName, propTypes）的书写方式
+    "react/static-property-placement": [2,
+      // static public field: 使用静态属性方式，要写成 `static childContextTypes = { /*...*/ }`
+      // static getter: 使用静态 getter 方式，要写成 `static get childContextTypes() { /*...*/ }`
+      // property assignment: 使用属性覆写方式，要写成 `MyComponent.childContextTypes = { /*...*/ }`
+      "static public field",
+      // 同时允许第三个参数，用于额外指定某个属性用哪种方式：
+      // {
+      //   "displayName": "static getter",
+      // },
+    ],
+
     // 检测 style 属性应该是一个对象，主要是防止不小心写错
     "react/style-prop-object": 2,
 
@@ -545,6 +591,8 @@ module.exports = {
       {
         // 是否检查属性的对齐
         "checkAttributes": true,
+        // 是否检查表达式中的 JSX 缩写
+        "indentLogicalExpressions": true,
       },
     ],
 
@@ -683,7 +731,21 @@ module.exports = {
     ],
 
     // 不允许在 JSX 标签的属性之间包含多个空格，如 `<foo  bar   baz />`
-    "jsx-props-no-multi-spaces": 2,
+    "react/jsx-props-no-multi-spaces": 2,
+
+    // 是否允许在 JSX 标签上定义对象展开操作，如 `<Foo {...props} />`
+    // 使用对象展开符，会传入无法预期的属性，但高阶函数却常依赖这个方案
+    "react/jsx-props-no-spreading": [1,
+      {
+        // 分别指定 HTML 标签和自定义标签的行为
+        // ignore：忽略检测，可以使用对象展开符
+        // enforce：限制不允许使用对象展开符，要啥传啥
+        "html": "enforce",
+        "custom": "enforce",
+        // 例外，写对应的标签名
+        // "exceptions": [],
+      },
+    ],
 
     // 默认属性是否要排序
     // 包括 getDefaultProps(), defaultProps, propTypes 等相关方法、属性中的定义
