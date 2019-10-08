@@ -395,6 +395,8 @@ module.exports = {
         "order": [
           // 类型注解
           // "type-annotations",
+          // 静态变量
+          // "static-variables",
           // 静态方法
           "static-methods",
           // 生命周期函数
@@ -589,6 +591,7 @@ module.exports = {
     // 规范 JSX 中所有事件句柄的名字
     "react/jsx-handler-names": [0,
       // 以下两项规则合起来，最终成这样：`<Foo onChange={this.handleChange}`
+      // 可以通过 false 来关闭某一项检测
       {
         // 事件句柄名称前缀
         // 这里只规划自己的方法名，不对 props 中传来的方法名做要求
@@ -683,6 +686,8 @@ module.exports = {
       {
         // 不允许使用纯字符串作为子元素，无论是字面量，还是包裹在 JS 字符串中
         "noStrings": false,
+        // 例外
+        "allowedStrings": ["allowed"],
       },
     ],
 
@@ -704,6 +709,9 @@ module.exports = {
         "allowGlobals": false,
       },
     ],
+
+    // 避免无意义的多层 fragment 嵌套
+    "react/jsx-no-useless-fragment": 2,
 
     // 一行只能有一条表达式，包括 JSX 标签
     "react/jsx-one-expression-per-line": [0,
