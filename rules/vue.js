@@ -297,17 +297,6 @@ module.exports = {
       },
     ],
 
-    // 自定义组件标签名使用的风格，如 `<my-component />` 还是 `<MyComponent />`
-    "vue/component-name-in-template-casing": [2,
-      // PascalCase: 大驼峰
-      // kebab-case: 连字符形式
-      "kebab-case",
-      {
-        // 要忽略的标签名
-        "ignores": [],
-      },
-    ],
-
     // HTML 标签的闭合尖括号是否要展示在新行
     "vue/html-closing-bracket-newline": [2,
       // never: 不要新起一行
@@ -507,7 +496,9 @@ module.exports = {
           // 唯一特性 (需要唯一值的特性)，如 `ref`, `key`, `slot`, `slot-scope`
           "UNIQUE",
           // 双向绑定 (把绑定和事件结合起来)，如 `v-model`
-          "BINDING",
+          "TWO_WAY_BINDING",
+          // 其他用户的绑定，如 `v-custom-directive`
+          "OTHER_DIRECTIVES",
           // 其它特性 (所有普通的绑定或未绑定的特性)
           "OTHER_ATTR",
           // 事件 (组件事件监听器)，如 `v-on`
@@ -555,6 +546,17 @@ module.exports = {
     /**
      * Vue: Uncategorized
      */
+
+    // 自定义组件标签名使用的风格，如 `<my-component />` 还是 `<MyComponent />`
+    "vue/component-name-in-template-casing": [2,
+      // PascalCase: 大驼峰
+      // kebab-case: 连字符形式
+      "kebab-case",
+      {
+        // 要忽略的标签名
+        "ignores": [],
+      },
+    ],
 
     // 在 .vue 文件中的 `<script>` 标签内的缩进配置，可以参考 stylistic-issues 中的 indent 规则
     "vue/script-indent": [2,
