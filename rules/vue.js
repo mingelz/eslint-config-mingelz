@@ -1,6 +1,6 @@
 /**
  * @file Vue 相关配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-vue@5.0
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-vue@5.2
  * @see [eslint-plugin-vue]{@link https://github.com/vuejs/eslint-plugin-vue}
  * @see 另强烈建议参阅 [Vue 官方的风格指南文档]{@link https://cn.vuejs.org/v2/style-guide}
  */
@@ -547,16 +547,116 @@ module.exports = {
      * Vue: Uncategorized
      */
 
+    // 检查数组中括号前后是否要加空格
+    // 此配置与 ESLint 的 array-bracket-spacing 规则一致，但它会检查 `<template>` 中的代码
+    "vue/array-bracket-spacing": [2,
+      "never",
+    ],
+
+    // 箭头函数的箭头前后是否要有空格
+    // 此配置与 ESLint 的 array-spacing 规则一致，但它会检查 `<template>` 中的代码
+    "vue/arrow-spacing": [2,
+      {
+        "before": true,
+        "after": true,
+      },
+    ],
+
+    // 代码块前后是否要有空格
+    // 此配置与 ESLint 的 block-spacing 规则一致，但它会检查 `<template>` 中的代码
+    "vue/block-spacing": [2,
+      "always",
+    ],
+
+    // 大括号的风格
+    // 此配置与 ESLint 的 brace-style 规则一致，但它会检查 `<template>` 中的代码
+    "vue/brace-style": [2,
+      "stroustrup",
+      {
+        "allowSingleLine": true,
+      },
+    ],
+
+    // 使用驼峰形式表示变量时，一些细节配置
+    // 此配置与 ESLint 的 camelcase 规则一致，但它会检查 `<template>` 中的代码
+    "vue/camelcase": [2,
+      {
+        "properties": "always",
+        "ignoreDestructuring": true,
+      },
+    ],
+
+    // 对象和数组最后一个 value 后是否加逗号
+    // 此配置与 ESLint 的 comma-dangle 规则一致，但它会检查 `<template>` 中的代码
+    "vue/comma-dangle": [2,
+      "always-multiline",
+    ],
+
     // 自定义组件标签名使用的风格，如 `<my-component />` 还是 `<MyComponent />`
     "vue/component-name-in-template-casing": [2,
       // PascalCase: 大驼峰
       // kebab-case: 连字符形式
       "kebab-case",
       {
+        // 只检查在 components 中注册的组件
+        "registeredComponentsOnly": true,
         // 要忽略的标签名
         "ignores": [],
       },
     ],
+
+    // 使用 `===`
+    // 此配置与 ESLint 的 eqeqeq 规则一致，但它会检查 `<template>` 中的代码
+    "vue/eqeqeq": [2,
+      "smart",
+    ],
+
+    // 在对象的冒号前后是否要有空格
+    // 此配置与 ESLint 的 key-spacing 规则一致，但它会检查 `<template>` 中的代码
+    "vue/key-spacing": [2,
+      {
+        // mode 定义空格风格，strict 为仅允许一个空格， minimum 为可因为对齐的原因多加几个空格，但对齐后，不能再多空格
+        "mode": "strict",
+        // 在冒号前后是否要空格
+        "beforeColon": false,
+        "afterColon": true,
+      },
+    ],
+
+    // 检查组件在代码中定义的名称，是否与文件名一致
+    "vue/match-component-file-name": [1,
+      {
+        // 可忽略的文件扩展名
+        "extensions": ["js", "vue", "jsx"],
+        // 是否要求匹配大小写
+        "shouldMatchCase": false,
+      },
+    ],
+
+    // 对于布尔型的属性，要求默认值必须为 false，因为默认不传时 undefined 为 falsy 值
+    "vue/no-boolean-default": [2,
+      // "no-default": 不允许添加 default
+      // "default-false": 可以添加 default 字段，但必须为 false
+      "no-default",
+    ],
+
+    // 不允许某些特殊语法，可以使用字符串表示限制的表达式，也可以使用对象自定义限制出错信息
+    // 此配置与 ESLint 的 no-restricted-syntax 规则一致，但它会检查 `<template>` 中的代码
+    "vue/no-restricted-syntax": [2,
+      "WithStatement",
+      // 额外支持 Vue 的 AST，详细见 https://github.com/mysticatea/vue-eslint-parser/blob/master/docs/ast.md
+      // 如，不允许在 mustache 中嵌入方法调用：
+      "VElement > VExpressionContainer CallExpression",
+    ],
+
+    // 当整个对象在一行时，大括号前后是否要加空格
+    // 此配置与 ESLint 的 object-curly-spacing 规则一致，但它会检查 `<template>` 中的代码
+    "vue/object-curly-spacing": [2,
+      "always",
+    ],
+
+    // 检查 `<script>` 中的组件是直接 export 出去的，而不是多绕一层
+    "vue/require-direct-export": 0,
 
     // 在 .vue 文件中的 `<script>` 标签内的缩进配置，可以参考 stylistic-issues 中的 indent 规则
     "vue/script-indent": [2,
@@ -570,6 +670,30 @@ module.exports = {
         // 要忽略的 AST node selector，同样可参考 stylistic-issues/indent 中的 ignoredNodes 规则
         "ignores": [],
       },
+    ],
+
+    // 在中缀（二元、三元）操作符前后是否要有空格，如 +, -, *, /, >, <, =, ?:
+    // 此配置与 ESLint 的 space-infix-ops 规则一致，但它会检查 `<template>` 中的代码
+    "vue/space-infix-ops": [2,
+      {
+        "int32Hint": true,
+      },
+    ],
+
+    // 一元操作符前后是否允许加空格
+    // 此配置与 ESLint 的 space-unary-ops 规则一致，但它会检查 `<template>` 中的代码
+    "vue/space-unary-ops": [2,
+      {
+        "words": true,
+        "nonwords": false,
+      },
+    ],
+
+    // 在 `v-on` 后跟的方法名后，是否要加 `()`（Vue 会自动做调用，当无参数传递时不需要加括号）
+    "vue/v-on-function-call": [2,
+      // always: 总要跟括号
+      // never: 除了需要参数，否则不允许放空的 `()`
+      "never",
     ],
   },
 }

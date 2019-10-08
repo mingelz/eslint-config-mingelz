@@ -114,12 +114,11 @@ module.exports = {
     ],
 
     // 对象和数组最后一个 value 后是否加逗号
-    // 当拆分成多行时，如果最后一项有逗号，当再添加一项时，前一行无需修改，不会产生 diff 变化
     "comma-dangle": [2,
       // 可以使用以下字符串，也可以针对每种情况分别定义
       // never: 最后一项不要加逗号
       // always: 最后一项一律要加逗号
-      // always-multiline: 当对象或数组的项被拆分到多行时最后加逗号
+      // always-multiline: 当对象或数组的项被拆分到多行时最后加逗号，此时当再添加一行时，前一行无需修改，不会产生 diff 变化
       // only-multiline: 与 always-multiline 不同的是，只在项被拆到多行进才允许在最后加逗号（但不加也可以）
       "always-multiline",
       // {
