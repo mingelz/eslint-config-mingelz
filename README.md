@@ -48,6 +48,9 @@ module.exports = {
 
 ### Basic configuration
 
+**NOTICE**:
+This configuration is dependent on [eslint](https://eslint.org)@^5.16
+
 ```js
 module.exports = {
   env: {
