@@ -1,6 +1,6 @@
 /**
  * @file Node 配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-node@8.0
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-node@11.0
  * @see [eslint-plugin-node]{@link https://github.com/mysticatea/eslint-plugin-node}
  */
 
@@ -13,10 +13,24 @@ module.exports = {
     "node": true,
   },
 
+  "settings": {
+    "node": {
+      // 在多个规则中，都涉及规则具体在哪些文件类型中做判决，这里定义对应的文件后缀
+      "tryExtensions": [".js", ".json", ".node"],
+    },
+  },
+
   "rules": {
     /**
      * Node: Possible Errors
      */
+
+    // 如果一个方法叫 `cb` 或 `callback`，则要求此方法遵循 Node.js 「error-first」规则，即第一个参数表示是否出错，只能是 `undefined`, `null`, `Error` 或继承自 `Error`
+    "node/no-callback-literal": 1,
+
+    // 不允许单独覆写 `exports`，因为 `exports = {}` 并不会把相关变量或方法导出，需要用 `module.exports = {}` 或 `exports.foo = bar`
+    // 为了不和 node/exports-style 中的 allowBatchAssign 规则冲突，此规则仍允许 `module.exports = exports = {}`
+    "node/no-exports-assign": 2,
 
     // 不允许通过 `import` 引用尚未在 package.json 中添加依赖的模块，在其他人重装时可能会因为缺少依赖而报错
     "node/no-extraneous-import": [2,
@@ -37,11 +51,11 @@ module.exports = {
     // 不允许通过 `import` 引用路径不存在的模块（相对路径引用或 node_modules 模块）
     "node/no-missing-import": [2,
       // {
-      //   // 跳过检查的模块名
+      //   // 跳过检查的模块名，比如有些模块与环境有关，如 Electron 中有 `electron` 模块
       //   "allowModules": [],
       //   // 查找模块的路径，如果是相对路径，会通过 `process.cwd()` 取绝对路径
       //   "resolvePaths": [],
-      //   // 尝试查找到文件后缀
+      //   // 尝试查找的文件后缀，此配置可以统一在 settings.node 中维护
       //   "tryExtensions": [".js", ".json", ".node"],
       // },
     ],
@@ -82,14 +96,13 @@ module.exports = {
     ],
 
     // 不允许通过 `import` 引用会被 `npm publish` 忽略的模块，在其他人重装时可能会因为缺少依赖而报错
-    // 忽略规则参考 node/no-unpublished-bin 规则
     "node/no-unpublished-import": [2,
       // {
-      //   // 跳过检查的模块名
+      //   // 跳过检查的模块名，比如有些模块与环境有关，如 Electron 中有 `electron` 模块
       //   "allowModules": [],
-      //   // convertPath 的解释参考 no-unpublished-bin 规则
+      //   // convertPath 的解释参考 node/no-unpublished-bin 规则
       //   "convertPath": {},
-      //   // 尝试查找的文件后缀
+      //   // 尝试查找的文件后缀，此配置可以统一在 settings.node 中维护
       //   "tryExtensions": [".js", ".json", ".node"],
       // },
     ],
@@ -114,6 +127,7 @@ module.exports = {
       //   "ignores": [],
       // },
     ],
+
     // 不允许在代码中使用未被依赖环境支持的 ES 语法，如 `async/await` 等
     // 请参考 node/no-unsupported-features/es-builtins 规则
     "node/no-unsupported-features/es-syntax": [2,
@@ -155,6 +169,8 @@ module.exports = {
     // 目前在 Node.js 中有很多的废弃项，就不一一列举了，可查阅此规则文档：https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-deprecated-api.md
     "node/no-deprecated-api": [2,
       // {
+      //   // 此规则优先取 package.json 中的 `engines` 字段，或者在这里配置覆盖此值，如果此版本 Node.js 尚不支持替代 API，将不会提示
+      //   // "version": ">=8.0.0",
       //   // 忽略检测的模块项，如 buffer.Buffer()
       //   "ignoreModuleItems": [],
       //   // 忽略检测的全局项，如 Buffer()
@@ -173,6 +189,19 @@ module.exports = {
       {
         // 是否允许批量指定，如 `module.exports = exports = { ... }`
         "allowBatchAssign": false,
+      },
+    ],
+
+    // 检查在引入文件时的文件后缀
+    "node/file-extension-in-import": [2,
+      // always: 在 import/export 时要明确文件后缀
+      // never: 在 import/export 时不允许写文件后缀
+      "always",
+      {
+        // 尝试查找的文件后缀，此配置可以统一在 settings.node 中维护
+        // "tryExtensions": [".js", ".json", ".node"],
+        // 针对特殊的文件类型重新指定方案
+        ".js": "never",
       },
     ],
 
@@ -218,5 +247,13 @@ module.exports = {
     "node/prefer-global/url": [0,
       "always",
     ],
+
+    // 在 Node.js 11.14 中， `require("dns").promises` 已可用，此规则强制要求使用 async/await 方式使用该 API，因为可读性显著高于 callback 方式
+    // 由于 v11 才支持，所以暂关闭此项检测
+    "node/prefer-promises/dns": 0,
+
+    // 在 Node.js 11.14 中， `require("fs").promises` 已可用，此规则强制要求使用 async/await 方式使用该 API，因为可读性显著高于 callback 方式
+    // 由于 v11 才支持，所以暂关闭此项检测
+    "node/prefer-promises/fs": 0,
   },
 }
