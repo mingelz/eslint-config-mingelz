@@ -1,6 +1,6 @@
 /**
  * @file Vue 相关配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-vue@5.2
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-vue@6.2
  * @see [eslint-plugin-vue]{@link https://github.com/vuejs/eslint-plugin-vue}
  * @see 另强烈建议参阅 [Vue 官方的风格指南文档]{@link https://cn.vuejs.org/v2/style-guide}
  */
@@ -351,6 +351,10 @@ module.exports = {
       // double: 双引号
       // single: 单引号
       "double",
+      {
+        // 当字符串中正好有引号时，可以使用另一个引号包裹，这样可以避免写转义字符
+        "avoidEscape": true,
+      },
     ],
 
     // 标签的自闭合
@@ -506,6 +510,8 @@ module.exports = {
           // 内容 (复写元素的内容)，如 `v-html`, `v-text`
           "CONTENT",
         ],
+        // 是否先根据字母排序后，再按照 order 定义的顺序二次排序
+        "alphabetical": false,
       },
     ],
 
@@ -592,6 +598,13 @@ module.exports = {
       "always-multiline",
     ],
 
+    // 自定义组件 `name` 标签拼写风格
+    "vue/component-definition-name-casing": [2,
+      // PascalCase: 大驼峰
+      // kebab-case: 连字符形式
+      "PascalCase",
+    ],
+
     // 自定义组件标签名使用的风格，如 `<my-component />` 还是 `<MyComponent />`
     "vue/component-name-in-template-casing": [2,
       // PascalCase: 大驼峰
@@ -603,6 +616,22 @@ module.exports = {
         // 要忽略的标签名
         "ignores": [],
       },
+    ],
+
+    // 自定义组件三大标签的排序
+    "vue/component-tags-order": [2,
+      // Vue 支持 `<docs>` 标签，用来记录当前组件的文档信息
+      {
+        "order": ["docs", "template", "script", "style"],
+      },
+    ],
+
+    // 有换行时 `.` 操作符的位置
+    // 此配置与 ESLint 的 dot-location 规则一致，但它会检查 `<template>` 中的代码
+    "vue/dot-location": [2,
+      // object: 跟在 object 后
+      // property: 在 property 前
+      "property",
     ],
 
     // 使用 `===`
@@ -623,6 +652,22 @@ module.exports = {
       },
     ],
 
+    // 关键字前后的空格检查，如 `return{foo: 1}` 是合法的
+    // 此配置与 ESLint 的 keyword-spacing 规则一致，但它会检查 `<template>` 中的代码
+    "vue/keyword-spacing": [2,
+      {
+        // 关键字前后的空格
+        "before": true,
+        "after": true,
+        // 以关键字为 key 的例外定义
+        // "overrides": {
+        //   "function": {
+        //     "before": false,
+        //   },
+        // },
+      },
+    ],
+
     // 检查组件在代码中定义的名称，是否与文件名一致
     "vue/match-component-file-name": [1,
       {
@@ -633,12 +678,81 @@ module.exports = {
       },
     ],
 
+    // 每行的最大长度，太长了建议多换些行
+    // 此配置与 ESLint 的 max-len 规则一致，但它会检查 `.vue` 文件中的代码
+    "vue/max-len": [2,
+      {
+        // 每行代码的长度阀值
+        "code": 80,
+        // `<template>` 标签中每行代码的长度阀值，默认和 code 相同。如果不同，则 code 仅应用于 `<script>`, `<style>` 标签
+        // "template": 80,
+        // 一个 tab 算几个字符，注意这里指的是 tab 字符，而不是缩进对应的空格数
+        "tabWidth": 2,
+        // 注释最长多少个字符，默认和 code 相同
+        // "comments": 80,
+        // 是否忽略注释
+        "ignoreComments": true,
+        // 是否忽略因为结尾注释才超过限定长度
+        "ignoreTrailingComments": false,
+        // 是否忽略 URL
+        "ignoreUrls": true,
+        // 是否忽略字符串
+        "ignoreStrings": true,
+        // 是否忽略模板字符串
+        "ignoreTemplateLiterals": true,
+        // 是否忽略正则表达式字面量
+        "ignoreRegExpLiterals": true,
+        // 其他要忽略的匹配，内容为正则字符串
+        // "ignorePattern": "",
+        // 是否忽略 HTML 属性值
+        "ignoreHTMLAttributeValues": true,
+        // 是否忽略 HTML 文本内容
+        "ignoreHTMLTextContents": true,
+      },
+    ],
+
     // 对于布尔型的属性，要求默认值必须为 false，因为默认不传时 undefined 为 falsy 值
     "vue/no-boolean-default": [2,
       // "no-default": 不允许添加 default
       // "default-false": 可以添加 default 字段，但必须为 false
       "no-default",
     ],
+
+    // 不允许使用已在 Vue@2.5.0+ 中被废弃的 `scope` 属性，应该用 `v-slot`
+    "vue/no-deprecated-scope-attribute": 2,
+
+    // 不允许使用已在 Vue@2.6.0+ 中被废弃的 `slot` 属性，应该用 `v-slot`
+    "vue/no-deprecated-slot-attribute": 2,
+
+    // 不允许使用已在 Vue@2.6.0+ 中被废弃的 `slot-scope` 属性，应该用 `v-slot`
+    "vue/no-deprecated-slot-scope-attribute": 2,
+
+    // 不允许空解构模式
+    // 出现这种情况多是因为打算写默认值，把 `=` 不小心写成了 `:`，如 `var {foo: {}} = bar` 为空解构，而 `var {foo = {}} = bar` 是设置默认值
+    // 此配置与 ESLint 的 no-empty-pattern 规则一致，但它会检查 `<template>` 中的代码
+    "vue/no-empty-pattern": 2,
+
+    // 不允许普通空格和制表符外的其他非常规空格，如零宽空格、换行符
+    // 此配置与 ESLint 的 no-irregular-whitespace 规则一致，但它会检查 `.vue` 文件中的代码
+    "vue/no-irregular-whitespace": [2,
+      {
+        // 是否忽略字符串中的字符检查
+        "skipStrings": false,
+        // 是否忽略注释中的字符检查
+        "skipComments": false,
+        // 是否忽略正则表达式中的字符检查
+        "skipRegExps": false,
+        // 是否忽略模板字符串的字符检查
+        "skipTemplates": false,
+        // 是否忽略 HTML 属性值的字符检查
+        "skipHTMLAttributeValues": false,
+        // 是否忽略 HTML 文本内容的字符检查
+        "skipHTMLTextContents": false,
+      },
+    ],
+
+    // 不允许自定义组件的 `name` 属性使用 HTML 标签名
+    "vue/no-reserved-component-names": 2,
 
     // 不允许某些特殊语法，可以使用字符串表示限制的表达式，也可以使用对象自定义限制出错信息
     // 此配置与 ESLint 的 no-restricted-syntax 规则一致，但它会检查 `<template>` 中的代码
@@ -649,14 +763,48 @@ module.exports = {
       "VElement > VExpressionContainer CallExpression",
     ],
 
+    // 在 `style` 属性中禁止使用纯静态样式（应该写在 `<style>` 标签中）
+    "vue/no-static-inline-styles": [2,
+      {
+        // 是否允许通过 `:style` 的方式写入纯静态的样式
+        "allowBinding": false,
+      },
+    ],
+
+    // 不允许使用仍不支持的特性（通过配置的 Vue 版本来判断）
+    "vue/no-unsupported-features": [2,
+      {
+        // 当前依赖的 Vue 版本，支持 Semver
+        "version": "^2.6.0",
+        // 忽略以下特性判断
+        // "ignores": [
+        //   // Vue@2.6.0+
+        //   "dynamic-directive-arguments",
+        //   "v-slot",
+        //   // Vue@2.5.0+
+        //   "slot-scope-attribute",
+        // ],
+      },
+    ],
+
     // 当整个对象在一行时，大括号前后是否要加空格
     // 此配置与 ESLint 的 object-curly-spacing 规则一致，但它会检查 `<template>` 中的代码
     "vue/object-curly-spacing": [2,
       "always",
     ],
 
+    // 检查在 `.vue` 文件中，每个根元素 (`<template>`, `<script>`, `<style>`) 之间是否有空行隔开
+    "vue/padding-line-between-blocks": [2,
+      // always: 总要有空行
+      // never: 不能有空行
+      "always",
+    ],
+
     // 检查 `<script>` 中的组件是直接 export 出去的，而不是多绕一层
     "vue/require-direct-export": 0,
+
+    // 对于自定义组件要求有 `name` 属性（可用于递归和方便调试，平时用处不大）
+    "vue/require-name-property": 0,
 
     // 在 .vue 文件中的 `<script>` 标签内的缩进配置，可以参考 stylistic-issues 中的 indent 规则
     "vue/script-indent": [2,
@@ -671,6 +819,27 @@ module.exports = {
         "ignores": [],
       },
     ],
+
+    // 对对象的 key 排序
+    // 此配置与 ESLint 的 sort-keys 规则一致，但它不会校验 `<script>` 中根元素的排序（因为有另一个规则 order-in-components 在校验）
+    "vue/sort-keys": [0,
+      // asc: 正序
+      // desc: 倒序
+      "asc",
+      {
+        // 大小写敏感
+        "caseSensitive": true,
+        // 忽略以下属性的子属性
+        "ignoreChildrenOf": ["model"],
+        // 忽略以下属性的孙子属性
+        "ignoreGrandchildrenOf": ["computed", "directives", "inject", "props", "watch"],
+        // 当一个对象有多少个 key 时才检查排序情况，默认 2 即所有排序都会检查（因为单个 key 是不需要排序的）
+        "minKeys": 2,
+        // 按照自然数排序，如 `1, 10, 2` 还是 `1, 2, 10`
+        "natural": true,
+      },
+    ],
+
 
     // 在中缀（二元、三元）操作符前后是否要有空格，如 +, -, *, /, >, <, =, ?:
     // 此配置与 ESLint 的 space-infix-ops 规则一致，但它会检查 `<template>` 中的代码
@@ -689,11 +858,40 @@ module.exports = {
       },
     ],
 
+    // 对于多个静态 className 是否要排序，如 `class="b a"` 应该重新排序为 `class="a b"`
+    "vue/static-class-names-order": 0,
+
     // 在 `v-on` 后跟的方法名后，是否要加 `()`（Vue 会自动做调用，当无参数传递时不需要加括号）
     "vue/v-on-function-call": [2,
       // always: 总要跟括号
       // never: 除了需要参数，否则不允许放空的 `()`
       "never",
     ],
+
+    // 确定 `v-slot` 的风格，是写完整的 `v-slot` 还是缩写 `#`
+    "vue/v-slot-style": [2,
+      // shorthand: 使用缩写
+      // longform: 使用 v-slot.foo 方式
+      // v-slot: 使用 v-slot 方式（因为只写 `v-slot` 比 `#default` 还要短）
+      {
+        // 在自定义标签的默认插槽上，使用哪种风格
+        "atComponent": "",
+        // 在 `<template>` 标签的默认插槽上，使用哪种风格
+        "default": "shorthand",
+        // 在 `<template>` 标签的具名插槽上，使用哪种风格
+        "named": "shorthand",
+      },
+    ],
+
+    // 校验 `v-bind` 上的 `.sync` 的正确性
+    // 1. `.sync` 对应的值不能是表达式
+    // 2. `.sync` 只能应用在自定义组件
+    // 3. `.sync` 对应的值不能是从迭代器中获取
+    "vue/valid-v-bind-sync": 2,
+
+    // 校验 `v-slot` 的合法性
+    // 规则很多，可以参考： https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/valid-v-slot.md#book-rule-details
+    // 或者参考官方文档： https://cn.vuejs.org/v2/guide/components-slots.html
+    "vue/valid-v-slot": 2,
   },
 }
