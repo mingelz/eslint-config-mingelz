@@ -30,10 +30,12 @@ module.exports = {
       // },
     ],
 
-    // 最多有多少个 `if else`，嵌套太多的话建议拆分
+    // 圈复杂度限制，即限制最多有多少个逻辑分支（如 if/else/?: 等等），复杂度太高的话建议对函数进行拆分
     "complexity": [2,
-      // 默认 20
-      20,
+      {
+        // 最大默认 20
+        "max": 20,
+      },
     ],
 
     // return 后一定要有值，不能直接写 `return;`
@@ -274,7 +276,12 @@ module.exports = {
     "no-proto": 2,
 
     // 不允许对变量重复定义
-    "no-redeclare": 2,
+    "no-redeclare": [2,
+      {
+        // 是否可以重复定义默认全局变量（根据执行的环境不同，全局变量有差异），如 `Object` 等等
+        "builtinGlobals": true,
+      },
+    ],
 
     // 不允许使用某些属性名或方法名
     "no-restricted-properties": [2,

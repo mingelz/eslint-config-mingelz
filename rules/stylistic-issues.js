@@ -235,6 +235,7 @@ module.exports = {
       // always: 总是换行
       // never: 总不换行
       // multiline: 当参数间出现换行时，括号与参数之间也换行
+      // multiline-arguments: 与 multiline 类似，同时允许只一个参数时，唯一参数独占一行
       // consistent: `(` 与 `)` 的行为一致，要么都加换行，要么都无换行，不管参数之间是否有换行
       // {minItems: 3}: 注意前几个是字符串，最后这个是对象，当参数达到多少项时，就要求换行
       "multiline",
@@ -546,8 +547,12 @@ module.exports = {
       },
     ],
 
-    // 使用 new 操作符时，构造函数要带括号
-    "new-parens": 2,
+    // 使用 new 操作符时，是否在构造函数后带括号，因为当不需要给构造函数传参时，`new Person` 和 `new Person()` 的作用是一样的
+    "new-parens": [2,
+      // always: 总是带括号
+      // never: 不带括号
+      "always",
+    ],
 
     // 链式调用每行一个调用
     "newline-per-chained-call": [2,
@@ -917,6 +922,8 @@ module.exports = {
       {
         // 大小写敏感
         "caseSensitive": true,
+        // 当一个对象有多少个 key 时才检查排序情况，默认 2 即所有排序都会检查（因为单个 key 是不需要排序的）
+        "minKeys": 2,
         // 按照自然数排序，如 `1, 10, 2` 还是 `1, 2, 10`
         "natural": true,
       },
