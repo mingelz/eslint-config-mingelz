@@ -1,6 +1,6 @@
 /**
  * @file React & JSX 相关配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.14
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.19
  * @see [eslint-plugin-react]{@link https://github.com/yannickcr/eslint-plugin-react}
  */
 
@@ -155,6 +155,15 @@ module.exports = {
       },
     ],
 
+    // 禁止调用外部组件的 propTypes 属性，除非外部组件明确 export 出了自己的 propTypes
+    // 因为使用 babel-plugin-transform-react-remove-prop-types 插件可以为生产环境代码删除 propTypes 相关定义，从而可能产生隐患
+    "react/forbid-foreign-prop-types": [2,
+      {
+        // 是否可以在 propTypes 组件定义时，引用外部组件的 propTypes
+        "allowInPropTypes": false,
+      },
+    ],
+
     // 禁止使用的 PropTypes
     "react/forbid-prop-types": [2,
       {
@@ -174,12 +183,17 @@ module.exports = {
       },
     ],
 
-    // 禁止调用外部组件的 propTypes 属性，除非外部组件明确 export 出了自己的 propTypes
-    // 因为使用 babel-plugin-transform-react-remove-prop-types 插件可以为生产环境代码删除 propTypes 相关定义，从而可能产生隐患
-    "react/forbid-foreign-prop-types": [2,
+    // 统一函数组件的定义方式
+    "react/function-component-definition": [2,
+      // 以下配置项，可以选的值包括
+      // function-declaration: 函数定义，如 `function Foo () {}`
+      // function-expression: 函数表达式，如 `const Foo = function () {}`
+      // arrow-function: 箭头函数，如 `const Foo = () => {}`
       {
-        // 是否可以在 propTypes 组件定义时，引用外部组件的 propTypes
-        "allowInPropTypes": false,
+        // 具名组件的定义形式
+        "namedComponents": "arrow-function",
+        // 不具名组件的定义形式
+        "unnamedComponents": "arrow-function",
       },
     ],
 
@@ -187,6 +201,9 @@ module.exports = {
     // 建议使用函数的方式：`this.setState(prevState => ({value: prevState.value + 1}))`
     // 如果希望在 State 更新后做某些事情，可以加第二个参数：`this.setState({value: 2}, () => { doSomething })`
     "react/no-access-state-in-setstate": 2,
+
+    // 创建元素时，行内元素之间需要添加空格
+    "react/no-adjacent-inline-elements": 0,
 
     // 不使用数组的 index 做 key
     // 原因是在 React 中 key 来表明对应的组件是否被改变了，如果 key 不变则 DOM 可被复用
@@ -364,6 +381,8 @@ module.exports = {
       {
         // 对于 isRequired 的属性，是否允许定义默认值（其实定义了也没用，不过默认值可以为开发提供参照）
         "forbidDefaultForRequired": false,
+        // 是否忽略检查函数组件
+        "ignoreFunctionalComponents": false,
       },
     ],
 
@@ -484,7 +503,12 @@ module.exports = {
     ],
 
     // 检测 style 属性应该是一个对象，主要是防止不小心写错
-    "react/style-prop-object": 2,
+    "react/style-prop-object": [2,
+      {
+        // 例外，以下定义的组件允许 style 传非对象参数
+        // "allow": ["MyComponent"],
+      },
+    ],
 
     // 避免给自闭合标签再加子元素，如 `<br>foo</br>`
     "react/void-dom-elements-no-children": 2,
@@ -590,7 +614,7 @@ module.exports = {
 
     // 规范 JSX 中所有事件句柄的名字
     "react/jsx-handler-names": [0,
-      // 以下两项规则合起来，最终成这样：`<Foo onChange={this.handleChange}`
+      // 以下两项规则合起来，最终成这样：`<Foo onChange={this.handleChange} />`
       // 可以通过 false 来关闭某一项检测
       {
         // 事件句柄名称前缀
@@ -598,6 +622,8 @@ module.exports = {
         "eventHandlerPrefix": "handle",
         // 事件属性名称前缀
         "eventHandlerPropPrefix": "on",
+        // 是否本地变量作为句柄的情况，如 `<Foo onChange={handleChange} />`
+        "checkLocalVariables": true,
       },
     ],
 
@@ -625,7 +651,7 @@ module.exports = {
     // 检查数组中的元素是否有 `key` 属性
     "react/jsx-key": [2,
       {
-        // 是否检查数组或迭代中的 `<></>` 元素
+        // 是否检查数组或迭代中的 `<></Foo>` 元素
         "checkFragmentShorthand": true,
       },
     ],
@@ -691,6 +717,18 @@ module.exports = {
       },
     ],
 
+    // 不允许链接跳转地址使用 `javascript:` 形式
+    "react/jsx-no-script-url": [2,
+      // 列表中是额外要检查的元素及对应的属性
+      [
+        // 对应 `<Link to="javascript:" />`
+        // {
+        //   "name": "Link",
+        //   "props": ["to"],
+        // },
+      ],
+    ],
+
     // 不允许跳转到绝对路径的 `<a>` 标签使用 `target="_blank"`，即 `href` 值跳相对路径不会检查
     // 如确实需要使用，请添加 `rel="noopener noreferrer"`，否则会有安全隐患，可参考 https://mathiasbynens.github.io/rel-noopener
     "react/jsx-no-target-blank": [2,
@@ -699,6 +737,8 @@ module.exports = {
         // always: 检查，不允许变量形式的链接添加 `target="_blank"`
         // never: 不检查变量属性
         "enforceDynamicLinks": "always",
+        // 是否可以不加 `noreferrer`
+        "allowReferrer": false,
       },
     ],
 
@@ -770,6 +810,8 @@ module.exports = {
         // enforce：限制不允许使用对象展开符，要啥传啥
         "html": "enforce",
         "custom": "enforce",
+        // 是否可以全量展开已明确的对象，如 `<img {...{ prop1, prop2, prop3 }} />`
+        "explicitSpread": "enforce",
         // 例外，写对应的标签名
         // "exceptions": [],
       },
