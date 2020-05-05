@@ -8,7 +8,7 @@ module.exports = {
     "es6": true,
   },
   "parserOptions": {
-    "ecmaVersion": 2018,
+    "ecmaVersion": 2020,
     "sourceType": "module",
   },
 
@@ -119,7 +119,12 @@ module.exports = {
     "no-this-before-super": 2,
 
     // 不允许不必要的动态对象值
-    "no-useless-computed-key": 2,
+    "no-useless-computed-key": [2,
+      {
+        // 是否校验 Class 的属性，默认只是查 Object
+        "enforceForClassMembers": true,
+      },
+    ],
 
     // 不允许不必要的 constructor，如果 constructor 什么都没干，就不需要写
     "no-useless-constructor": 2,

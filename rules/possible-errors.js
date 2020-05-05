@@ -51,6 +51,9 @@ module.exports = {
     // 不允许有重复的函数参数名，如 `function foo (a, b, a)`
     "no-dupe-args": 2,
 
+    // 不允许有重复的 else-if 判断条件，如 `if (foo) {} else if (bar) {} else if (bar)`
+    "no-dupe-else-if": 2,
+
     // 不允许有重复的对象 key，如 `const obj = { foo: 1, foo: 2 }`
     "no-dupe-keys": 2,
 
@@ -79,20 +82,24 @@ module.exports = {
     "no-extra-parens": [2,
       // functions: 仅检测函数表达式的多余括号
       // all: 全部都检查，此时可以用第二个参数调整细节配置
-      "functions",
+      "all",
       // 以下配置仅为 all 时有效
-      // {
-      //   // 条件表达式中：`if ((foo = bar))`
-      //   "conditionalAssign": false,
-      //   // return 后的表达式：`return (foo = bar)`
-      //   "returnAssign": false,
-      //   // 是否忽略 JSX，可选值为：none, all, multi-line, single-line
-      //   ignoreJSX: 'all',
-      //   // 多个二元表达式连写的情况：`foo = a || (b && c)`
-      //   "nestedBinaryExpressions": false,
-      //   // 箭头函数的条件表达式：`const foo = bar => (baz ? 1 : 2)`
-      //   enforceForArrowConditionals: false,
-      // },
+      {
+        // 条件表达式中：`if ((foo = bar))`
+        "conditionalAssign": false,
+        // return 后的表达式：`return (foo = bar)`
+        "returnAssign": false,
+        // 多个二元表达式连写的情况：`foo = a || (b && c)`
+        "nestedBinaryExpressions": false,
+        // 是否忽略 JSX，可选值为：none, all, multi-line, single-line
+        "ignoreJSX": "none",
+        // 箭头函数的条件表达式：`const foo = bar => (baz ? 1 : 2)`
+        "enforceForArrowConditionals": false,
+        // 使用逗号分隔的多句表达式： `if ((val = foo(), val < 10)) {}`
+        "enforceForSequenceExpressions": false,
+        // 构造函数与取属性在一起时： `(new Foo()).bar`
+        "enforceForNewInMemberExpressions": false,
+      },
     ],
 
     // 不允许多余的分号 `function foo {};`
@@ -100,6 +107,9 @@ module.exports = {
 
     // 不允许对函数名重新赋值
     "no-func-assign": 2,
+
+    // 不允许对引入的模块重新赋值
+    "no-import-assign": 2,
 
     // 不允许在无独立作用域的块语句内声明函数和变量
     "no-inner-declarations": [2,
@@ -128,6 +138,9 @@ module.exports = {
     // 不允许在正则中使用连续多个空格，而要用数量限定，如 `/foo {3}bar/`
     "no-regex-spaces": 2,
 
+    // 在 setter 方法最后不允许有 return
+    "no-setter-return": 2,
+
     // 不允许在数组中有多个连续逗号，如 `['foo',,'bar']`
     "no-sparse-arrays": 2,
 
@@ -144,8 +157,13 @@ module.exports = {
     // 不允许在 finally 中使用 return, throw, break, continue 等语句，因为会先于 try 执行
     "no-unsafe-finally": 2,
 
-    // 在 in/instanceof 操作符前使用否定语句时要使用括号，如 `if (!(foo in bar))`
-    "no-unsafe-negation": 2,
+    // 不允许有歧义的否定方式，比如在 in/instanceof 操作符前使用否定语句时要使用括号，`if (!(foo in bar))` ，否则仅会对 `!foo` 取否
+    "no-unsafe-negation": [2,
+      {
+        // 是否校验比较操作符 (`<`, `>`, `<=`, `>=`) 前的否定形式，因为比较操作符的优先级大于 `!` ，语法上是没问题的
+        "enforceForOrderingRelations": true,
+      },
+    ],
 
     // 在 await/yield 语句中，不允许即读又写同一变量
     // 如 `foo += await getValue(bar)`，此语句会先读取 `foo` 再异步等待 `getValue` 结果，可能等待过程中 `foo` 会被修改
@@ -153,7 +171,14 @@ module.exports = {
     "require-atomic-updates": 2,
 
     // 使用 `isNaN(foo)` 来判断 `NaN`，而不是 `foo == NaN`
-    "use-isnan": 2,
+    "use-isnan": [2,
+      {
+        // 检查 switch 语句中的情况，如 `switch (NaN)` 或 `case NaN`
+        "enforceForSwitchCase": true,
+        // 检查 indexOf/lastIndexOf 中的情况，如 `indexOf(NaN)`
+        "enforceForIndexOf": true,
+      },
+    ],
 
     // 检查 JSDoc 语法注释，及其正确性，此规则仅在有 JSDoc 注释时检查，如果没有相关注释不会报错
     // 此规则已经不再推荐，请改用 /rules/jsdoc.js 规则

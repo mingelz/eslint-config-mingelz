@@ -8,7 +8,16 @@ const { isProd } = require("../lib/helper")
 module.exports = {
   "rules": {
     // 需要同时提供 getter/setter 方法
-    "accessor-pairs": 0,
+    "accessor-pairs": [0,
+      {
+        // 可以有 setter 没 getter
+        "setWithoutGet": true,
+        // 可以有 getter 没 setter
+        "getWithoutSet": false,
+        // 是否校验 Class 的属性，默认只是查 Object
+        "enforceForClassMembers": true,
+      },
+    ],
 
     // 在数组的递归回调函数中需要有 return，避免写 map/reduce 等方法时最后忘记加 return
     "array-callback-return": [2,
@@ -69,6 +78,9 @@ module.exports = {
       },
     ],
 
+    // 当函数某参数有默认值时，建议将此参数放在形参列表的最后，因为不传此参数时，不用额外补 `undefined` 的实参
+    "default-param-last": 1,
+
     // 有换行时 `.` 操作符的位置
     "dot-location": [2,
       // object: 跟在 object 后
@@ -98,6 +110,14 @@ module.exports = {
       // },
     ],
 
+    // 对于相同属性的 getter/setter 是否要紧临着定义
+    "grouped-accessor-pairs": [2,
+      // anyOrder: 挨着就好，无所谓顺序
+      // getBeforeSet: 先 getter 再 setter
+      // setBeforeGet: 先 setter 再 getter
+      "anyOrder",
+    ],
+
     // 在 `for in` 中过滤原型链继承属性
     "guard-for-in": 2,
 
@@ -115,6 +135,9 @@ module.exports = {
 
     // 不允许在 case 中定义变量和函数，如定义需要用大括号 `case: { let foo = 1 }`
     "no-case-declarations": 2,
+
+    // 在类的构造器中不允许在最后 return，因为有也没啥用。（但允许通过 return 进行流程控制）
+    "no-constructor-return": 2,
 
     // 不允许看起来像除法的正则字面量： `/=foo/` 中的 `/=` 像是除法运算符，要写成 `/\=foo/`
     "no-div-regex": 0,
@@ -190,14 +213,24 @@ module.exports = {
       },
     ],
 
-    // 不允许有全局的 var 和 function 定义
-    "no-implicit-globals": 2,
+    // 不允许有全局的 `var` 和 `function` 定义
+    "no-implicit-globals": [2,
+      {
+        // 是否检查 `let`, `const`, `class` 在全局定义的情况
+        "lexicalBindings": true,
+      },
+    ],
 
     // 不允许有隐含 eval，如 `setTimeout("alert(1)", 100)`
     "no-implied-eval": 2,
 
-    // 不允许有不清楚上下文的 this
-    "no-invalid-this": 1,
+    // 不允许有不清楚上下文的 `this`
+    "no-invalid-this": [1,
+      {
+        // 如果一个方法名以大写字母开头，则假定它是一个构造函数，从而允许在其中写 `this`
+        "capIsConstructor": true,
+      },
+    ],
 
     // 不允许使用 `__iterator__` 属性
     "no-iterator": 2,
@@ -255,7 +288,7 @@ module.exports = {
       {
         // 参数的属性是否可被修改
         "props": true,
-        // 例外，以下修改不报错，这里参考自 airbnb-base
+        // 例外，修改以下属性名不报错，这里参考自 airbnb-base
         "ignorePropertyModificationsFor": [
           // 在 reduce 中，建议将迭代变量命名为 acc
           "acc",
@@ -269,6 +302,10 @@ module.exports = {
           "res",
           "response",
         ],
+        // 例外，修改符合以下正则的属性名不报错
+        // "ignorePropertyModificationsForRegex": [
+        //   "^foo"
+        // ],
       },
     ],
 
@@ -387,6 +424,9 @@ module.exports = {
         "allowEmptyReject": false,
       },
     ],
+
+    // 建议静态字符串正则使用字面量生成，只有动态正则使用正则的构造函数
+    "prefer-regex-literals": 2,
 
     // 必须传入 parseInt 的第2个参数，否则 parseInt 会根据参数的项判断进制，可能与预期不符
     "radix": 2,

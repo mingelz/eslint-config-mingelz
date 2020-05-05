@@ -82,6 +82,8 @@ module.exports = {
         "properties": "always",
         // 是否忽略变量解构中涉及的变量名，可为 true 或 false
         "ignoreDestructuring": true,
+        // 是否忽略通过 import 中导入的项
+        "ignoreImports": true,
         // 允许的例外情况，每项一个变量名
         "allow": [],
       },
@@ -121,6 +123,7 @@ module.exports = {
       // always-multiline: 当对象或数组的项被拆分到多行时最后加逗号，此时当再添加一行时，前一行无需修改，不会产生 diff 变化
       // only-multiline: 与 always-multiline 不同的是，只在项被拆到多行进才允许在最后加逗号（但不加也可以）
       "always-multiline",
+      // 针对每种情况分别定义
       // {
       //   // 针对数组和对象
       //   "arrays": "always-multiline",
@@ -129,7 +132,7 @@ module.exports = {
       //   "imports": "always-multiline",
       //   "exports": "always-multiline",
       //   // 针对函数的参数，注意仅 ES2017 之后的版本才支持，否则语法报错
-      //   "functions": "always-multiline",
+      //   "functions": "ignore",
       // },
     ],
 
@@ -172,9 +175,15 @@ module.exports = {
       // },
     ],
 
-    // 在 ES2015 中属性名可以使用变量，变量中括号内，是否要有空格
+    // 在 ES2015 中属性名可以使用变量，包裹变量的中括号内，是否要有空格
     "computed-property-spacing": [2,
+      // always: 需要留空格
+      // never: 不需要空格
       "never",
+      {
+        // 是否校验 Class 的属性，默认只是查 Object
+        "enforceForClassMembers": true,
+      },
     ],
 
     // 给 this 一个专门的名字，保持连贯性
@@ -223,11 +232,21 @@ module.exports = {
     // 函数风格，使用函数定义，还是变量定义
     // 建议统一使用 `const fn = () => {}`，保证函数总是先定义再使用
     "func-style": [2,
+      // expression: 变量定义
+      // declaration: 函数定义
       "expression",
       {
         // 是否允许箭头函数
         "allowArrowFunctions": true,
       },
+    ],
+
+    // 调用函数时，每个实参是否要独占一行
+    "function-call-argument-newline": [2,
+      // always: 总是要独占一行
+      // never: 不允许独占一行
+      // consistent: 各实参统一，要么每个实参都独占一行，要么所有实参在同一行
+      "consistent",
     ],
 
     // 函数参数括号与参数项之间是否要换行
@@ -671,6 +690,8 @@ module.exports = {
         "allowAfterThis": false,
         // `super.` 后是否允许调用带下划线头尾的方法/变量
         "allowAfterSuper": false,
+        // `this.constructor.` 后是否允许调用带下划线头尾的方法/变量
+        "allowAfterThisConstructor": false,
         // 方法名是否可用下划线为头尾命名，之前使用此方法来表示私有方法，现在建议使用 `private` 关键字
         "enforceInMethodNames": false,
       },
@@ -831,6 +852,9 @@ module.exports = {
       { "blankLine": "always", "prev": "directive", "next": "*" },
       { "blankLine": "never", "prev": "directive", "next": "directive" },
     ],
+
+    // 优先使用 `**` 而不是 `Math.pow()`，在 ES2016 中 `**` 是 `Math.pow()` 的可替代方案，使用 `**` 会更简捷、更易读一些
+    "prefer-exponentiation-operator": 1,
 
     // 在可能的情况下，建议使用对象的扩展操作符替代 Object.assign
     // 1. Object.assign 的第一个参数为对象字面量时，会给出提示

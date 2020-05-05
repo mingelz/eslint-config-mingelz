@@ -57,7 +57,7 @@ module.exports = {
   // "parser": 'espree',
   "parserOptions": {
     // 可以使用 ES 版本号或年份表示，如 3/5/6/7/8/9... 或 2015(6)/2016(7)/2017(8)/2018(9)...，此项受 `env.es6` 配置的影响
-    "ecmaVersion": 2018,
+    "ecmaVersion": 2020,
     // 源码模式，默认为 `script`，如果使用 ES Module，则设置为 `module`
     "sourceType": "module",
     // 针对一些特性支持情况
