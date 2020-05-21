@@ -3,6 +3,8 @@
  * @desc 此文件中的配置项，是变量定义有关的检测
  */
 
+const confusingBrowserGlobals = require("confusing-browser-globals")
+
 module.exports = {
   "rules": {
     // 定义变量的时候需要赋初始值
@@ -28,10 +30,12 @@ module.exports = {
       // 即可以是字符串格式，表示变量名
       "error",
       // 也可以是对象格式，用来自定义出错信息
-      {
-        "name": "event",
-        "message": "在 IE 下有全局的 event 事件，最佳实践建议仅调用局部的 event 变量",
-      },
+      // {
+      //   "name": "event",
+      //   "message": "在 IE 下有全局的 event 事件，最佳实践建议仅调用局部的 event 变量",
+      // },
+      // 由 react 官方提供的浏览器环境下有歧义的全局变量，这些变量都推荐明确挂在 `window` 下调用，如使用 `window.location.href` 而不是 `location.href`
+      ...confusingBrowserGlobals,
     ],
 
     // 不允许在子作用域中定义与外部作用域同名的变量
@@ -80,29 +84,30 @@ module.exports = {
         // local: 仅检测局部作用域下的变量
         "vars": "all",
         // 可被忽略的未使用变量匹配正则
-        "varsIgnorePattern": "^_",
+        // "varsIgnorePattern": "^_",
         // 函数参数检测
         // alter-used: 参数在未使用前也被认为是未使用变量
         // all: 所有参数必须要求都被使用
         // none: 不检测函数参数
         "args": "after-used",
         // 可被忽略的未使用参数匹配正则
-        "argsIgnorePattern": "^_",
-        // 参数解构时，同级变量是否忽略未定义判断，如 `var {foo, ...bar} = data`，此时 foo 只为解构 bar 的同级变量
+        // "argsIgnorePattern": "^_",
+        // 参数解构时，同级变量是否忽略未定义判断，如 `var { foo, ...bar } = data`，此时 foo 只为解构 bar 的同级变量
         "ignoreRestSiblings": true,
         // catch 参数
         // none: 不检测 catch 参数
         // all: catch 的参数要求一定被使用
+        // 因为 IE8 下要求 catch 必须有参数，所以这里设置为 none
         "caughtErrors": "none",
         // 可被忽略的未使用的 catch 参数匹配正则
-        "caughtErrorsIgnorePattern": "",
+        // "caughtErrorsIgnorePattern": "^_",
       },
     ],
 
     // 变量与函数需要先定义再使用
     "no-use-before-define": [2,
+      // 分别针对函数、类、变量定义是否检查
       {
-        // 分别针对函数、类、变量定义是否检查
         "functions": true,
         "classes": true,
         "variables": true,

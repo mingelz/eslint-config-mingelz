@@ -82,24 +82,24 @@ module.exports = {
     "no-extra-parens": [2,
       // functions: 仅检测函数表达式的多余括号
       // all: 全部都检查，此时可以用第二个参数调整细节配置
-      "all",
-      // 以下配置仅为 all 时有效
-      {
-        // 条件表达式中：`if ((foo = bar))`
-        "conditionalAssign": false,
-        // return 后的表达式：`return (foo = bar)`
-        "returnAssign": false,
-        // 多个二元表达式连写的情况：`foo = a || (b && c)`
-        "nestedBinaryExpressions": false,
-        // 是否忽略 JSX，可选值为：none, all, multi-line, single-line
-        "ignoreJSX": "none",
-        // 箭头函数的条件表达式：`const foo = bar => (baz ? 1 : 2)`
-        "enforceForArrowConditionals": false,
-        // 使用逗号分隔的多句表达式： `if ((val = foo(), val < 10)) {}`
-        "enforceForSequenceExpressions": false,
-        // 构造函数与取属性在一起时： `(new Foo()).bar`
-        "enforceForNewInMemberExpressions": false,
-      },
+      "functions",
+      // 是否校验以下场景，仅为 all 时有效
+      // {
+      //   // 条件表达式中：`if ((foo = bar))`，见 no-cond-assign
+      //   "conditionalAssign": false,
+      //   // return 后的表达式：`return (foo = bar)`，见 no-return-assign
+      //   "returnAssign": false,
+      //   // 多个二元表达式连写的情况：`foo = a || (b && c)`，见 no-mixed-operators
+      //   "nestedBinaryExpressions": false,
+      //   // 是否忽略 JSX，可选值为：none, all, multi-line, single-line
+      //   "ignoreJSX": "none",
+      //   // 箭头函数的条件表达式：`const foo = bar => (baz ? 1 : 2)`，见 no-confusing-arrow
+      //   "enforceForArrowConditionals": false,
+      //   // 使用逗号分隔的多句表达式： `if ((val = foo(), val < 10)) {}`，见 no-cond-assign
+      //   "enforceForSequenceExpressions": false,
+      //   // 构造函数与取属性在一起时： `(new Foo()).bar`
+      //   "enforceForNewInMemberExpressions": false,
+      // },
     ],
 
     // 不允许多余的分号 `function foo {};`
@@ -122,11 +122,22 @@ module.exports = {
     "no-invalid-regexp": 2,
 
     // 不允许普通空格和制表符外的其他非常规空格，如零宽空格、换行符
-    "no-irregular-whitespace": 2,
+    "no-irregular-whitespace": [2,
+      {
+        // 是否忽略字符串中的字符检查
+        "skipStrings": false,
+        // 是否忽略注释中的字符检查
+        "skipComments": false,
+        // 是否忽略正则表达式中的字符检查
+        "skipRegExps": false,
+        // 是否忽略模板字符串的字符检查
+        "skipTemplates": false,
+      },
+    ],
 
     // 不允许使用有误导性的字符串
     // 一些 Unicode 表情字符是使用两个字符拼接在一起生成的，但是在正则中这些字符会被分别匹配
-    "no-misleading-character-class": 0,
+    "no-misleading-character-class": 2,
 
     // 不允许直接调用 `Math(), JSON()`
     "no-obj-calls": 2,
@@ -145,7 +156,7 @@ module.exports = {
     "no-sparse-arrays": 2,
 
     // 不允许在字符串里使用模板字符串变量格式，如 `const str = 'foo${bar}'`
-    // 避免本应该使用模板字符串，结果使用了引号，导致模板字符串逻辑未生效
+    // 出现这种情况一般是想使用模板字符串，结果使用了引号，导致模板字符串逻辑未生效
     "no-template-curly-in-string": 2,
 
     // 不允许多行歧义，在不使用分号的情况下容易出现

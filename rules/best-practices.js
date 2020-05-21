@@ -23,6 +23,7 @@ module.exports = {
     "array-callback-return": [2,
       {
         // 是否允许隐式的 `return`，即 `return` 后没有值
+        // 多说一句，除了 forEach 其他方法都需要明确返回值，而 forEach 场景总有替代方案（参考 https://efe.baidu.com/blog/avoid-foreach/）
         "allowImplicit": false,
       },
     ],
@@ -40,7 +41,7 @@ module.exports = {
     ],
 
     // 圈复杂度限制，即限制最多有多少个逻辑分支（如 if/else/?: 等等），复杂度太高的话建议对函数进行拆分
-    "complexity": [2,
+    "complexity": [1,
       {
         // 最大默认 20
         "max": 20,
@@ -136,7 +137,7 @@ module.exports = {
     // 不允许在 case 中定义变量和函数，如定义需要用大括号 `case: { let foo = 1 }`
     "no-case-declarations": 2,
 
-    // 在类的构造器中不允许在最后 return，因为有也没啥用。（但允许通过 return 进行流程控制）
+    // 在类的构造器中不允许在最后 return，因为有也没啥用，反而有歧义。（但允许通过 return 进行流程控制）
     "no-constructor-return": 2,
 
     // 不允许看起来像除法的正则字面量： `/=foo/` 中的 `/=` 像是除法运算符，要写成 `/\=foo/`
@@ -158,6 +159,7 @@ module.exports = {
         "allow": [
           "arrowFunctions",
           "constructors",
+          "methods",
         ],
       },
     ],
@@ -166,7 +168,7 @@ module.exports = {
     // 出现这种情况多是因为打算写默认值，把 `=` 不小心写成了 `:`，如 `var {foo: {}} = bar` 为空解构，而 `var {foo = {}} = bar` 是设置默认值
     "no-empty-pattern": 2,
 
-    // 不允许使用 `==` 判断 null，而要用 `===`
+    // 不允许使用 `==` 判断 null，而要用 `===`，因为 `undefined == null` 返回 truthy 值，可能与预期不符
     "no-eq-null": 2,
 
     // 不允许使用 `eval()`
@@ -176,9 +178,7 @@ module.exports = {
     "no-extend-native": [2,
       {
         // 例外
-        "exceptions": [
-          "Object",
-        ],
+        "exceptions": [],
       },
     ],
 
@@ -191,7 +191,7 @@ module.exports = {
     // 每个 case 都要 break，可使用 `// falls through` 强制 fallthrough
     "no-fallthrough": 2,
 
-    // 小数点前后需要用 0 补齐，不允许留空
+    // 小数点前后需要用 0 补齐，不允许出现 `.2` 或 `2.` 的情况（语法上是OK的，只是不易读）
     "no-floating-decimal": 2,
 
     // 不允许重定义内建对象（包括 ES5/ES6/Browser/Node 等环境, https://github.com/sindresorhus/globals/）
@@ -202,7 +202,7 @@ module.exports = {
       },
     ],
 
-    // 不允许隐含的类型转换 `!!foo`, `foo * 1`, `foo += ''`，而使用 `Number(foo)`
+    // 不允许隐含的类型转换 `!!foo`, `foo * 1`, `foo += ''`，而使用 `Number(foo)`、`Boolean(foo)`
     "no-implicit-coercion": [0,
       {
         // 是否可以转为指定的类型
@@ -213,7 +213,7 @@ module.exports = {
       },
     ],
 
-    // 不允许有全局的 `var` 和 `function` 定义
+    // 不允许有全局的 `var` 和 `function` 定义（因为他们可被覆盖）
     "no-implicit-globals": [2,
       {
         // 是否检查 `let`, `const`, `class` 在全局定义的情况
@@ -236,7 +236,12 @@ module.exports = {
     "no-iterator": 2,
 
     // 不允许使用 label
-    "no-labels": 1,
+    "no-labels": [2,
+      {
+        "allowLoop": false,
+        "allowSwitch": false,
+      },
+    ],
 
     // 不允许无意义的 `{}` 对
     "no-lone-blocks": 2,
@@ -244,22 +249,35 @@ module.exports = {
     // 不允许在循环中定义函数
     "no-loop-func": 2,
 
-    // 不允许直接使用常量数字，要先定义再使用
-    "no-magic-numbers": 0,
+    // 不允许直接使用常量数字，要先定义再使用，因为「魔法数字」会读代码的人不知道这个数字代表什么意思
+    "no-magic-numbers": [0,
+      {
+        // 可以使用哪些数字，比如此配置项为 `[1]` 时， `index + 1` 这种就不会报错
+        "ignore": [],
+        // 是否忽略数组的索引值，如 `data[123]`
+        "ignoreArrayIndexes": true,
+        // 字面量数字定义时强制使用 const
+        "enforceConst": false,
+        // 是否校验对象中的字面量数字值
+        "detectObjects": false,
+      },
+    ],
 
     // 不允许在代码中有连续空格
     "no-multi-spaces": [2,
       {
+        // 是否忽略在一行中，前有代码后有注释时，代码与注释间有连续空格的情况，一般是用于注释的对齐
+        "ignoreEOLComments": false,
         // 例外
         "exceptions": {
           // 表达式中 `var foo = 1  +  2`
           "BinaryExpression": false,
-          // 对象属性后
+          // 对象属性后 `{ foo:  bar }`
           "Property": false,
           // 多行变量定义时的值对齐
-          "VariableDeclarator": false,
+          "VariableDeclarator": true,
           // es6 import 的对齐
-          "ImportDeclaration": false,
+          "ImportDeclaration": true,
         },
       },
     ],
@@ -286,7 +304,7 @@ module.exports = {
     // 不允许修改函数参数
     "no-param-reassign": [2,
       {
-        // 参数的属性是否可被修改
+        // 是否同时校验参数的属性
         "props": true,
         // 例外，修改以下属性名不报错，这里参考自 airbnb-base
         "ignorePropertyModificationsFor": [
@@ -315,19 +333,27 @@ module.exports = {
     // 不允许对变量重复定义
     "no-redeclare": [2,
       {
-        // 是否可以重复定义默认全局变量（根据执行的环境不同，全局变量有差异），如 `Object` 等等
+        // 是否检查覆写全局变量（根据执行的环境不同，全局变量有差异）的情况，如 `Object` 等等
         "builtinGlobals": true,
       },
     ],
 
     // 不允许使用某些属性名或方法名
     "no-restricted-properties": [2,
-      // 每种限制一个对象
+      // 以下每一项限制一个属性或方法
+      // 不允许使用 `arguments`，已经不被推荐了
       {
-        // 使用 `**` 替代 Math.pow
+        // 类/对象名
+        "object": "arguments",
+        // 属性/方法名
+        "property": "callee",
+        // 出错时给出的提示文本
+        "message": "arguments.callee is deprecated",
+      },
+      // 使用 `**` 替代 Math.pow
+      {
         "object": "Math",
         "property": "pow",
-        // 出错时给出的提示文本
         "message": "Use the exponentiation operator (**) instead.",
       },
     ],
@@ -336,7 +362,7 @@ module.exports = {
     "no-return-assign": [2,
       // always: 一律不允许
       // except-parens: 除非表达式用括号括起来
-      "except-parens",
+      "always",
     ],
 
     // 不允许无用的 `return await`
@@ -414,14 +440,14 @@ module.exports = {
     // 不允许使用 with
     "no-with": 2,
 
-    // 建议为正则捕获命名，方便后续直接使用 `result.groups[name]` 取结果，而不需要再用数组下标
-    "prefer-named-capture-group": 2,
+    // 建议为正则捕获命名，方便后续直接使用 `result.groups[name]` 取结果，而不需要再用数组下标。如果只是用于分隔，则加 `?:` 明确不捕获
+    "prefer-named-capture-group": 0,
 
     // 建议调用 Promise.reject 时，返回的是 Error 对象，如 `Promise.reject(new Error('Foo'))`
     "prefer-promise-reject-errors": [0,
       {
         // 是否允许空的 `Promise.reject()`
-        "allowEmptyReject": false,
+        "allowEmptyReject": true,
       },
     ],
 
@@ -458,14 +484,14 @@ module.exports = {
     // Yoda 是《星球大战》中的角色，他喜欢反着语序说话（倒装），可参考 https://www.guokr.com/article/441084/
     "yoda": [2,
       // always: 像 Yoda 那样，如 `if ('red' === color)`
-      //         Yoda 方案可以避免不小心将判断写成了赋值（只一个等号），因为 `if ('red' = color)` 会报错
+      //         Yoda 方案可以避免不小心将判断写成了赋值（只一个等号），因为 `if ('red' = color)` 会报错，不能把变量赋值给字面量
       // never: 按照自然语义，如 `if (color === 'red')`
       "never",
-      // 仅在前一个设置项为 never 时有意识，如果为 always 就不需要配置了
+      // 仅在前一个设置项为 never 时有意义，如果为 always 就不需要配置了
       {
-        // 大小于对比要符合区间性，如：`if (1 < foo && foo < 5)`
+        // 同时判断大于小于时，要符合区间性，如：`if (1 < foo && foo < 5)`
         "exceptRange": true,
-        // 等于对比变量在左
+        // 判断相等时，变量在左
         "onlyEquality": true,
       },
     ],

@@ -70,7 +70,7 @@ module.exports = {
       // allman: `{` 前都要换行
       "stroustrup",
       {
-        // 有些情况可能只在一行里写
+        // 是否允许全写在一行
         "allowSingleLine": true,
       },
     ],
@@ -80,12 +80,12 @@ module.exports = {
       {
         // 对象的属性名是否使用驼峰，可选 always 或 never。如为 never 则不检查
         "properties": "always",
-        // 是否忽略变量解构中涉及的变量名，可为 true 或 false
+        // 是否忽略变量解构中涉及的变量名
         "ignoreDestructuring": true,
         // 是否忽略通过 import 中导入的项
         "ignoreImports": true,
         // 允许的例外情况，每项一个变量名
-        "allow": [],
+        // "allow": [],
       },
     ],
 
@@ -97,7 +97,7 @@ module.exports = {
         // 针对单行注释
         "line": {
           // 要忽略的正则字符串
-          "ignorePattern": "",
+          "ignorePattern": ".*",
           // 是否忽略行内注释
           "ignoreInlineComments": true,
           // 是否忽略连续的单行注释
@@ -106,7 +106,7 @@ module.exports = {
         // 针对块注释
         "block": {
           // 要忽略的正则字符串
-          "ignorePattern": "",
+          "ignorePattern": ".*",
           // 是否忽略行内注释
           "ignoreInlineComments": true,
           // 是否忽略连续的单行注释
@@ -121,9 +121,9 @@ module.exports = {
       // never: 最后一项不要加逗号
       // always: 最后一项一律要加逗号
       // always-multiline: 当对象或数组的项被拆分到多行时最后加逗号，此时当再添加一行时，前一行无需修改，不会产生 diff 变化
-      // only-multiline: 与 always-multiline 不同的是，只在项被拆到多行进才允许在最后加逗号（但不加也可以）
+      // only-multiline: 与 always-multiline 不同的是，在项被拆到多行时，最后可加可不加，单行时不能加
       "always-multiline",
-      // 针对每种情况分别定义
+      // 针对每种情况分别定义，可以使用上边介绍的 4 个关键字，也可以使用 ignore 表示忽略此单项检测
       // {
       //   // 针对数组和对象
       //   "arrays": "always-multiline",
@@ -147,32 +147,34 @@ module.exports = {
     // 当涉及多项之间的换行时，逗号在前还是在后
     "comma-style": [2,
       "last",
+      {
 
-      // 另有第二个参数，用于添加各种例外，忽略某种语句中的逗号风格
-      // "exceptions": {
-      //   // 数组表达式
-      //   "ArrayExpression": true,
-      //   // 数组的解构
-      //   "ArrayPattern": true,
-      //   // 箭头函数的参数
-      //   "ArrowFunctionExpression": true,
-      //   // 函数 `call` 方法中的参数
-      //   "CallExpression": true,
-      //   // 普通函数定义中的参数
-      //   "FunctionDeclaration": true,
-      //   // 函数表达式中的参数
-      //   "FunctionExpression": true,
-      //   // import 中的定义
-      //   "ImportDeclaration": true,
-      //   // 对象表达式
-      //   "ObjectExpression": true,
-      //   // 对象的解构
-      //   "ObjectPattern": true,
-      //   // 变量定义
-      //   "VariableDeclaration": true,
-      //   // new 表达式
-      //   "NewExpression": true,
-      // },
+        // 例外，忽略某种语句中的逗号风格
+        "exceptions": {
+          // 数组表达式
+          "ArrayExpression": false,
+          // 数组的解构
+          "ArrayPattern": false,
+          // 箭头函数的参数
+          "ArrowFunctionExpression": false,
+          // 函数 `call` 方法中的参数
+          "CallExpression": false,
+          // 普通函数定义中的参数
+          "FunctionDeclaration": false,
+          // 函数表达式中的参数
+          "FunctionExpression": false,
+          // import 中的定义
+          "ImportDeclaration": false,
+          // 对象表达式
+          "ObjectExpression": false,
+          // 对象的解构
+          "ObjectPattern": false,
+          // 变量定义
+          "VariableDeclaration": false,
+          // new 表达式
+          "NewExpression": false,
+        },
+      },
     ],
 
     // 在 ES2015 中属性名可以使用变量，包裹变量的中括号内，是否要有空格
@@ -187,7 +189,7 @@ module.exports = {
     ],
 
     // 给 this 一个专门的名字，保持连贯性
-    "consistent-this": [2,
+    "consistent-this": [0,
       // 一般比较常用 that, me, _this ...
       "_this",
     ],
@@ -230,7 +232,7 @@ module.exports = {
     ],
 
     // 函数风格，使用函数定义，还是变量定义
-    // 建议统一使用 `const fn = () => {}`，保证函数总是先定义再使用
+    // 因为 `function` 函数天然带有变量提升作用，如果统一使用变量方式定义，可以与 no-use-before-define 配合保证函数总是先定义再使用
     "func-style": [2,
       // expression: 变量定义
       // declaration: 函数定义
@@ -257,13 +259,12 @@ module.exports = {
       // multiline-arguments: 与 multiline 类似，同时允许只一个参数时，唯一参数独占一行
       // consistent: `(` 与 `)` 的行为一致，要么都加换行，要么都无换行，不管参数之间是否有换行
       // {minItems: 3}: 注意前几个是字符串，最后这个是对象，当参数达到多少项时，就要求换行
-      "multiline",
+      "consistent",
     ],
 
     // 变量名、函数名、参数名、对象属性名不允许使用以下单词
     "id-blacklist": [0,
       // 不允许的单词在后边列出
-      "data",
       "error",
       "callback",
     ],
@@ -356,8 +357,10 @@ module.exports = {
       },
     ],
 
-    // jsx 语法倾向于使用哪一种引号
+    // jsx 语法中标签属性倾向于使用哪一种引号
     "jsx-quotes": [2,
+      // prefer-double: 双引号
+      // prefer-single: 单引号
       "prefer-double",
     ],
 
@@ -369,7 +372,7 @@ module.exports = {
         // 在冒号前后是否要空格
         "beforeColon": false,
         "afterColon": true,
-        // 另有根据冒号还是值进行对齐的项，包括 align, singleLine, multiLine 等的配置，如有需要可参考 https://eslint.org/docs/rules/key-spacing
+        // 另有根据冒号还是值进行对齐的项，包括 align, singleLine, multiLine 等的配置，可参考 https://eslint.org/docs/rules/key-spacing
         // "align": {},
         // "singleLine": {},
         // "multiLine": {},
@@ -398,10 +401,10 @@ module.exports = {
         // above: 在代码的上面
         // beside: 代码后边
         "position": "above",
-        // 忽略的正则匹配
-        "ignorePattern": "",
+        // 忽略的正则匹配，目前配置如果单行以 # 开头的单行注释，则校验通过
+        "ignorePattern": "^#",
         // 此检测默认忽略掉以下单词开始的注释：eslint, jshint, jslint, istanbul, global, exported, jscs, falls through，此选项用于关闭这个默认配置
-        "applyDefaultPatterns": true,
+        "applyDefaultIgnorePatterns": true,
       },
     ],
 
@@ -413,6 +416,7 @@ module.exports = {
 
     // 定义注释前后的细节
     "lines-around-comment": [2,
+      // 注意，以下项，true 表示要求对应位置有空行，false 表示不检查（而不是禁止有空行）
       {
         // 在块注释前是否空一行
         "beforeBlockComment": true,
@@ -449,7 +453,6 @@ module.exports = {
     "lines-between-class-members": [2,
       // 有 never 和 always 可选
       "always",
-      // 另有一个配置项
       {
         // 当某方法只有一行时，是否忽略检测
         "exceptAfterSingleLine": false,
@@ -465,12 +468,12 @@ module.exports = {
     "max-len": [1,
       // 之前 code/tabWidth 两项是单独拿出来的，从 4.13 开始统一放在了配置项里
       {
-        // 每行代码的长度阀值
-        "code": 80,
+        // 每行代码的长度阈值
+        "code": 100,
         // 一个 tab 算几个字符，注意这里指的是 tab 字符，而不是缩进对应的空格数
-        "tabWidth": 4,
+        "tabWidth": 2,
         // 注释最长多少个字符，默认和 code 相同
-        // "comments": 80,
+        // "comments": 100,
         // 是否忽略注释
         "ignoreComments": true,
         // 是否忽略因为结尾注释才超过限定长度
@@ -519,6 +522,7 @@ module.exports = {
     ],
 
     // 一个函数最多可以有多少个参数
+    // 参数太多说明函数逻辑复杂，或者拆分函数，或者把参数放在一个对象中
     "max-params": [1,
       9,
     ],
@@ -538,8 +542,8 @@ module.exports = {
     // 多行注释的样式
     "multiline-comment-style": [0,
       // 以下配置三选一
-      // starred-block: 不允许出现多个连续的单行注释（就像现在这些注释这样），且使用块注释时，每行要用星号对齐
-      // bare-block: 不允许出现多个连续的单行注释，且使用块注释时，每行开头不能有多余星号
+      // starred-block: 不允许出现多个连续的单行注释，而使用块注释，且每行使用星号对齐
+      // bare-block: 不允许出现多个连续的单行注释，而使用块注释，且每行开头不能有多余星号
       // separate-lines: 不允许使用块注释，而应该将每行拆分为多个单行注释（就像现在这些注释这样）
       "starred-block",
     ],
@@ -554,15 +558,22 @@ module.exports = {
 
     // 检查 new 操作符后的命名是否为大写字母开头
     "new-cap": [2,
+      // 默认以下内建对象会免除检查: Array, Boolean, Date, Error, Function, Number, Object, RegExp, String, Symbol
       {
         // 检查所有首字母开头的函数都仅用 new 调用
         "newIsCap": true,
+        // 对应的 newIsCap 例外的方法名
+        // "newIsCapExceptions": [],
+        // 对应的 newIsCap 例外的方法名匹配规则
+        // "newIsCapExceptionPattern": "",
         // 检查所有 new 后跟的函数都是首字母大写的
-        "capIsNew": false,
-        // 对应的 newIsCap 例外
-        "newIsCapExceptions": [],
-        // 对应的 capIsNew 例外，默认: Array, Boolean, Date, Error, Function, Number, Object, RegExp, String, Symbol
-        "capIsNewExceptions": [],
+        "capIsNew": true,
+        // 对应的 capIsNew 例外的方法名
+        // "capIsNewExceptions": [],
+        // 对应的 capIsNew 例外的方法名匹配规则
+        // "capIsNewExceptionPattern": "",
+        // 是否校验对象属性作为类的情况
+        "properties": true,
       },
     ],
 
@@ -599,16 +610,18 @@ module.exports = {
     // 不允许不同优先级的操作符混用，需要使用括号分隔
     "no-mixed-operators": [2,
       {
-        // 每一组的优先级相同
+        // 同组的操作符挨着用时，需要用括号分隔明确优先级
         "groups": [
-          ["+", "-", "*", "/", "%", "**"],
+          // 算数运算符最常见，可以很快判断优先级，所以不做强制要求
+          // ["+", "-", "*", "/", "%", "**"],
           ["&", "|", "^", "~", "<<", ">>", ">>>"],
           ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
           ["&&", "||"],
           ["in", "instanceof"],
         ],
-        // 相同优先级的操作符是否可混用
-        "allowSamePrecedence": true,
+        // Javascript 语法中操作符本身优先级（非前边配置的 groups 组）相同时，是否可混用
+        // 操作符优先级参考：https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+        "allowSamePrecedence": false,
       },
     ],
 
@@ -623,13 +636,15 @@ module.exports = {
       {
         // 最多可以连续两个空行
         "max": 2,
-        // 最多出现多少个 EOF 符号
+        // 在文件开始最多出现多少个空行 (Beginning of Files)
+        "maxBOF": 1,
+        // 在文件末尾最多出现多少个空行 (End of Files)
         "maxEOF": 1,
       },
     ],
 
     // 不允许在 if/else 里先用否定式
-    "no-negated-condition": 2,
+    "no-negated-condition": 1,
 
     // 不允许嵌套三元运算符，会降低代码可读性
     "no-nested-ternary": 2,
@@ -652,6 +667,10 @@ module.exports = {
       // 不允许使用 with
       "WithStatement",
       // 使用特定的语法表示限制
+      {
+        "selector": "ForInStatement",
+        "message": "for..in 会迭代对象的原型链, 建议使用 Object.{keys,values,entries} 获取要迭代的项，再进行迭代",
+      },
       {
         "selector": "CallExpression[callee.name=\"setTimeout\"][arguments.length!=2]",
         "message": "setTimeout 必须/只能有两个参数",
@@ -682,7 +701,7 @@ module.exports = {
 
     // 不允许变量头尾使用下划线，因为下划线表示私有，但 JS 并没有私有概念，可能会让代码读者产生歧义
     // 更多相关讨论（争论）：https://github.com/airbnb/javascript/issues/1024
-    "no-underscore-dangle": [0,
+    "no-underscore-dangle": [2,
       {
         // 例外列表
         "allow": [],
@@ -693,7 +712,7 @@ module.exports = {
         // `this.constructor.` 后是否允许调用带下划线头尾的方法/变量
         "allowAfterThisConstructor": false,
         // 方法名是否可用下划线为头尾命名，之前使用此方法来表示私有方法，现在建议使用 `private` 关键字
-        "enforceInMethodNames": false,
+        "enforceInMethodNames": true,
       },
     ],
 
@@ -709,7 +728,7 @@ module.exports = {
     "no-whitespace-before-property": 2,
 
     // if, else, while, do-while, for 后边的语句块如果只有一行时，可以不加大括号，如果不加大括号，如何处理关键字与语句的位置
-    "nonblock-statement-body-position": [0,
+    "nonblock-statement-body-position": [2,
       // beside: 在关键字后边
       // below: 在关键字下边另起一行
       // any: 任意位置
@@ -814,11 +833,14 @@ module.exports = {
       "always",
     ],
 
-    // 操作符前后有换行时，操作符应该在前一行首，还是下一行尾
+    // 操作符前后有换行时，操作符应该在前一行尾，还是下一行首
     "operator-linebreak": [2,
+      // after: 操作符在行尾
+      // before: 操作符在行首
+      // none: 操作符两边不允许换行
       "before",
       {
-        // 需要特殊处理的 case
+        // 需要特殊处理的 case，除了上边的三个关键字，也可以用 ignore 忽略对应检查
         "overrides": {
           // "?": "before",
           "+=": "none",
@@ -837,7 +859,7 @@ module.exports = {
       //   "classes": "never",
       //   "switches": "never",
       // },
-      // 第2个配置项，`{}` 中只有一条语句时，是否允许分多行成块
+      // 第2个配置项处理当 `{}` 中只有一条语句时，是否允许分多行成块
       // {
       //   "allowSingleLineBlocks": true,
       // },
@@ -854,7 +876,7 @@ module.exports = {
     ],
 
     // 优先使用 `**` 而不是 `Math.pow()`，在 ES2016 中 `**` 是 `Math.pow()` 的可替代方案，使用 `**` 会更简捷、更易读一些
-    "prefer-exponentiation-operator": 1,
+    "prefer-exponentiation-operator": 2,
 
     // 在可能的情况下，建议使用对象的扩展操作符替代 Object.assign
     // 1. Object.assign 的第一个参数为对象字面量时，会给出提示
@@ -871,9 +893,9 @@ module.exports = {
       {
         // 当 as-needed / consistent-as-needed 时，对于 JS 关键词是否需要引号
         "keywords": false,
-        // 当 as-needed 时有效，具体要求没太看懂
+        // 当 as-needed 时，如果有 keywords 带了引号了，那么非 keywords 是否也可以带引号
         "unnecessary": true,
-        // 数字是否要加引号
+        // 当 as-needed 时，数字是否要加引号
         "numbers": false,
       },
     ],
@@ -953,7 +975,7 @@ module.exports = {
       },
     ],
 
-    // 变量定义是否按 ASCII 排序
+    // 对变量定义排序
     "sort-vars": [0,
       {
         // 忽略大小写
@@ -983,11 +1005,11 @@ module.exports = {
       "always",
       // 如果使用对象，则对象的每一项可以使用 always, never 或 ignore 三项
       // {
-      //   // 针对匿名函数，如 `function () {}`
+      //   // 针对匿名函数，如 `function_() {}`
       //   "anonymous": "always",
-      //   // 针对具名函数，如 `function foo () {}`
+      //   // 针对具名函数，如 `function foo_() {}`
       //   "named": "never",
-      //   // 针对 async 箭头函数，如 `async () => {}`
+      //   // 针对 async 箭头函数，如 `async_() => {}`
       //   "asyncArrow": "always",
       // },
     ],
@@ -996,7 +1018,7 @@ module.exports = {
     "space-in-parens": [2,
       "never",
       {
-        // 可用于排除检查的 case
+        // 例外
         "exceptions": [],
       },
     ],
@@ -1012,13 +1034,12 @@ module.exports = {
     // 一元操作符前后是否允许加空格
     "space-unary-ops": [2,
       {
-        // 像 new, delete, typeof, void, yield 后需要加空格
+        // 单词操作符后是否要加空格，如 new, delete, typeof, void, yield
         "words": true,
-        // 非单词类的一元操作符不能加空格，如 -, +, --, ++, !, !!
+        // 非单词类的一元操作符是否要加空格，如 -, +, --, ++, !, !!
         "nonwords": false,
         // 例外项，以关键字定义
-        // "overrides": {
-        // }
+        "overrides": {},
       },
     ],
 
@@ -1031,13 +1052,13 @@ module.exports = {
         // 针对单行注释
         "line": {
           // markers 表示有此 mark 则排除检查，markers 只能出现在最开始
-          "markers": ["=", "!"],
+          "markers": ["=", "!", "/"],
           // 注释中有以下字符出现，则排除检查
           "exceptions": ["-", "+"],
         },
         // 针对块注释
         "block": {
-          "markers": ["=", "!"],
+          "markers": ["=", "!", ":", "::"],
           "exceptions": ["-", "+", "*"],
           // 块注释首尾行为一致，即 `/*` 后与 `*/` 前要一致
           "balanced": true,

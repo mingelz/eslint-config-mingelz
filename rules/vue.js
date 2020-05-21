@@ -23,8 +23,12 @@ module.exports = {
      * ESLint: 一些 ESLint 规则要针对 Vue 环境做些适配
      */
 
-    // 因为 Vue / Vuex 是双向数据绑定，经常会对数据或参数做更新，所以关闭此检测
-    "no-param-reassign": 0,
+    // 因为 Vue / Vuex 是双向数据绑定，经常会对数据或参数做更新，所以更新 ESLint相关规则
+    "no-param-reassign": [2,
+      {
+        "props": false,
+      },
+    ],
 
     /**
      * Vue: Base (Enabling Correct ESLint Parsing)
@@ -516,7 +520,7 @@ module.exports = {
     ],
 
     // 不允许使用 `v-html`，因为这可能会带来 XSS 漏洞
-    "vue/no-v-html": 1,
+    "vue/no-v-html": 2,
 
     // 在组件中针对每个 key （如 data, computed ...）排序
     "vue/order-in-components": [0,
@@ -680,20 +684,20 @@ module.exports = {
 
     // 每行的最大长度，太长了建议多换些行
     // 此配置与 ESLint 的 max-len 规则一致，但它会检查 `.vue` 文件中的代码
-    "vue/max-len": [2,
+    "vue/max-len": [1,
       {
         // 每行代码的长度阀值
-        "code": 80,
+        "code": 100,
         // `<template>` 标签中每行代码的长度阀值，默认和 code 相同。如果不同，则 code 仅应用于 `<script>`, `<style>` 标签
-        // "template": 80,
+        // "template": 100,
         // 一个 tab 算几个字符，注意这里指的是 tab 字符，而不是缩进对应的空格数
         "tabWidth": 2,
         // 注释最长多少个字符，默认和 code 相同
-        // "comments": 80,
+        // "comments": 120,
         // 是否忽略注释
         "ignoreComments": true,
         // 是否忽略因为结尾注释才超过限定长度
-        "ignoreTrailingComments": false,
+        "ignoreTrailingComments": true,
         // 是否忽略 URL
         "ignoreUrls": true,
         // 是否忽略字符串
@@ -711,11 +715,11 @@ module.exports = {
       },
     ],
 
-    // 对于布尔型的属性，要求默认值必须为 false，因为默认不传时 undefined 为 falsy 值
+    // 对于布尔型的属性，要求默认值必须为 false，因为默认不传时 undefined 为 falsy 值，且 Vue 会为布尔属性设置默认值为 false
     "vue/no-boolean-default": [2,
       // "no-default": 不允许添加 default
-      // "default-false": 可以添加 default 字段，但必须为 false
-      "no-default",
+      // "default-false": 可以不添加 default 字段，如果添加则必须为 false
+      "default-false",
     ],
 
     // 不允许使用已在 Vue@2.5.0+ 中被废弃的 `scope` 属性，应该用 `v-slot`
@@ -760,7 +764,7 @@ module.exports = {
       "WithStatement",
       // 额外支持 Vue 的 AST，详细见 https://github.com/mysticatea/vue-eslint-parser/blob/master/docs/ast.md
       // 如，不允许在 mustache 中嵌入方法调用：
-      "VElement > VExpressionContainer CallExpression",
+      // "VElement > VExpressionContainer CallExpression",
     ],
 
     // 在 `style` 属性中禁止使用纯静态样式（应该写在 `<style>` 标签中）
@@ -791,6 +795,10 @@ module.exports = {
     // 此配置与 ESLint 的 object-curly-spacing 规则一致，但它会检查 `<template>` 中的代码
     "vue/object-curly-spacing": [2,
       "always",
+      {
+        "objectsInObjects": true,
+        "arraysInObjects": true,
+      },
     ],
 
     // 检查在 `.vue` 文件中，每个根元素 (`<template>`, `<script>`, `<style>`) 之间是否有空行隔开
@@ -823,20 +831,15 @@ module.exports = {
     // 对对象的 key 排序
     // 此配置与 ESLint 的 sort-keys 规则一致，但它不会校验 `<script>` 中根元素的排序（因为有另一个规则 order-in-components 在校验）
     "vue/sort-keys": [0,
-      // asc: 正序
-      // desc: 倒序
       "asc",
       {
-        // 大小写敏感
         "caseSensitive": true,
+        "minKeys": 2,
+        "natural": true,
         // 忽略以下属性的子属性
         "ignoreChildrenOf": ["model"],
         // 忽略以下属性的孙子属性
         "ignoreGrandchildrenOf": ["computed", "directives", "inject", "props", "watch"],
-        // 当一个对象有多少个 key 时才检查排序情况，默认 2 即所有排序都会检查（因为单个 key 是不需要排序的）
-        "minKeys": 2,
-        // 按照自然数排序，如 `1, 10, 2` 还是 `1, 2, 10`
-        "natural": true,
       },
     ],
 
@@ -875,7 +878,7 @@ module.exports = {
       // v-slot: 使用 v-slot 方式（因为只写 `v-slot` 比 `#default` 还要短）
       {
         // 在自定义标签的默认插槽上，使用哪种风格
-        "atComponent": "",
+        "atComponent": "v-slot",
         // 在 `<template>` 标签的默认插槽上，使用哪种风格
         "default": "shorthand",
         // 在 `<template>` 标签的具名插槽上，使用哪种风格
