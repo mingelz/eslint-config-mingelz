@@ -401,8 +401,8 @@ module.exports = {
         // above: 在代码的上面
         // beside: 代码后边
         "position": "above",
-        // 忽略的正则匹配，目前配置如果单行以 # 开头的单行注释，则校验通过
-        "ignorePattern": "^#",
+        // 忽略的正则匹配，目前配置如果是以 # 开头的单行注释，则可以跟在代码后边
+        "ignorePattern": "^\\s*#",
         // 此检测默认忽略掉以下单词开始的注释：eslint, jshint, jslint, istanbul, global, exported, jscs, falls through，此选项用于关闭这个默认配置
         "applyDefaultIgnorePatterns": true,
       },
