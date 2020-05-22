@@ -190,25 +190,29 @@ module.exports = {
     "prefer-destructuring": [2,
       // 第一个参数用于分别定义 array 和 object 是否建议，第一个参数有两种定义方式，选其一
       // 1. 直接针对 array/object 进行定义
-      {
-        // 数组的解构，`var [foo, bar] = array`
-        "array": true,
-        // 对象的解构，`var {foo, bar} = object`
-        "object": true,
-      },
-      // 2. 针对更细分的情况进行定义
       // {
-      //   // 当定义变量时是否要解构，如 `var { foo } = bar; var [foo] = bar;`
-      //   "VariableDeclarator": {
-      //     "array": false,
-      //     "object": true,
-      //   },
-      //   // 当定义表达式时是否要解构，如 `{ foo } = bar; [foo] = bar;`
-      //   "AssignmentExpression": {
-      //     "array": true,
-      //     "object": false,
-      //   },
+      //   // 数组的解构，如 `var [foo, bar] = array; [foo, bar] = array;`
+      //   "array": true,
+      //   // 对象的解构，如 `var {foo, bar} = object; {foo, bar} = object;`
+      //   "object": true,
       // },
+      // 2. 针对更细分的情况进行定义
+      {
+        // 当定义变量时是否要解构
+        "VariableDeclarator": {
+          // `var [foo] = array` 或 `var foo = array[0]`
+          "array": true,
+          // `var {foo} = object` 或 `var foo = object.foo`
+          "object": true,
+        },
+        // 当定义表达式时是否要解构
+        "AssignmentExpression": {
+          // `[foo] = array` 或 `foo = array[0]`
+          "array": false,
+          // `{foo} = object` 或 `foo = object.foo`
+          "object": false,
+        },
+      },
 
       // 第二个参数目前只有一项配置
       {
