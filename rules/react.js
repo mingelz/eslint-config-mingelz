@@ -1,6 +1,6 @@
 /**
  * @file React & JSX 相关配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.19
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.20
  * @see [eslint-plugin-react]{@link https://github.com/yannickcr/eslint-plugin-react}
  */
 
@@ -119,23 +119,35 @@ module.exports = {
     "react/forbid-component-props": [2,
       {
         // 禁止使用的属性名
-        "forbid": ["className", "style"],
-        // 同时也可以传对象来指明白名单，如：
-        // "forbid": [
-        //   // 以下表示不允许使用 someProp，但是在 SomeComponent 中可以使用
-        //   {
-        //     "propName": "someProp",
-        //     "allowedFor": ["SomeComponent"],
-        //   },
-        // ],
+        "forbid": [
+          "className",
+          "style",
+          // 同时也可以传对象来设置更详细的信息
+          // {
+          //   // 禁止使用的属性名
+          //   "propName": "style",
+          //   // 可使用此属性的白名单组件
+          //   "allowedFor": ["SomeComponent"],
+          //   // 检测后要展示的信息
+          //   "message": "不允许在自定义组件中使用 style 属性",
+          // },
+        ],
       },
     ],
 
-    // 禁止在 DOM 中使用某些属名，与前一个规则类似，这个是用在普通的 DOM 元素而不是组件上的
+    // 禁止在 DOM 中使用某些属名，与 forbid-component-props 类似，这个是用在普通的 DOM 元素而不是组件上的
     "react/forbid-dom-props": [0,
       {
         // 禁止使用的属性名
-        "forbid": [],
+        "forbid": [
+          // 可以是字符串，表示对应的属性名
+          "id",
+          // 也可以是对象
+          // {
+          //   "propName": "id",
+          //   "message": "Avoid using id",
+          // },
+        ],
       },
     ],
 
@@ -695,7 +707,7 @@ module.exports = {
 
     // 检查 `//` 和 `/*` 不允许出现在 JSX 的文本中，否则会让人不知道这是个注释，还是希望输出的字符串
     // 如果需要使用它，一定要使用 JS 字符串形式
-    // 此规则可以和 react/jsx-no-literals, react/jsx-no-comment-textnodes 相互参考
+    // 此规则可以和 react/jsx-no-literals, react/jsx-curly-brace-presence 相互参考
     "react/jsx-no-comment-textnodes": 2,
 
     // 不允许有重复的 prop
@@ -707,13 +719,15 @@ module.exports = {
     ],
 
     // 不允许在 JSX 中使用字符字面量
-    // 此规则可以和 react/jsx-no-comment-textnodes, react/jsx-no-comment-textnodes 相互参考
+    // 此规则可以和 react/jsx-no-comment-textnodes, react/jsx-curly-brace-presence 相互参考
     "react/jsx-no-literals": [0,
       {
         // 不允许使用纯字符串作为子元素，无论是字面量，还是包裹在 JS 字符串中
         "noStrings": false,
-        // 例外
+        // 例外，哪些字符串字面量允许使用
         "allowedStrings": ["allowed"],
+        // 是否忽略属性中的值
+        "ignoreProps": false,
       },
     ],
 
@@ -765,7 +779,7 @@ module.exports = {
     ],
 
     // 校验某些可能并不需要的大括号的情况，如 `<div>{'Foo'}</div>`
-    // 此规则可以和 react/jsx-no-comment-textnodes, react/jsx-no-comment-textnodes 相互参考
+    // 此规则可以和 react/jsx-no-comment-textnodes, react/jsx-no-literals 相互参考
     "react/jsx-curly-brace-presence": [2,
       // always: 哪怕是简单字符串，也需要有大括号包裹
       // never: 如果是简单字符串，则不能有大括号包裹
