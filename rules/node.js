@@ -47,8 +47,8 @@ module.exports = {
     ],
 
     // 不允许通过 `require` 引用尚未在 package.json 中添加依赖的模块，在其他人重装时可能会因为缺少依赖而报错
-    // 请参考 node/no-extraneous-import 规则
     "node/no-extraneous-require": [2,
+      // 以下配置参考 node/no-extraneous-import 规则
       // {
       //   "allowModules": [],
       // },
@@ -67,8 +67,8 @@ module.exports = {
     ],
 
     // 不允许通过 `require` 引用路径不存在的模块（相对路径引用或 node_modules 模块）
-    // 请参考 node/no-missing-import 规则
     "node/no-missing-require": [2,
+      // 以下配置参考 node/no-missing-import 规则
       // {
       //   "allowModules": [],
       //   "resolvePaths": [],
@@ -124,8 +124,8 @@ module.exports = {
     ],
 
     // 不允许通过 `require` 引用会被 `npm publish` 忽略的模块，在其他人重装时可能会因为缺少依赖而报错
-    // 请参考 node/no-unpublished-import 规则
     "node/no-unpublished-require": [2,
+      // 以下配置参考 node/no-unpublished-import 规则
       // {
       //   "allowModules": [],
       //   "convertPath": {},
@@ -145,8 +145,8 @@ module.exports = {
     ],
 
     // 不允许在代码中使用未被依赖环境支持的 ES 语法，如 `async/await` 等
-    // 请参考 node/no-unsupported-features/es-builtins 规则
     "node/no-unsupported-features/es-syntax": [2,
+      // 以下配置参考 node/no-unsupported-features/es-builtins 规则
       // {
       //   "version": ">=6.0.0",
       //   // 具体接受的值可查阅此规则文档：https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-unsupported-features/es-syntax.md
@@ -155,8 +155,8 @@ module.exports = {
     ],
 
     // 不允许在代码中使用未被依赖环境支持的 Node.js 内置方法，如 `os.homedir` 等
-    // 请参考 node/no-unsupported-features/es-builtins 规则
     "node/no-unsupported-features/node-builtins": [2,
+      // 以下配置参考 node/no-unsupported-features/es-builtins 规则
       // {
       //   "version": ">=6.0.0",
       //   // 具体接受的值可查阅此规则文档：https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-unsupported-features/node-builtins.md
@@ -171,8 +171,8 @@ module.exports = {
     // 检查 shebang 的正确性（是否需要 shebang、以及 shebang 前的 Unicode BOM、换行符 等等）
     // 插件会检查 package.json 中的 `bin` 字段，每个对应文件都应该有正常的 shebang
     "node/shebang": [2,
+      // 以下配置参考 node/no-unpublished-bin 规则
       // {
-      //   // convertPath 的解释参考 node/no-unpublished-bin 规则
       //   "convertPath": {},
       // },
     ],
@@ -186,7 +186,7 @@ module.exports = {
     "node/no-deprecated-api": [2,
       // {
       //   // 此规则优先取 package.json 中的 `engines` 字段，或者在这里配置覆盖此值，如果此版本 Node.js 尚不支持替代 API，将不会提示
-      //   // "version": ">=8.0.0",
+      //   "version": ">=8.0.0",
       //   // 忽略检测的模块项，如 buffer.Buffer()
       //   "ignoreModuleItems": [],
       //   // 忽略检测的全局项，如 Buffer()
@@ -256,6 +256,7 @@ module.exports = {
 
     // 禁止通过 import 引入某些模块
     "node/no-restricted-import": [0,
+      // 被禁止的模块列表
       [
         // 可以是字符串，表示某个模块
         "fs",
@@ -270,16 +271,9 @@ module.exports = {
 
     // 禁止通过 require 引入某些模块
     "node/no-restricted-require": [0,
-      [
-        // 可以是字符串，表示某个模块
-        "fs",
-        // 也可以提供自定义的提示：
-        {
-          // name 支持字符串、glob匹配、绝对地址
-          "name": "foo",
-          "message": "Please use bar-module instead.",
-        },
-      ],
+      // 以下配置参考 node/no-restricted-import 规则
+      // [
+      // ],
     ],
 
     // 禁用同步的方法，因为 Node.js 以异步见长，高并发下同步方法会带来问题
@@ -298,38 +292,42 @@ module.exports = {
     ],
 
     // 在 Node.js 0.1.100 中，`console` 被放在了全局作用域中，所以 `console === require('console')`，编码时应该保证引用 `console` 的方案统一
-    // 请参考 node/prefer-global/buffer 规则
     "node/prefer-global/console": [2,
+      // 以下配置参考 node/prefer-global/buffer 规则
       "always",
     ],
 
     // 在 Node.js 0.1.7 中，`process` 被放在了全局作用域中，所以 `process === require('process')`，编码时应该保证引用 `process` 的方案统一
-    // 请参考 node/prefer-global/buffer 规则
     "node/prefer-global/process": [2,
+      // 以下配置参考 node/prefer-global/buffer 规则
       "always",
     ],
 
     // 在 Node.js 11.0.0 中，`TextDecoder` 被放在了全局作用域中，所以 `TextDecoder === require('util').TextDecoder`，编码时应该保证引用 `TextDecoder` 的方案统一
-    // 请参考 node/prefer-global/buffer 规则，由于 v11 才支持，所以暂关闭此项检测
+    // 由于 v11 才支持，所以暂关闭此项检测
     "node/prefer-global/text-decoder": [0,
+      // 以下配置参考 node/prefer-global/buffer 规则
       "always",
     ],
 
     // 在 Node.js 11.0.0 中，`TextEncoder` 被放在了全局作用域中，所以 `TextEncoder === require('util').TextEncoder`，编码时应该保证引用 `TextEncoder` 的方案统一
-    // 请参考 node/prefer-global/buffer 规则，由于 v11 才支持，所以暂关闭此项检测
+    // 由于 v11 才支持，所以暂关闭此项检测
     "node/prefer-global/text-encoder": [0,
+      // 以下配置参考 node/prefer-global/buffer 规则
       "always",
     ],
 
     // 在 Node.js 10 中，`URLSearchParams` 被放在了全局作用域中，所以 `URLSearchParams === require('url').URLSearchParams`，编码时应该保证引用 `URLSearchParams` 的方案统一
-    // 请参考 node/prefer-global/buffer 规则，由于 v10 才支持，所以暂关闭此项检测
+    // 由于 v10 才支持，所以暂关闭此项检测
     "node/prefer-global/url-search-params": [0,
+      // 以下配置参考 node/prefer-global/buffer 规则
       "always",
     ],
 
     // 在 Node.js 10 中，`URL` 被放在了全局作用域中，所以 `URL === require('url').URL`，编码时应该保证引用 `URL` 的方案统一
-    // 请参考 node/prefer-global/buffer 规则，由于 v10 才支持，所以暂关闭此项检测
+    // 由于 v10 才支持，所以暂关闭此项检测
     "node/prefer-global/url": [0,
+      // 以下配置参考 node/prefer-global/buffer 规则
       "always",
     ],
 
