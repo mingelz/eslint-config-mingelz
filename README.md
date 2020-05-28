@@ -109,8 +109,10 @@ module.exports = {
 
 ### Node.js configuration
 
+[The ESLint built-in Node.js/CommonJS-specific rules are deprecating](https://eslint.org/blog/2020/02/whats-coming-in-eslint-7.0.0#deprecating-node-js-commonjs-specific-rules), use *eslint-plugin-node* instead.
+
 **NOTICE**:
-This configuration is dependent on [eslint-plugin-node](https://github.com/mysticatea/eslint-plugin-node)@^11.0,
+This configuration is dependent on [eslint-plugin-node](https://github.com/mysticatea/eslint-plugin-node)@^11.1,
 and it is not added to `peerDependencies`,
 please install it manully first: `npm install -D eslint-plugin-node`
 

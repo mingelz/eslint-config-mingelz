@@ -1,6 +1,6 @@
 /**
  * @file Node 配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-node@11.0
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-node@11.1
  * @see [eslint-plugin-node]{@link https://github.com/mysticatea/eslint-plugin-node}
  */
 
@@ -24,6 +24,12 @@ module.exports = {
     /**
      * Node: Possible Errors
      */
+
+    // 参数标记有 err 时，回调中要有相应的错误处理逻辑
+    "node/handle-callback-err": [2,
+      // 参数需要符合以下正则匹配逻辑：err, error, Err, Error
+      "^(e|E)rr(or)?$",
+    ],
 
     // 如果一个方法叫 `cb` 或 `callback`，则要求此方法遵循 Node.js 「error-first」规则，即第一个参数表示是否出错，只能是 `undefined`, `null`, `Error` 或继承自 `Error`
     "node/no-callback-literal": 1,
@@ -69,6 +75,16 @@ module.exports = {
       //   "tryExtensions": [".js", ".json", ".node"],
       // },
     ],
+
+    // 不允许在调用 require 时使用 new 构建它，建议分两行写
+    "node/no-new-require": 2,
+
+    // 不允许使用 __dirname 和 __filename 做字符串拼接路径，因为不同平台分隔符不同（`/` 或 `\`），建议使用 path 模块
+    "node/no-path-concat": 2,
+
+    // 不允许使用 `process.exit()`，因为它太危险会退出 Node 环境，建议使用抛异常的方式处理错误逻辑，除非真的在项目的最后需要返回给 Shell 结果
+    // 但实际项目中，特别是 CLI 工具，在某些错误判断中确实需要退出 Node 环境，所以关闭此检测
+    "node/no-process-exit": 0,
 
     // 不允许 package.json 文件中 `bin` 字段指定的文件存在被 `npm publish` 忽略的情况
     // `npm publish` 忽略有两种情况：package.json 中有 `file` 字段但不包含此文件、`.npmignore` 中包含此文件
@@ -182,6 +198,18 @@ module.exports = {
      * Node: Stylistic Issues
      */
 
+    // Node.js 编程中，建议回调函数调用后都通过 return 返回
+    "node/callback-return": [0,
+      // 要求的回调函数名称在下边数组中列出
+      [
+        "callback",
+        "cb",
+        "next",
+        "success",
+        "failure",
+      ],
+    ],
+
     // 使用哪种导出方式，`module.exports` 或 `exports`
     "node/exports-style": [0,
       // 直接使用字符串形式指定 `module.exports` 或 `exports`
@@ -202,6 +230,63 @@ module.exports = {
         // "tryExtensions": [".js", ".json", ".node"],
         // 针对特殊的文件类型重新指定方案
         ".js": "never",
+      },
+    ],
+
+    // require 仅出现在模块最前边
+    "node/global-require": 2,
+
+    // 禁止 require 和其他变量声明混合使用，建议书写时尽量把 require 当 import 用
+    "node/no-mixed-requires": [2,
+      {
+        // require 是否要按不同引用类型分组：
+        // 1. 核心模块，如： `require('fs')`, `require('os')`
+        // 2. 三方模块，即安装在 node_modules 中的模块，如： `require('jquery')`
+        // 3. 本地文件，如 `require('./utils')`
+        // 4. 计算值，如 `require(getModuleName())`
+        "grouping": false,
+        // 是否允许在引用时直接调用，如 `var foo = require(bar)(baz)`
+        "allowCall": false,
+      },
+    ],
+
+    // 不使用 `process.env` 获取环境变量，因为 `process.env` 会随环境变化，建议通过配置文件来保证所依赖数据的稳定性
+    // 但实际项目中，使用 `process.env` 本身就是为了获取环境信息，所以关闭此检测
+    "node/no-process-env": 0,
+
+    // 禁止通过 import 引入某些模块
+    "node/no-restricted-import": [0,
+      [
+        // 可以是字符串，表示某个模块
+        "fs",
+        // 也可以提供自定义的提示：
+        {
+          // name 支持字符串、glob匹配、绝对地址
+          "name": "foo",
+          "message": "Please use bar-module instead.",
+        },
+      ],
+    ],
+
+    // 禁止通过 require 引入某些模块
+    "node/no-restricted-require": [0,
+      [
+        // 可以是字符串，表示某个模块
+        "fs",
+        // 也可以提供自定义的提示：
+        {
+          // name 支持字符串、glob匹配、绝对地址
+          "name": "foo",
+          "message": "Please use bar-module instead.",
+        },
+      ],
+    ],
+
+    // 禁用同步的方法，因为 Node.js 以异步见长，高并发下同步方法会带来问题
+    "node/no-sync": [0,
+      {
+        // 在最外层是否允许
+        "allowAtRootLevel": true,
       },
     ],
 

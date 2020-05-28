@@ -19,7 +19,7 @@ module.exports = {
     "./rules/best-practices",
     "./rules/strict-mode",
     "./rules/variables",
-    "./rules/node-commonjs",
+    // "./rules/node-commonjs",
     "./rules/stylistic-issues",
     "./rules/es6",
   ].map(require.resolve),

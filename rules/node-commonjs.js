@@ -1,6 +1,7 @@
 /**
  * @file Node/CommonJS
  * @desc 此文件中的配置项，均为 Node 及 CommonJS 相关的检查项
+ * ESLint 已经不再维护此文件中的规则，建议使用 eslint-plugin-node 插件，相关规则已在 ./node.js 中提供
  */
 
 module.exports = {
