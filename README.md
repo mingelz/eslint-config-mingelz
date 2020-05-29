@@ -150,7 +150,7 @@ module.exports = {
 [The ESLint built-in JSDoc rules was deprecated](https://eslint.org/blog/2018/11/jsdoc-end-of-life), use *eslint-plugin-jsdoc* instead.
 
 **NOTICE**:
-This configuration is dependent on [eslint-plugin-jsdoc](https://github.com/gajus/eslint-plugin-jsdoc)@15.9,
+This configuration is dependent on [eslint-plugin-jsdoc](https://github.com/gajus/eslint-plugin-jsdoc)@26.0,
 and it is not added to `peerDependencies`,
 please install it manully first: `npm install -D eslint-plugin-jsdoc`
 
