@@ -57,7 +57,7 @@ module.exports = {
     // 从 5.14 开始允许使用 `var undefined` 定义一个 undefined。看起来多余，其实可以用于代码压缩
     "no-shadow-restricted-names": 2,
 
-    // 不允许使用未定义变量
+    // 不允许使用未定义变量，如果变量属于某一个环境特有的，可以在 .eslintrc.* 文件中配置 `env` 字段
     "no-undef": [2,
       {
         // 是否针对 typeof 后跟的变量做检测
