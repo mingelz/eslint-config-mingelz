@@ -79,9 +79,9 @@ module.exports = {
     "camelcase": [2,
       {
         // 对象的属性名是否使用驼峰，可选 always 或 never。如为 never 则不检查
-        "properties": "always",
+        "properties": "never",
         // 是否忽略变量解构中涉及的变量名
-        "ignoreDestructuring": true,
+        "ignoreDestructuring": false,
         // 是否忽略通过 import 中导入的项
         "ignoreImports": true,
         // 允许的例外情况，每项一个变量名
@@ -117,23 +117,23 @@ module.exports = {
 
     // 对象和数组最后一个 value 后是否加逗号
     "comma-dangle": [2,
-      // 可以使用以下字符串，也可以针对每种情况分别定义
+      // 方法一：使用以下字符串配置所有场景
       // never: 最后一项不要加逗号
       // always: 最后一项一律要加逗号
       // always-multiline: 当对象或数组的项被拆分到多行时最后加逗号，此时当再添加一行时，前一行无需修改，不会产生 diff 变化
       // only-multiline: 与 always-multiline 不同的是，在项被拆到多行时，最后可加可不加，单行时不能加
-      "always-multiline",
-      // 针对每种情况分别定义，可以使用上边介绍的 4 个关键字，也可以使用 ignore 表示忽略此单项检测
-      // {
-      //   // 针对数组和对象
-      //   "arrays": "always-multiline",
-      //   "objects": "always-multiline",
-      //   // 针对 import, export 的项
-      //   "imports": "always-multiline",
-      //   "exports": "always-multiline",
-      //   // 针对函数的参数，注意仅 ES2017 之后的版本才支持，否则语法报错
-      //   "functions": "ignore",
-      // },
+      // "always-multiline",
+      // 方法二：针对每种情况分别定义，可以使用上边介绍的 4 个关键字，也可以使用 ignore 表示忽略此单项检测
+      {
+        // 针对数组和对象
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        // 针对 import, export 的项
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        // 针对函数的参数，注意仅 ES2017 之后的版本才支持，否则语法报错
+        "functions": "ignore",
+      },
     ],
 
     // 逗号前后是否要有空格
@@ -480,7 +480,7 @@ module.exports = {
         "ignoreTrailingComments": true,
         // 是否忽略 URL
         "ignoreUrls": true,
-        // 是否忽略字符串
+        // 是否忽略字符串。由于 `import { foo } from 'path' 中 `path` 是字符串，所以此规则会涉及所有的 `import`
         "ignoreStrings": true,
         // 是否忽略模板字符串
         "ignoreTemplateLiterals": true,
@@ -652,7 +652,7 @@ module.exports = {
     // 不允许使用构造函数声明对象，直接用字面量
     "no-new-object": 2,
 
-    // 不允许使用 ++/-- 操作符，用 +=/-= 代替
+    // 不允许使用 ++/-- 操作符，可能引发歧义，可以用 +=/-= 代替
     "no-plusplus": [2,
       {
         // 但允许在 for 循环的表达式中使用
@@ -699,8 +699,8 @@ module.exports = {
       },
     ],
 
-    // 不允许变量头尾使用下划线，因为下划线表示私有，但 JS 并没有私有概念，可能会让代码读者产生歧义
-    // 更多相关讨论（争论）：https://github.com/airbnb/javascript/issues/1024
+    // 不允许变量头尾使用下划线，因为下划线表示私有，但 JS 并没有私有概念，可能引起代码维护者的误解及错误使用
+    // 更多讨论: https://github.com/airbnb/javascript/issues/1024
     "no-underscore-dangle": [2,
       {
         // 例外列表
@@ -711,7 +711,7 @@ module.exports = {
         "allowAfterSuper": false,
         // `this.constructor.` 后是否允许调用带下划线头尾的方法/变量
         "allowAfterThisConstructor": false,
-        // 方法名是否可用下划线为头尾命名，之前使用此方法来表示私有方法，现在建议使用 `private` 关键字
+        // 是否同时检查方法名，之前使用下划线来表示私有方法，现在建议使用 `private` 关键字
         "enforceInMethodNames": true,
       },
     ],

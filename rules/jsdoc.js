@@ -19,11 +19,11 @@ module.exports = {
       "ignorePrivate": false,
 
       // 为了注释的一致性，对于有别名的注释给出倾向选项。如 `@param` 有两个别名： `@arg`, `@argument`
+      // 此插件已经做了一致性配置，目前来看直接遵守它的就可以了 https://github.com/gajus/eslint-plugin-jsdoc#default-preferred-aliases
       "tagNamePreference": {
         // key 为要被替换的别名，value 为倾向的值，如果 value 为 `false` 则表示不希望使用此标记
-        "arg": "param",
-        "argument": "param",
-        "returns": "return",
+        // "arg": "param",
+        // "todo": false,
       },
 
       // `@override` 对应的方法，是否直接应用上级实现的文档
@@ -55,7 +55,7 @@ module.exports = {
         // 用于界定 `@example` 代码范围的正则，如果正则有返回 Group，以第 1 个 Group 为准，其余的记得 `(?:)` 掉
         // "exampleCodeRegex" : "",
         // "rejectExampleCodeRegex": "",
-        // 在 `@example` 中的代码起始缩进的空格数
+        // 在 `@example` 中的代码起始缩进空格数，即与 `@example` 齐平后，额外缩进的量，这部分空格在检测时不会算做缩进
         "paddedIndent": 0,
         // 是否报告未使用的 ESLint 指示器，具体可参考 ESLint --report-unused-disable-directives 参数
         "reportUnusedDisableDirectives": true,
@@ -63,8 +63,8 @@ module.exports = {
         "allowInlineConfig": true,
         // 是否开启一些 ESLint 规则，具体规则可参考 https://github.com/gajus/eslint-plugin-jsdoc#rules-disabled-by-default-unless-nodefaultexamplerules-is-set-to-true
         "noDefaultExampleRules": false,
-        // 使用哪个检测文件，与 eslint -c 参数相同
-        "configFile": ".eslintrc.*",
+        // 使用哪个检测文件，与 eslint -c 参数相同，但目前不支持 glob 字符，所以写死了文件名
+        "configFile": ".eslintrc.js",
         // `@example` 中的内容匹配的文件名，可以被 ESLint 感知到，从而应用特定的文件类型检查
         // "matchingFileName": null,
         // 是否导入上边 configFile 指定的配置文件
@@ -74,7 +74,7 @@ module.exports = {
       },
     ],
 
-    // 检查注释中的内容缩进是否正确
+    // 检查注释中的内容缩进是否正确，因为 JSDoc 最终生成的文档，是忽略句子中前后空格的，此检测可以保证注释内容与最终结果一致
     "jsdoc/check-indentation": [2,
       {
         // 排除的标签
@@ -91,8 +91,8 @@ module.exports = {
         "checkRestProperty": true,
         // 校验参数类型要符合指定的值
         // "checkTypesPattern": "^(?:[oO]bject|[aA]rray|PlainObject|Generic(?:Object|Array))$",
-        // 是否自动移除重复定义的属性
-        "enableFixer": false,
+        // 是否自动补充缺失的参数名
+        "enableFixer": true,
       },
     ],
 
@@ -114,7 +114,7 @@ module.exports = {
     // 检查 `@param` 后的类型是否正确
     // 目前原生支持的类型包括： `undefined`, `null`, `boolean`, `number`, `bigint`, `string`, `symbol`, `object`, `Array`, `Function`, `Date`, `RegExp`
     // 其中 `boolean`, `number`, `bigint`, `string`, `symble` 为小写，是因为他们是简单类型，详情可参阅 https://github.com/gajus/eslint-plugin-jsdoc#why-not-capital-case-everything
-    // 其中 `object` 从 6.0.0 开始也要求是小写了，原因是 Typescript 推荐用小写
+    // 其中 `object` 从 6.0.0 开始也要求是小写了，原因是 Typescript 推荐用小写，更深层原因是 `Object.create(null) instanceof Object` 为 false，即 `object` 与 `Object` 并不完全相同
     // 另外此规则受 settings.jsdoc.preferredTypes 配置影响
     "jsdoc/check-types": [2,
       {
@@ -194,10 +194,10 @@ module.exports = {
     // 检查块注释格式是否符合 jsdoc 规范
     "jsdoc/no-bad-blocks": 2,
 
-    // 检查通过 `@param` 和 `@default` 指定的参数中，不允许写明默认值（因为在实现代码中已经写了，不需要维护两份）
-    "jsdoc/no-defaults": [2,
+    // 检查通过 `@param` 和 `@default` 指定的参数中，不允许写明默认值（因为在 ES6 的实现代码中可以写默认值，JSDoc 会读取，不需要维护两份）
+    "jsdoc/no-defaults": [0,
       {
-        // 不允许在 `@param` 中列出可选参数
+        // 不允许在 `@param` 中列出可选参数（不止是默认值，连参数都要省掉）
         "noOptionalParamNames": false,
         // 在哪些 AST 中应用此检测，也可以把数组换为 `any`，即检查所有
         // "contexts": [],
@@ -294,7 +294,7 @@ module.exports = {
     ],
 
     // 检查 `@param` 对应的名称与其后的描述之间是否有减号分隔，如 `@param {string} foo - the description`
-    "jsdoc/require-hyphen-before-param-description": [0,
+    "jsdoc/require-hyphen-before-param-description": [2,
       // always: 总是要有减号
       // never: 不要有减号
       "never",
@@ -322,12 +322,12 @@ module.exports = {
         },
         // 在哪些地方检查 jsdoc
         "require": {
-          "ArrowFunctionExpression": true,
+          "ArrowFunctionExpression": false,
           "ClassDeclaration": true,
-          "ClassExpression": true,
+          "ClassExpression": false,
           "FunctionDeclaration": true,
-          "FunctionExpression": true,
-          "MethodDefinition": true,
+          "FunctionExpression": false,
+          "MethodDefinition": false,
         },
         // 对于无入参或无返回值的函数/方法，是否忽略检测
         "exemptEmptyFunctions": false,
@@ -353,7 +353,7 @@ module.exports = {
         "autoIncrementBase": 0,
         // 在参数解构情况下，根参数如何命名
         "unnamedRootBase": ["root"],
-        // 是否自动处理属性注释
+        // 是否自动补充缺失的参数
         "enableFixer": true,
         // 是否自动处理根参数注释
         "enableRootFixer": true,
@@ -442,13 +442,14 @@ module.exports = {
       },
     ],
 
-    // 检查 `@param` 的类型是否合法，可以是 `@param {Array<string>}` 这种 Google Closure Compiler 支持的形式
+    // 检查标签内容合法性，包括类型、路径等，支持 JSDoc 和 Google Closure Compiler 语法
     "jsdoc/valid-types": [2,
       {
         // 是否允许空路径
         "allowEmptyNamepaths": true,
         // 检查 `@see` 中的路径
-        "checkSeesForNamepaths": true,
+        // 如果是链接，正确的格式是 `@see {@link http://example.com}` ，但 JSDoc 也支持 `@see http://example.com` 的形式
+        "checkSeesForNamepaths": false,
       },
     ],
   },

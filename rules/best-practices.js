@@ -267,7 +267,7 @@ module.exports = {
     "no-multi-spaces": [2,
       {
         // 是否忽略在一行中，前有代码后有注释时，代码与注释间有连续空格的情况，一般是用于注释的对齐
-        "ignoreEOLComments": false,
+        "ignoreEOLComments": true,
         // 例外
         "exceptions": {
           // 表达式中 `var foo = 1  +  2`
@@ -426,12 +426,12 @@ module.exports = {
     "no-void": 2,
 
     // 不允许注释中出现某些特殊标记关键字，如 TODO, FIXME 等（保证最终产出代码无未尽项）
-    // 可约定的关键字很多，最常见的是 TODO, FIXME, XXX，而 Atom 编辑器包含的更全: https://github.com/atom/language-todo
-    // 另外推荐参考: https://github.com/JohnPostlethwait/fixme ，其列出的关键字可覆盖常用场景，且有明确的用例说明
+    // 可约定的关键字很多，最常见的是 TODO, FIXME, XXX，其中 Atom 编辑器提供了一个更全的版本: https://github.com/atom/language-todo
+    // 另外推荐参考: https://github.com/JohnPostlethwait/fixme ，其列出的关键字涵盖了常见场景，且有明确的用例说明
     "no-warning-comments": [isProd ? 2 : 1,
       {
         // 不允许出现的关键字列表
-        "terms": ["todo", "fixme", "xxx", "bug", "mock"],
+        "terms": ["todo", "fixme", "xxx", "bug"],
         // 关键字出现的位置
         "location": "start",
       },

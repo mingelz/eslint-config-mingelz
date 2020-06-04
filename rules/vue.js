@@ -491,27 +491,27 @@ module.exports = {
       {
         // 定义具体的顺序
         "order": [
-          // 定义 (提供组件的选项)，如 `is`
+          // 定义 (提供组件的选项)，包括 `is`
           "DEFINITION",
-          // 列表渲染 (创建多个变化的相同元素)，如 `v-for`
+          // 列表渲染 (创建多个变化的相同元素)，包括 `v-for`
           "LIST_RENDERING",
-          // 条件渲染 (元素是否渲染/显示)，如 `v-if`, `v-else-if`, `v-else`, `v-show`, `v-cloak`
+          // 条件渲染 (元素是否渲染/显示)，包括 `v-if`, `v-else-if`, `v-else`, `v-show`, `v-cloak`
           "CONDITIONALS",
-          // 渲染方式 (改变元素的渲染方式)，如 `v-once`, `v-pre`
+          // 渲染方式 (改变元素的渲染方式)，包括 `v-once`, `v-pre`
           "RENDER_MODIFIERS",
-          // 全局感知 (跨组件的感知属性)，如 `id`
+          // 全局感知 (跨组件的感知属性)，包括 `id`
           "GLOBAL",
-          // 唯一特性 (需要唯一值的特性)，如 `ref`, `key`, `slot`, `slot-scope`
+          // 唯一特性 (需要唯一值的特性)，包括 `ref`, `key`, `v-slot`, `slot`
           "UNIQUE",
-          // 双向绑定 (把绑定和事件结合起来)，如 `v-model`
+          // 双向绑定 (把绑定和事件结合起来)，包括 `v-model`
           "TWO_WAY_BINDING",
-          // 其他用户的绑定，如 `v-custom-directive`
+          // 自定义绑定，如 `v-custom-directive`
           "OTHER_DIRECTIVES",
-          // 其它特性 (所有普通的绑定或未绑定的特性)
+          // 其它特性 (所有普通的绑定或未绑定的特性)，如 `custom-prop`, `v-bind:prop`, `:prop`
           "OTHER_ATTR",
-          // 事件 (组件事件监听器)，如 `v-on`
+          // 事件 (组件事件监听器)，包括 `v-on`, 及对应缩写 `@`
           "EVENTS",
-          // 内容 (复写元素的内容)，如 `v-html`, `v-text`
+          // 内容 (复写元素的内容)，包括 `v-html`, `v-text`
           "CONTENT",
         ],
         // 是否先根据字母排序后，再按照 order 定义的顺序二次排序
@@ -591,8 +591,8 @@ module.exports = {
     // 此配置与 ESLint 的 camelcase 规则一致，但它会检查 `<template>` 中的代码
     "vue/camelcase": [2,
       {
-        "properties": "always",
-        "ignoreDestructuring": true,
+        "properties": "never",
+        "ignoreDestructuring": false,
       },
     ],
 
