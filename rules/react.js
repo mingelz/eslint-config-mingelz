@@ -16,23 +16,22 @@ module.exports = {
   },
 
   "settings": {
-    // 需要传给 eslint-plugin-react 插件的一些参数
+    // 需要传给插件的参数
     "react": {
       // 指定的编译库，默认是 `React`，如果用的是 preact 的话，则设置为 `h`
       "pragma": "React",
       // 编译库的版本，可以使用版本号，或者使用 'detect' 字符串，由插件自己检测
       // "version": "detect",
+      // 可添加需要限定的属性名
+      // "propWrapperFunctions": [],
+      // 在 react/jsx-no-target-blank 规则中，除了限定 `<a>` ，还要限定哪些组件，主要用于自定义的链接/路由组件
+      // "linkComponents": [
+      //   // 字符串形式，对应的链接属性名也是 `href`
+      //   "Hyperlink",
+      //   // 对象形式，可以自定义链接属性名
+      //   { "name": "Link", "linkAttribute": "to" },
+      // ],
     },
-    // 可添加需要限定的属性名
-    // "propWrapperFunctions": [
-    // ],
-    // 在 react/jsx-no-target-blank 规则中，除了限定 `<a>` ，还要限定哪些组件，主要用于自定义的链接/路由组件
-    // "linkComponents": [
-    //   // 字符串形式，对应的链接属性名也是 `href`
-    //   "Hyperlink",
-    //   // 对象形式，可以自定义链接属性名
-    //   { "name": "Link", "linkAttribute": "to" },
-    // ],
   },
 
   "rules": {

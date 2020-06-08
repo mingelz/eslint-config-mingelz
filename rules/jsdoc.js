@@ -10,7 +10,7 @@ module.exports = {
   ],
 
   "settings": {
-    // 需要传给 eslint-plugin-jsdoc 插件的一些参数
+    // 需要传给插件的参数
     "jsdoc": {
       // 代码注释模式，可选 `jsdoc`, `typescript`, `closure`
       "mode": "jsdoc",
