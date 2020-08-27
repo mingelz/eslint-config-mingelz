@@ -455,7 +455,7 @@ module.exports = {
       "always",
       {
         // 当某方法只有一行时，是否忽略检测
-        "exceptAfterSingleLine": false,
+        "exceptAfterSingleLine": true,
       },
     ],
 
@@ -647,6 +647,7 @@ module.exports = {
     "no-negated-condition": 1,
 
     // 不允许嵌套三元运算符，会降低代码可读性
+    // 这个规则犹豫了好几次，最终还是决定保留它，参考： https://github.com/airbnb/javascript/issues/797
     "no-nested-ternary": 2,
 
     // 不允许使用构造函数声明对象，直接用字面量

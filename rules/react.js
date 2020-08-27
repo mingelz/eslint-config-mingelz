@@ -21,7 +21,7 @@ module.exports = {
       // 指定的编译库，默认是 `React`，如果用的是 preact 的话，则设置为 `h`
       "pragma": "React",
       // 编译库的版本，可以使用版本号，或者使用 'detect' 字符串，由插件自己检测
-      // "version": "detect",
+      "version": "detect",
       // 可添加需要限定的属性名
       // "propWrapperFunctions": [],
       // 在 react/jsx-no-target-blank 规则中，除了限定 `<a>` ，还要限定哪些组件，主要用于自定义的链接/路由组件
@@ -58,6 +58,10 @@ module.exports = {
         ],
       },
     ],
+
+    // 可以通过在 React.Component 上使用箭头函数来避免绑定方法时 this 被改变，
+    // 但这种方式会导致 no-invalid-this 的报错，所以在这里禁用掉了
+    "no-invalid-this": 0,
 
     /**
      * React: General
@@ -293,6 +297,7 @@ module.exports = {
     "react/no-this-in-sfc": 2,
 
     // 不允许给组件的 `ref` 属性指定字符串值，它应该是一个回调函数
+    // 参考： https://zh-hans.reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs
     "react/no-string-refs": [2,
       {
         // 是否禁止传入模板字符串
@@ -568,10 +573,11 @@ module.exports = {
 
     // 定义 JSX 中的大括号内部，与内容之间是否要加换行
     "react/jsx-curly-newline": [2,
+      // 第1种配置方式：使用字符串定义所有情况
       // consistent: 要么前后都有换行，要么前后都没换行
       // never: 不能有换行
-      "consistent",
-      // 或者分别针对单行或多行定义，可以使用：
+      // "consistent",
+      // 第2种配置方式：分别针对单行或多行定义，可以使用：
       // consistent: 要么前后都有换行，要么前后都没换行
       // forbid: 不能有换行
       // require: 要有换行
@@ -845,13 +851,13 @@ module.exports = {
         // 值为函数的属性放在最后，权重高于 shorthandLast
         "callbacksLast": true,
         // 只有属性名无属性值的属性放在最前，所有此类属性之间按照下边的配置来决定是否还要按照字母排序
-        "shorthandFirst": true,
+        "shorthandFirst": false,
         // 只有属性名无属性值的属性放在最后，权重低于 callbacksLast
         "shorthandLast": false,
         // 忽略大小写
         "ignoreCase": true,
-        // 是否按照字母排序
-        "noSortAlphabetically": false,
+        // 不需要按照字母排序
+        "noSortAlphabetically": true,
         // React 自带的属性是否要放在最前，如 `key`, `ref` 等
         "reservedFirst": true,
       },
