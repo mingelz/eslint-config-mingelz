@@ -1,6 +1,6 @@
 /**
  * @file React & JSX 相关配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.20
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.21
  * @see [eslint-plugin-react]{@link https://github.com/yannickcr/eslint-plugin-react}
  */
 
@@ -612,10 +612,15 @@ module.exports = {
       "never",
     ],
 
-    // 检查 JSX 文件的扩展名
+    // 检查 JSX 文件的扩展名，使用了 JSX 语法的文件应该使用 .jsx 后缀
     "react/jsx-filename-extension": [2,
       {
+        // 检查何时可以使用 .jsx 后缀
+        // always: 只要 JSX 语法文件使用了 .jsx 后缀即可
+        // as-needed: 在 always 的基础上，同时检查 .jsx 后缀的文件必须使用了 JSX 语法，否则应该使用 .js 后缀
+        "allow": "always",
         // 允许的扩展名列表
+        // TODO: 在下一个大版本，去掉 .js 后缀
         "extensions": [".js", ".jsx"],
       },
     ],
@@ -641,6 +646,8 @@ module.exports = {
         "eventHandlerPropPrefix": "on",
         // 是否本地变量作为句柄的情况，如 `<Foo onChange={handleChange} />`
         "checkLocalVariables": true,
+        // 是否检查写的行内方法，如 `<Foo onChange={() => this.handleChange()} />`
+        "checkInlineFunction": true,
       },
     ],
 
@@ -727,8 +734,10 @@ module.exports = {
     // 此规则可以和 react/jsx-no-comment-textnodes, react/jsx-curly-brace-presence 相互参考
     "react/jsx-no-literals": [0,
       {
-        // 不允许使用纯字符串作为子元素，无论是字面量，还是包裹在 JS 字符串中
+        // 不允许使用纯字符串作为子元素，无论是字面量，还是包裹在 JS 字符串中，如 `<div>{'foo'}</div>`
         "noStrings": false,
+        // 不允许在属性中使用字符字面量，如 `<div foo={'bar'}></div>`
+        "noAttributeStrings": false,
         // 例外，哪些字符串字面量允许使用
         "allowedStrings": ["allowed"],
         // 是否忽略属性中的值
