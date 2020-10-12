@@ -1,6 +1,6 @@
 /**
  * @file JSDoc 相关的配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-jsdoc@26.0
+ * @desc 此配置依赖 ESLint 插件: eslint-plugin-jsdoc@27.1
  * @see [eslint-plugin-jsdoc]{@link https://github.com/gajus/eslint-plugin-jsdoc}
  */
 
@@ -299,8 +299,11 @@ module.exports = {
       // never: 不要有减号
       "never",
       {
-        // 此规则是否同时检查 `@property`
-        "checkProperties": true,
+        // 此规则还检查哪些标签
+        "tags": {
+          // 针对 `@property` 检查的配置
+          "property": "never",
+        },
       },
     ],
 
@@ -437,6 +440,16 @@ module.exports = {
     // 检查 `@return` 对应的类型是否存在
     "jsdoc/require-returns-type": [2,
       {
+        // 在哪些 AST 中应用此检测，也可以把数组换为 `any`，即检查所有
+        // "contexts": [],
+      },
+    ],
+
+    // 检查代码中有 `throw` 的函数，是否有 `@throws` 标签说明
+    "jsdoc/require-throws": [2,
+      {
+        // 当有哪些标签（tags）存在时可以跳过检查
+        // "exemptedBy": ["inheritdoc"]
         // 在哪些 AST 中应用此检测，也可以把数组换为 `any`，即检查所有
         // "contexts": [],
       },
