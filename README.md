@@ -16,7 +16,7 @@ A shared [ESLint](https://eslint.org) configuration with Chinese comments by min
   * [Vue configuration](#vue-configuration)
   * [React configuration](#react-configuration)
   * [Node.js configuration](#nodejs-configuration)
-  * [*[WIP]* ES Module configuration](#wip-es-module-configuration)
+  * [ES Module configuration](#es-module-configuration)
   * [JSDoc configuration](#jsdoc-configuration)
   * [*[WIP]* JSX accessibility configuration](#wip-jsx-accessibility-configuration)
 
@@ -127,10 +127,10 @@ module.exports = {
 }
 ```
 
-### *[WIP]* ES Module configuration
+### ES Module configuration
 
 **NOTICE**:
-This configuration is dependent on [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import),
+This configuration is dependent on [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import)@^2.22,
 and it is not added to `peerDependencies`,
 please install it manully first: `npm install -D eslint-plugin-import`
 
@@ -139,7 +139,7 @@ module.exports = {
   // ...
   extends: [
     'mingelz',
-    'mingelz/rules/esmodule',
+    'mingelz/rules/es-module',
   ],
   // ...
 }
