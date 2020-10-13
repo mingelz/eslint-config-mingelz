@@ -98,11 +98,6 @@ module.exports = {
     'mingelz',
     'mingelz/rules/react',
   ],
-  settings: {
-    react: {
-      version: '16.2.0',
-    },
-  },
   // ...
 }
 ```
@@ -134,6 +129,8 @@ This configuration is dependent on [eslint-plugin-import](https://github.com/ben
 and it is not added to `peerDependencies`,
 please install it manully first: `npm install -D eslint-plugin-import`
 
+If you are using Webpack [resolve.alias](https://webpack.js.org/configuration/resolve/#resolvealias), it is recommended to install [eslint-import-resolver-webpack](https://www.npmjs.com/package/eslint-import-resolver-webpack) and configure it according to the webpack configuration file.
+
 ```js
 module.exports = {
   // ...
@@ -141,6 +138,14 @@ module.exports = {
     'mingelz',
     'mingelz/rules/es-module',
   ],
+  // webpack config example
+  settings: {
+    'import/resolver': {
+      webpack: {
+        config: './webpack.config.js',
+      },
+    },
+  },
   // ...
 }
 ```

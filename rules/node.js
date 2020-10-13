@@ -13,8 +13,8 @@ module.exports = {
     "node": true,
   },
 
+  // 插件通用配置
   "settings": {
-    // 需要传给插件的参数
     "node": {
       // 在多个规则中，都涉及规则具体在哪些文件类型中做判决，这里定义对应的文件后缀
       "tryExtensions": [".js", ".json", ".node"],

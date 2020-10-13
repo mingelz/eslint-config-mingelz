@@ -9,82 +9,87 @@ module.exports = {
     "import",
   ],
 
-  // 此插件都是基于 ES6 Module 的，所以额外确认以下配置项
   "env": {
     "es6": true,
   },
 
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 2020,
     "sourceType": "module",
   },
 
+  // 插件通用配置
   "settings": {
-    // 需要传给插件的参数
-    "import": {
-      // 可以引用哪些后缀的文件，当配置了 resolver 时，会优先取 resolver 的配置
-      "extensions": [
-        ".js",
-        ".jsx",
-        ".mjs",
-        ".vue",
-      ],
-      // 忽略哪些类型的文件引用，每项是一个正则字符串
-      "ignore": [
-        "node_modules",
-        "\\.(scss|less|css)$",
-      ],
-      // 定义核心模块，比如 Node.js 中的 `fs` 模块是不需要写路径就可以引用到的，当然 Node.js 内部模块无需在这里定义
-      // 再比如 `electron` ，在 Node.js 之外，可以直接引来用的，就需要写明了
-      "core-modules": [],
-      // 额外的包引入地址，默认是 node_modules，可以额外添加如 bower_components 或 jspm_modules 等
-      "external-module-folders": [
-        "node_modules",
-      ],
-      // 指定由某个 parser 来处理特定的文件格式
-      "parsers": {
-        // 如使用 @typescript-eslint/parser 来处理 .ts/.tsx 文件
-        // "@typescript-eslint/parser": [".ts", ".tsx"],
-      },
-      // 对于特殊路径的解析支持。比如 Webpack 支持如 `import foo from '@/foo'` 形式的引入，它不是 Node.js 的一部分，需要指定特别的解析工具
-      // @see [externals](http://webpack.github.io/docs/library-and-externals.html)
-      "resolver": {
-        // key 为对应的解析工具（NPM包），value 为此工具的配置项。key 有三种形式
-        // 1. 一个字符串，比如 `foo`，会优先匹配 `eslint-import-resolver-foo` 包，如果没有则把 `foo` 当作完整包名查找
-        // "foo": {},
-        // 2. 路径地址，以 package.json 文件或当前执行路径（没有 package.json 时）为基础
-        // [path.resolve("../my-resolver")]: {},
+    // 可以引用哪些后缀的文件，当配置了 resolver 时，会优先取 resolver 的配置
+    "import/extensions": [
+      ".js",
+      ".jsx",
+      ".mjs",
+      ".vue",
+    ],
 
-        // eslint-import-resolver-node 是与 Node.js 一致的路径解析
-        "node": {
-          "extensions": [
-            ".js",
-            ".jsx",
-            ".mjs",
-            ".vue",
-          ],
-        },
+    // 忽略哪些类型的文件引用，每项是一个正则字符串
+    "import/ignore": [
+      "node_modules",
+      "\\.(scss|less|css)$",
+    ],
 
-        // eslint-import-resolver-webpack 是支持 Webpack 配置文件的路径解析
-        "webpack": {
-          // 指定 Webpack 配置文件
-          "config": "webpack.config.js",
-          // 配置文件依赖的 env
-          "env": {
-            "NODE_ENV": "production",
-          },
-        },
-      },
-      // 设置缓存，主要是给 eslint_d 和 eslint-loader 用的
-      // "cache": {
-      //   // 默认值 30，一般设置为 Infinity 也是 OK 的
-      //   "lifetime": 30,
-      // },
-      // 设置内部路径正则，比如使用 lerna 维护多个模块时，模块间是内部引用，此时可以用此项配置
-      // "internal-regex": "",
-      // 允许的文档注释格式
-      "docstyle": ["jsdoc", "tomdoc"],
+    // 定义核心模块，比如 Node.js 中的 `fs` 模块是不需要写路径就可以引用到的，当然 Node.js 内部模块无需在这里定义
+    // 再比如在 Electron 环境中 `const { app } = require('electron')`，并不需要明确依赖 electron，此时就需要将之放在这里
+    "import/core-modules": [],
+
+    // 三方包所在的路径，默认是 node_modules，可以额外添加如 bower_components 或 jspm_modules 等
+    "import/external-module-folders": [
+      "node_modules",
+    ],
+
+    // 指定由某个 parser 来处理特定的文件格式
+    "import/parsers": {
+      // 如使用 @typescript-eslint/parser 来处理 .ts/.tsx 文件
+      // "@typescript-eslint/parser": [".ts", ".tsx"],
     },
+
+    // 对于特殊路径的解析支持。比如 Webpack 支持如 `import foo from '@/foo'` 形式的引入，它不是 Node.js 的一部分，需要指定特别的解析工具
+    // @see [externals](http://webpack.github.io/docs/library-and-externals.html)
+    "import/resolver": {
+      // key 为对应的解析工具（NPM包），value 为此工具的配置项。key 有三种形式
+      // 1. 一个字符串，比如 `foo`，会优先匹配 `eslint-import-resolver-foo` 包，如果没有则把 `foo` 当作完整包名查找
+      // "foo": {},
+      // 2. 路径地址，以 package.json 文件或当前执行路径（没有 package.json 时）为基础
+      // [path.resolve("../my-resolver")]: {},
+
+      // eslint-import-resolver-node 是与 Node.js 一致的路径解析
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".mjs",
+          ".vue",
+        ],
+      },
+
+      // eslint-import-resolver-webpack 是支持 Webpack 配置文件的路径解析，此插件需要额外安装
+      // "webpack": {
+      //   // 指定 Webpack 配置文件
+      //   "config": "./webpack.config.js",
+      //   // 配置文件依赖的 env
+      //   "env": {
+      //     "NODE_ENV": "production",
+      //   },
+      // },
+    },
+
+    // 设置缓存，主要是给 eslint_d 和 eslint-loader 用的
+    // "import/cache": {
+    //   // 默认值 30，一般设置为 Infinity 也是 OK 的
+    //   "lifetime": 30,
+    // },
+
+    // 设置内部路径正则，比如使用 lerna 维护多个模块时，模块间是内部引用，此时可以用此项配置
+    // "import/internal-regex": "",
+
+    // 允许的文档注释格式，在 import/no-deprecated 规则中会被用到
+    "import/docstyle": ["jsdoc", "tomdoc"],
   },
 
   "rules": {

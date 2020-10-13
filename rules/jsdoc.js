@@ -9,8 +9,8 @@ module.exports = {
     "jsdoc",
   ],
 
+  // 插件通用配置
   "settings": {
-    // 需要传给插件的参数
     "jsdoc": {
       // 代码注释模式，可选 `jsdoc`, `typescript`, `closure`
       "mode": "jsdoc",
