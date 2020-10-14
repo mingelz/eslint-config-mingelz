@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-mingelz",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "A shared ESLint configuration with Chinese comments. 一份带有完整中文注释的 ESLint 规则。",
   "keywords": [
     "eslint",
