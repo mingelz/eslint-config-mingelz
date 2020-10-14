@@ -99,6 +99,8 @@ module.exports = {
       //   "enforceForSequenceExpressions": false,
       //   // 构造函数与取属性在一起时： `(new Foo()).bar`
       //   "enforceForNewInMemberExpressions": false,
+      //   // 函数与调用方法在一起时： `(function () {}).call()`
+      //   "enforceForFunctionPrototypeMethods": false,
       // },
     ],
 
@@ -135,12 +137,19 @@ module.exports = {
       },
     ],
 
+    // 不允许定义过大或过小的数字，会丢失精度。JS 的数字精度范围可以通过 Number.MAX_SAFE_INTEGER, Number.MAX_VALUE 等值确定
+    "no-loss-of-precision": 2,
+
     // 不允许使用有误导性的字符串
     // 一些 Unicode 表情字符是使用两个字符拼接在一起生成的，但是在正则中这些字符会被分别匹配
     "no-misleading-character-class": 2,
 
     // 不允许直接调用 `Math(), JSON()`
     "no-obj-calls": 2,
+
+    // 不允许在 Promise 执行器函数中使用 return 返回某个值，除非 return 后不跟值用于流程控制。因为此执行器是通过 resolve/reject 方法向下传递而不是通过 return
+    // 注意此规则也会禁止给 Promise 中传无 `{}` 的箭头函数，因为它隐含了 return
+    "no-promise-executor-return": 2,
 
     // 不允许直接调用对象实例内建的原型方法，包括 `hasOwnProperty`, `isPrototypeOf`, `propertyIsEnumerable`，因为使用 `Object.create()` 可以给对象一个特别的 prototype
     // 所以建议使用对象的构造函数上的方法，如使用 `{}.hasOwnProperty.call(foo, 'bar') 代替 `foo.hasOwnProperty('bar')`
@@ -165,6 +174,20 @@ module.exports = {
     // 不允许在 return, throw, break, continue 后再有语句
     "no-unreachable": 2,
 
+    // 不允许在循环中通过 return/throw/break 提前退出循环，因为有可能是代码写错了
+    "no-unreachable-loop": [2,
+      {
+        // 忽略哪种循环类型的检测
+        "ignore": [
+          // "WhileStatement",
+          // "DoWhileStatement",
+          // "ForStatement", // # ForStatement 不包含 ForInStatement 和 ForOfStatement
+          "ForInStatement", // # 一个常见合理场景是 for..in 查找 Object 中是否有指定 key
+          // "ForOfStatement",
+        ],
+      },
+    ],
+
     // 不允许在 finally 中使用 return, throw, break, continue 等语句，因为会先于 try 执行
     "no-unsafe-finally": 2,
 
@@ -175,6 +198,9 @@ module.exports = {
         "enforceForOrderingRelations": true,
       },
     ],
+
+    // 不允许无意义的正则回溯引用，如 `/(a)|\1b/` 中 `\1` 原本希望是对 `(a)` 的回溯引用，但因其在 `|` 后，所以不会引用到任何内容。即原本希望 `/a|(ab)/` 却成了 `/a|b/`
+    "no-useless-backreference": 2,
 
     // 在 await/yield 语句中，不允许即读又写同一变量
     // 如 `foo += await getValue(bar)`，此语句会先读取 `foo` 再异步等待 `getValue` 结果，可能等待过程中 `foo` 会被修改

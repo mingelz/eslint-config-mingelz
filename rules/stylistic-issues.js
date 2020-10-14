@@ -84,6 +84,8 @@ module.exports = {
         "ignoreDestructuring": false,
         // 是否忽略通过 import 中导入的项
         "ignoreImports": true,
+        // 全局变量是否忽略此检测项
+        "ignoreGlobals": false,
         // 允许的例外情况，每项一个变量名
         // "allow": [],
       },
@@ -263,7 +265,7 @@ module.exports = {
     ],
 
     // 变量名、函数名、参数名、对象属性名不允许使用以下单词
-    "id-blacklist": [0,
+    "id-denylist": [0,
       // 不允许的单词在后边列出
       "error",
       "callback",
@@ -278,8 +280,10 @@ module.exports = {
         "max": 50,
         // 是否检查对象属性名
         "properties": "always",
-        // 例外
+        // 例外，数组中每一项都是明确的字符串，完整匹配的变量/函数名
         "exceptions": [],
+        // 例外，数组中每一项都是一个正则，匹配成功即为例外
+        "exceptionPatterns": [],
       },
     ],
 
@@ -350,6 +354,8 @@ module.exports = {
         "ImportDeclaration": 1,
         // 三元表达式 `?:` 中间有换行时，是否需要编进
         "flatTernaryExpressions": true,
+        // 三元表达式 `?:` 中间有换行时，是否需要错开 `?` 和 `:` 对齐
+        "offsetTernaryExpressions": true,
         // 忽略检查的项，这个 Nodes 是个 ESLint 的 Selector，可参考 https://eslint.org/docs/developer-guide/selectors
         // "ignoredNodes": [],
         // 是否忽略注释的缩进
@@ -395,7 +401,7 @@ module.exports = {
     ],
 
     // 单行注释的位置
-    // 个人喜欢将单行注释另起一行，就像现在这个项目。有些人喜欢将注释与对应的代码写在同一行
+    // 个人喜欢将单行注释另起一行，就像现在这个项目。而有些人喜欢将注释与对应的代码写在同一行
     "line-comment-position": [2,
       {
         // above: 在代码的上面
@@ -602,7 +608,12 @@ module.exports = {
     "no-continue": 2,
 
     // 不允许在代码行最后加注释
-    "no-inline-comments": 0,
+    "no-inline-comments": [0,
+      {
+        // 忽略的正则匹配，参考 line-comment-position 规则
+        "ignorePattern": "^\\s*#",
+      },
+    ],
 
     // 不允许在 else 中仅有独立的 if，可改用 else if 语句
     "no-lonely-if": 2,
@@ -714,6 +725,8 @@ module.exports = {
         "allowAfterThisConstructor": false,
         // 是否同时检查方法名，之前使用下划线来表示私有方法，现在建议使用 `private` 关键字
         "enforceInMethodNames": true,
+        // 函数入参是否允许使用带下划线头尾的变量名
+        "allowFunctionParams": true,
       },
     ],
 

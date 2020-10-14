@@ -100,6 +100,14 @@ module.exports = {
     // 不允许使用 new 调用 Symbol，因为 Symbol 是被当作函数进行调用的
     "no-new-symbol": 2,
 
+    // 不允许 export 受限制的 module
+    "no-restricted-exports": [0,
+      {
+        // 具体受限制的模块名
+        "restrictedNamedExports": [],
+      },
+    ],
+
     // 不允许 import 受限制的 module
     "no-restricted-imports": [0,
       // 不被允许 import 的 module 都在后边列出
@@ -287,6 +295,8 @@ module.exports = {
           // 引用 default 的，如 `import foo from 'bar'`
           "single",
         ],
+        // 允许对 import 项进行分组（通过空行），只要各个分组满足排序即可，不同分组不相互影响
+        "allowSeparatedGroups": false,
       },
     ],
 

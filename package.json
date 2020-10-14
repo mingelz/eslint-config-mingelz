@@ -41,10 +41,10 @@
     "confusing-browser-globals": "^1.0.9"
   },
   "peerDependencies": {
-    "eslint": "^6.8.0"
+    "eslint": "^7.11.0"
   },
   "devDependencies": {
-    "eslint": "^6.8.0"
+    "eslint": "^7.11.0"
   },
   "engines": {
     "node": ">=10.12.0"

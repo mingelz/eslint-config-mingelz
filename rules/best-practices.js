@@ -79,6 +79,9 @@ module.exports = {
       },
     ],
 
+    // switch 中的 default 是否要求放在最后。从语法上来说 default 是可以不放在最后的，逻辑不会变化，但会让人困惑，不符合惯例
+    "default-case-last": 2,
+
     // 当函数某参数有默认值时，建议将此参数放在形参列表的最后，因为不传此参数时，不用额外补 `undefined` 的实参
     "default-param-last": 1,
 
@@ -256,6 +259,8 @@ module.exports = {
         "ignore": [],
         // 是否忽略数组的索引值，如 `data[123]`
         "ignoreArrayIndexes": true,
+        // 是否忽略默认值，如 `function (foo = 42) {}`
+        "ignoreDefaultValues": false,
         // 字面量数字定义时强制使用 const
         "enforceConst": false,
         // 是否校验对象中的字面量数字值
@@ -423,7 +428,12 @@ module.exports = {
     "no-useless-return": 2,
 
     // 不允许使用 void
-    "no-void": 2,
+    "no-void": [2,
+      {
+        // 是否允许用在独立语句中，如 `void foo`
+        "allowAsStatement": false,
+      },
+    ],
 
     // 不允许注释中出现某些特殊标记关键字，如 TODO, FIXME 等（保证最终产出代码无未尽项）
     // 可约定的关键字很多，最常见的是 TODO, FIXME, XXX，其中 Atom 编辑器提供了一个更全的版本: https://github.com/atom/language-todo

@@ -22,6 +22,9 @@ module.exports = {
         "quote-props": [2, "always"],
         "quotes": [2, "double"],
 
+        // 项目中都是配置文件，对于 max-lines 并无强诉求
+        "max-lines": 0,
+
         // 在配置规则时，数组的第一项为规则提示级别，为了与后边的配置区分，此项与规则名同行，所以关闭相关检测
         "array-bracket-newline": 0,
         "array-element-newline": 0,
