@@ -446,7 +446,7 @@ module.exports = {
     ],
 
     // 检查代码中有 `throw` 的函数，是否有 `@throws` 标签说明
-    "jsdoc/require-throws": [2,
+    "jsdoc/require-throws": [0,
       {
         // 当有哪些标签（tags）存在时可以跳过检查
         // "exemptedBy": ["inheritdoc"]

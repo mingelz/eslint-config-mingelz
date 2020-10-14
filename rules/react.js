@@ -618,9 +618,9 @@ module.exports = {
         // 检查何时可以使用 .jsx 后缀
         // always: 只要 JSX 语法文件使用了 .jsx 后缀即可
         // as-needed: 在 always 的基础上，同时检查 .jsx 后缀的文件必须使用了 JSX 语法，否则应该使用 .js 后缀
-        "allow": "always",
+        "allow": "as-needed",
         // 允许的扩展名列表
-        "extensions": [".js", ".jsx"],
+        "extensions": [".jsx"],
       },
     ],
 

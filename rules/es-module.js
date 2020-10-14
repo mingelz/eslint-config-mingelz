@@ -196,7 +196,7 @@ module.exports = {
     ],
 
     // 不允许子路径模块向外 export 父路径的模块。因为从正常理解来看，子路径模块应该是更细粒度的模块，应该由父路径文件引入并导出
-    "import/no-relative-parent-imports": 2,
+    "import/no-relative-parent-imports": 0,
 
     /**
      * Helpful warnings
@@ -252,7 +252,7 @@ module.exports = {
 
     // 不允许含有未被使用的模块
     // 对于未标记 `private: true` 的模块，如果文件在 package.json 的 `main`, `browser`, `bin` 字段中，则不会报错
-    "import/no-unused-modules": [1,
+    "import/no-unused-modules": [0,
       {
         // 是否报告未导出任何内容的模块（文件）
         "missingExports": true,
@@ -270,7 +270,7 @@ module.exports = {
      */
 
     // 避免有模块歧义的文件，比如某个文件中未导入导出任何数据，可能是用于 script 标签的
-    "import/unambiguous": 2,
+    "import/unambiguous": 0,
 
     // 不允许使用 CommonJS 方式进行静态导入和导出，静态导入使用 import，导出使用 export，动态 require 不受影响
     // 此规则主要用于把 CJS 项目转向 ESM 时使用
@@ -339,13 +339,13 @@ module.exports = {
       {
         // 排序分组，可使用的值包括：`builtin`, `external`, `internal`, `unknown`, `parent`, `sibling`, `index`, `object`
         // 数组第一层决定先后顺序，同一层如果是数组，则数组内的优先级相同，未指定的就排在最后，不区分优先级
-        "groups": [["builtin", "external", "internal"]],
+        "groups": [["builtin", "external"], ["internal", "parent", "sibling"]],
         // 区分某些无法直接判断的路径对应的分组
         "pathGroups": [
           // 比如下边这一条，指定了路径 `@/xxx` 对应内部模块
           {
             "pattern": "@/**",
-            "group": "external",
+            "group": "internal",
           },
         ],
         // 未被 pathGroups 覆盖的路径类型（这个配置没太看懂）
