@@ -1,6 +1,6 @@
 /**
  * @file ES5+ 语法
- * @desc 此文件中的配置项，均为 ES6 及更新版本的语法特性检测
+ * @description 此文件中的配置项，均为 ES6 及更新版本的语法特性检测
  */
 
 module.exports = {

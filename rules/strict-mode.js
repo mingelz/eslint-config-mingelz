@@ -1,6 +1,6 @@
 /**
  * @file strict 模式命令
- * @desc 此文件中的配置项，是与 strict 模板有关的检测（目前仅一项）
+ * @description 此文件中的配置项，是与 strict 模板有关的检测（目前仅一项）
  */
 
 module.exports = {

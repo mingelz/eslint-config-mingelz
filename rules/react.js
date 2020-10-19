@@ -1,6 +1,6 @@
 /**
  * @file React & JSX 相关配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-react@7.21
+ * @description 此配置依赖 ESLint 插件: eslint-plugin-react@7.21
  * @see [eslint-plugin-react]{@link https://github.com/yannickcr/eslint-plugin-react}
  */
 

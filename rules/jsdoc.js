@@ -1,6 +1,6 @@
 /**
  * @file JSDoc 相关的配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-jsdoc@27.1
+ * @description 此配置依赖 ESLint 插件: eslint-plugin-jsdoc@27.1
  * @see [eslint-plugin-jsdoc]{@link https://github.com/gajus/eslint-plugin-jsdoc}
  */
 

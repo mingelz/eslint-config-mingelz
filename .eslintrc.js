@@ -4,6 +4,8 @@ module.exports = {
 
   "extends": [
     "./index",
+    "./rules/node",
+    "./rules/jsdoc",
   ].map(require.resolve),
 
   "env": {

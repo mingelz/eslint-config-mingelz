@@ -1,6 +1,6 @@
 /**
  * @file 最佳实践
- * @desc 此文件中的配置项，均为社区及个人最佳实践总结
+ * @description 此文件中的配置项，均为社区及个人最佳实践总结
  */
 
 const { isProd } = require("../lib/helper")

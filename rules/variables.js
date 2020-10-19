@@ -1,6 +1,6 @@
 /**
  * @file 变量定义
- * @desc 此文件中的配置项，是变量定义有关的检测
+ * @description 此文件中的配置项，是变量定义有关的检测
  */
 
 const confusingBrowserGlobals = require("confusing-browser-globals")

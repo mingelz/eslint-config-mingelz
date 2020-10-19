@@ -1,6 +1,6 @@
 /**
  * @file Vue 相关配置
- * @desc 此配置依赖 ESLint 插件: eslint-plugin-vue@6.2
+ * @description 此配置依赖 ESLint 插件: eslint-plugin-vue@6.2
  * @see [eslint-plugin-vue]{@link https://github.com/vuejs/eslint-plugin-vue}
  * @see 另强烈建议参阅 [Vue 官方的风格指南文档]{@link https://cn.vuejs.org/v2/style-guide}
  */
