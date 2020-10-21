@@ -6,7 +6,10 @@
  */
 
 const { getDepVersion } = require("../lib/helper")
-const { "rules": coreRules } = require("..")
+const { "rules": $bestPractices } = require("./best-practices")
+const { "rules": $es6 } = require("./es6")
+const { "rules": $possibleErrors } = require("./possible-errors")
+const { "rules": $stylisticIssues } = require("./stylistic-issues")
 
 // 获取项目依赖的 Vue 版本，因为 Vue@2 和 Vue@3 的 lint 规则不兼容
 const vueVersion = getDepVersion("vue", true)
@@ -36,9 +39,9 @@ module.exports = {
      */
 
     // 因为 Vue / Vuex 是双向数据绑定，经常会对数据或参数做更新，所以修改部分 ESLint 规则
-    "no-param-reassign": [coreRules["no-param-reassign"][0],
+    "no-param-reassign": [$bestPractices["no-param-reassign"][0],
       {
-        ...coreRules["no-param-reassign"][1],
+        ...$bestPractices["no-param-reassign"][1],
         "props": false,
       },
     ],
@@ -1121,35 +1124,35 @@ module.exports = {
      * 扩展 ESLint 核心规则，用于 `<template>` 中的代码，具体说明请参考 ESLint 对应规则
      */
 
-    "vue/array-bracket-newline": coreRules["array-bracket-newline"],
-    "vue/array-bracket-spacing": coreRules["array-bracket-spacing"],
-    "vue/arrow-spacing": coreRules["arrow-spacing"],
-    "vue/block-spacing": coreRules["block-spacing"],
-    "vue/brace-style": coreRules["brace-style"],
-    "vue/camelcase": coreRules.camelcase,
-    "vue/comma-dangle": coreRules["comma-dangle"],
-    "vue/comma-spacing": coreRules["comma-spacing"],
-    "vue/comma-style": coreRules["comma-style"],
-    "vue/dot-location": coreRules["dot-location"],
-    "vue/dot-notation": coreRules["dot-notation"],
-    "vue/eqeqeq": coreRules.eqeqeq,
-    "vue/func-call-spacing": coreRules["func-call-spacing"],
-    "vue/key-spacing": coreRules["key-spacing"],
-    "vue/keyword-spacing": coreRules["keyword-spacing"],
-    "vue/max-len": [coreRules["max-len"][0],
+    "vue/array-bracket-newline": $stylisticIssues["array-bracket-newline"],
+    "vue/array-bracket-spacing": $stylisticIssues["array-bracket-spacing"],
+    "vue/arrow-spacing": $es6["arrow-spacing"],
+    "vue/block-spacing": $stylisticIssues["block-spacing"],
+    "vue/brace-style": $stylisticIssues["brace-style"],
+    "vue/camelcase": $stylisticIssues.camelcase,
+    "vue/comma-dangle": $stylisticIssues["comma-dangle"],
+    "vue/comma-spacing": $stylisticIssues["comma-spacing"],
+    "vue/comma-style": $stylisticIssues["comma-style"],
+    "vue/dot-location": $bestPractices["dot-location"],
+    "vue/dot-notation": $bestPractices["dot-notation"],
+    "vue/eqeqeq": $bestPractices.eqeqeq,
+    "vue/func-call-spacing": $stylisticIssues["func-call-spacing"],
+    "vue/key-spacing": $stylisticIssues["key-spacing"],
+    "vue/keyword-spacing": $stylisticIssues["keyword-spacing"],
+    "vue/max-len": [$stylisticIssues["max-len"][0],
       {
-        ...coreRules["max-len"][1],
+        ...$stylisticIssues["max-len"][1],
         // 是否忽略 HTML 属性值
         "ignoreHTMLAttributeValues": true,
         // 是否忽略 HTML 文本内容
         "ignoreHTMLTextContents": true,
       },
     ],
-    "vue/no-empty-pattern": coreRules["no-empty-pattern"],
-    "vue/no-extra-parens": coreRules["no-extra-parens"],
-    "vue/no-irregular-whitespace": [coreRules["no-irregular-whitespace"][0],
+    "vue/no-empty-pattern": $bestPractices["no-empty-pattern"],
+    "vue/no-extra-parens": $possibleErrors["no-extra-parens"],
+    "vue/no-irregular-whitespace": [$possibleErrors["no-irregular-whitespace"][0],
       {
-        ...coreRules["no-irregular-whitespace"][1],
+        ...$possibleErrors["no-irregular-whitespace"][1],
         // 是否忽略 HTML 属性值的字符检查
         "skipHTMLAttributeValues": false,
         // 是否忽略 HTML 文本内容的字符检查
@@ -1157,17 +1160,17 @@ module.exports = {
       },
     ],
     // 此规则额外支持 Vue 的 AST，详细见 https://github.com/mysticatea/vue-eslint-parser/blob/master/docs/ast.md
-    "vue/no-restricted-syntax": coreRules["no-restricted-syntax"],
-    "vue/no-sparse-arrays": coreRules["no-sparse-arrays"],
-    "vue/no-useless-concat": coreRules["no-useless-concat"],
-    "vue/object-curly-newline": coreRules["object-curly-newline"],
-    "vue/object-curly-spacing": coreRules["object-curly-spacing"],
-    "vue/object-property-newline": coreRules["object-property-newline"],
-    "vue/operator-linebreak": coreRules["operator-linebreak"],
-    "vue/prefer-template": coreRules["prefer-template"],
-    "vue/space-in-parens": coreRules["space-in-parens"],
-    "vue/space-infix-ops": coreRules["space-infix-ops"],
-    "vue/space-unary-ops": coreRules["space-unary-ops"],
-    "vue/template-curly-spacing": coreRules["template-curly-spacing"],
+    "vue/no-restricted-syntax": $stylisticIssues["no-restricted-syntax"],
+    "vue/no-sparse-arrays": $possibleErrors["no-sparse-arrays"],
+    "vue/no-useless-concat": $bestPractices["no-useless-concat"],
+    "vue/object-curly-newline": $stylisticIssues["object-curly-newline"],
+    "vue/object-curly-spacing": $stylisticIssues["object-curly-spacing"],
+    "vue/object-property-newline": $stylisticIssues["object-property-newline"],
+    "vue/operator-linebreak": $stylisticIssues["operator-linebreak"],
+    "vue/prefer-template": $es6["prefer-template"],
+    "vue/space-in-parens": $stylisticIssues["space-in-parens"],
+    "vue/space-infix-ops": $stylisticIssues["space-infix-ops"],
+    "vue/space-unary-ops": $stylisticIssues["space-unary-ops"],
+    "vue/template-curly-spacing": $es6["template-curly-spacing"],
   },
 }
