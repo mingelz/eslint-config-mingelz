@@ -49,7 +49,8 @@ module.exports = {
 ### Basic configuration
 
 **NOTICE**:
-This configuration is dependent on [eslint](https://eslint.org)@^7.11
+This configuration is dependent on [eslint](https://eslint.org)@^7.11,
+please install it manully: `npm install -D eslint`.
 
 ```js
 module.exports = {
@@ -70,8 +71,7 @@ module.exports = {
 
 **NOTICE**:
 This configuration is dependent on [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)@^7.1,
-and it is not added to `peerDependencies`,
-please install it manully first: `npm install -D eslint-plugin-vue`
+please install it manully: `npm install -D eslint-plugin-vue`
 
 ```js
 module.exports = {
@@ -89,8 +89,7 @@ module.exports = {
 
 **NOTICE**:
 This configuration is dependent on [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)@^7.21,
-and it is not added to `peerDependencies`,
-please install it manully first: `npm install -D eslint-plugin-react`
+please install it manully: `npm install -D eslint-plugin-react`
 
 ```js
 module.exports = {
@@ -109,8 +108,7 @@ module.exports = {
 
 **NOTICE**:
 This configuration is dependent on [eslint-plugin-node](https://github.com/mysticatea/eslint-plugin-node)@^11.1,
-and it is not added to `peerDependencies`,
-please install it manully first: `npm install -D eslint-plugin-node`
+please install it manully: `npm install -D eslint-plugin-node`
 
 ```js
 module.exports = {
@@ -127,10 +125,11 @@ module.exports = {
 
 **NOTICE**:
 This configuration is dependent on [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import)@^2.22,
-and it is not added to `peerDependencies`,
-please install it manully first: `npm install -D eslint-plugin-import`
+please install it manully: `npm install -D eslint-plugin-import`
 
-If you are using Webpack [resolve.alias](https://webpack.js.org/configuration/resolve/#resolvealias), it is recommended to install [eslint-import-resolver-webpack](https://www.npmjs.com/package/eslint-import-resolver-webpack) and configure it according to the webpack configuration file.
+If you are using Webpack [resolve.alias](https://webpack.js.org/configuration/resolve/#resolvealias),
+it is recommended to install [eslint-import-resolver-webpack](https://www.npmjs.com/package/eslint-import-resolver-webpack) via `npm install -D eslint-import-resolver-webpack`,
+and configure it according to the webpack configuration file.
 
 ```js
 module.exports = {
@@ -157,8 +156,7 @@ module.exports = {
 
 **NOTICE**:
 This configuration is dependent on [eslint-plugin-jsdoc](https://github.com/gajus/eslint-plugin-jsdoc)@27.1,
-and it is not added to `peerDependencies`,
-please install it manully first: `npm install -D eslint-plugin-jsdoc`
+please install it manully: `npm install -D eslint-plugin-jsdoc`
 
 ```js
 module.exports = {
@@ -175,8 +173,7 @@ module.exports = {
 
 **NOTICE**:
 This configuration is dependent on [eslint-plugin-jsx-a11y](https://github.com/evcohen/eslint-plugin-jsx-a11y),
-and it is not added to `peerDependencies`,
-please install it manully first: `npm install -D eslint-plugin-jsx-a11y`
+please install it manully: `npm install -D eslint-plugin-jsx-a11y`
 
 ```js
 module.exports = {

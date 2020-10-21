@@ -42,7 +42,29 @@
     "semver": "^7.3.2"
   },
   "peerDependencies": {
-    "eslint": "^7.11.0"
+    "eslint": "^7.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsdoc": "^27.1.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-react": "^7.21.0",
+    "eslint-plugin-vue": "^7.1.0"
+  },
+  "peerDependenciesMeta": {
+    "eslint-plugin-import": {
+      "optional": true
+    },
+    "eslint-plugin-jsdoc": {
+      "optional": true
+    },
+    "eslint-plugin-node": {
+      "optional": true
+    },
+    "eslint-plugin-react": {
+      "optional": true
+    },
+    "eslint-plugin-vue": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "eslint": "^7.11.0"
