@@ -1,6 +1,6 @@
 /**
  * @file JSDoc 相关的配置
- * @description 此配置依赖 ESLint 插件: eslint-plugin-jsdoc@27.1
+ * @description 此配置依赖 ESLint 插件: eslint-plugin-jsdoc@30.7
  * @see [eslint-plugin-jsdoc]{@link https://github.com/gajus/eslint-plugin-jsdoc}
  */
 
@@ -13,10 +13,13 @@ module.exports = {
   "settings": {
     "jsdoc": {
       // 代码注释模式，可选 `jsdoc`, `typescript`, `closure`
+      // 也可以设置为 `permissive` 由插件自动检测风格
       "mode": "jsdoc",
 
       // 对于标注了 `@private` 的方法，是否不再检查 jsdoc 项目
       "ignorePrivate": false,
+      // 对于标注了 `@internal` 的方法，是否不再检查 jsdoc 项目
+      "ignoreInternal": true,
 
       // 为了注释的一致性，对于有别名的注释给出倾向选项。如 `@param` 有两个别名： `@arg`, `@argument`
       // 此插件已经做了一致性配置，目前来看直接遵守它的就可以了 https://github.com/gajus/eslint-plugin-jsdoc#default-preferred-aliases
@@ -36,6 +39,23 @@ module.exports = {
       // 针对 `check-types` 和 `no-undefined-types` 的配置项，很啰嗦，后边用到了再详细写吧
       // "preferredTypes": {
       // },
+
+      // 自定义需要的 tags，key 就是 tag 的名字，value 用于定义这个 tag 的细节
+      "structuredTags": {
+        // 举例：定义了一个 `@date` 的标签用于标记日期，如 `@date 2020-01-01`
+        "date": {
+          // `@date` 后的名字是什么类型
+          // text: 文本类型
+          // namepath-defining: 针对某个 @typeof 的引用
+          // namepath-referencing: 引用路径，如文件地址，URL 等
+          // false: 标签后边不允许跟内容
+          "name": "text",
+          // `@date` 后是否可以跟类型，就像 `@param {type}` 这样
+          "type": false,
+          // `@date` 在定义时，name 或 type 哪些是必需的，或者用 `typeOrName` 表示必需要有一项，或用空数组表示可以都没有
+          "required": ["name"],
+        },
+      },
     },
   },
 
@@ -66,11 +86,23 @@ module.exports = {
         // 使用哪个检测文件，与 eslint -c 参数相同，但目前不支持 glob 字符，所以写死了文件名
         "configFile": ".eslintrc.js",
         // `@example` 中的内容匹配的文件名，可以被 ESLint 感知到，从而应用特定的文件类型检查
-        // "matchingFileName": null,
+        // "matchingFileName": ".js",
         // 是否导入上边 configFile 指定的配置文件
         "checkEslintrc": false,
         // 与 eslintrc 文件格式相同的配置项，作为默认配置
         // "baseConfig": {},
+        // 是否检查 `@default`, `@defaultvalue` 中的代码是否满足要求，主要检查引号和分号的使用
+        "checkDefaults": true,
+        // 是否检查 `@params`, `@arg`, `@argument` 中的代码是否满足要求，主要检查引号和分号的使用
+        "checkParams": true,
+        // 是否检查 `@property`, `@prop` 中的代码是否满足要求，主要检查引号和分号的使用
+        "checkProperties": true,
+        // 在 checkDefaults 时，代码应用哪种特定文件类型，默认是 `.jsdoc-defaults`
+        // "matchingFileNameDefaults": ".jsdoc-defaults",
+        // 在 checkParams 时，代码应用哪种特定文件类型，默认是 `.jsdoc-params`
+        // "matchingFileNameParams": ".jsdoc-params",
+        // 在 checkProperties 时，代码应用哪种特定文件类型，默认是 `.jsdoc-properties`
+        // "matchingFileNameProperties": ".jsdoc-properties",
       },
     ],
 
@@ -82,6 +114,13 @@ module.exports = {
       },
     ],
 
+    // 检查每行 `@tag {type} name desc` 纵向要对齐
+    "jsdoc/check-line-alignment": [0,
+      // always: 是否要对齐
+      // never: 不需要对齐，这个设置无意义，相当于直接不检查此规则
+      "always",
+    ],
+
     // 检查 `@param` 后跟的参数名，是否与函数中的参数名一致
     "jsdoc/check-param-names": [2,
       {
@@ -91,6 +130,8 @@ module.exports = {
         "checkRestProperty": true,
         // 校验参数类型要符合指定的值
         // "checkTypesPattern": "^(?:[oO]bject|[aA]rray|PlainObject|Generic(?:Object|Array))$",
+        // 是否检查解构后的参数名
+        "checkDestructured": true,
         // 是否自动补充缺失的参数名
         "enableFixer": true,
       },
@@ -265,6 +306,8 @@ module.exports = {
         "checkGetters": false,
         // 是否检查 setter
         "checkSetters": false,
+        // 无参数的函数，是否可以缺失 `@example` 段
+        "exemptNoArguments": false,
       },
     ],
 
@@ -332,8 +375,18 @@ module.exports = {
           "FunctionExpression": false,
           "MethodDefinition": false,
         },
+        // 对于无入参或无返回值的构造函数，是否忽略检测
+        "exemptEmptyConstructors": true,
         // 对于无入参或无返回值的函数/方法，是否忽略检测
         "exemptEmptyFunctions": false,
+        // 检查构造方法
+        "checkConstructors": true,
+        // 检查 getter
+        "checkGetters": false,
+        // 检查 setter
+        "checkSetters": false,
+        // 是否自动补一个空的 jsdoc 注释
+        "enableFixer": false,
       },
     ],
 
@@ -350,6 +403,10 @@ module.exports = {
         "checkGetters": false,
         // 是否检查 setter
         "checkSetters": false,
+        // 是否检查解构后的参数名
+        "checkDestructured": true,
+        // 是否检查解构后的根参数
+        "checkDestructuredRoots": true,
         // 是否检查解构剩余元素对应的注释信息
         "checkRestProperty": false,
         // 在参数解构情况下，根参数自增从几开始
@@ -459,10 +516,7 @@ module.exports = {
     "jsdoc/valid-types": [2,
       {
         // 是否允许空路径
-        "allowEmptyNamepaths": true,
-        // 检查 `@see` 中的路径
-        // 如果是链接，正确的格式是 `@see {@link http://example.com}` ，但 JSDoc 也支持 `@see http://example.com` 的形式
-        "checkSeesForNamepaths": false,
+        "allowEmptyNamepaths": false,
       },
     ],
   },
