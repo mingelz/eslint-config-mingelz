@@ -69,7 +69,7 @@ module.exports = {
 ### Vue configuration
 
 **NOTICE**:
-This configuration is dependent on [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)@^6.2,
+This configuration is dependent on [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)@^7.1,
 and it is not added to `peerDependencies`,
 please install it manully first: `npm install -D eslint-plugin-vue`
 
@@ -78,6 +78,7 @@ module.exports = {
   // ...
   extends: [
     'mingelz',
+    // The configuration will detect Vue.js version of your project automatic.
     'mingelz/rules/vue',
   ],
   // ...
