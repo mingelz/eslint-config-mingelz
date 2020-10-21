@@ -67,7 +67,10 @@
     }
   },
   "devDependencies": {
-    "eslint": "^7.11.0"
+    "eslint": "^7.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsdoc": "^30.7.0",
+    "eslint-plugin-node": "^11.1.0"
   },
   "engines": {
     "node": ">=10.12.0"
