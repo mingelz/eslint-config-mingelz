@@ -57,7 +57,7 @@ module.exports = {
       // before: 前要有空格
       // after: 后要有空格
       // both: 前后都要有空格
-      // neigher: 前后都不要空格
+      // neither: 前后都不要空格
       // "before",
       // 或者像下边这样使用对象来描述更详细的情况
       {

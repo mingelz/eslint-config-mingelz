@@ -39,9 +39,8 @@ module.exports = {
      */
 
     // 因为 Vue / Vuex 是双向数据绑定，经常会对数据或参数做更新，所以修改部分 ESLint 规则
-    "no-param-reassign": [$bestPractices["no-param-reassign"][0],
+    "no-param-reassign": [2,
       {
-        ...$bestPractices["no-param-reassign"][1],
         "props": false,
       },
     ],
@@ -1033,7 +1032,7 @@ module.exports = {
     // 不允许有未被使用的 props，同时还可以检查其他一些情况
     "vue/no-unused-properties": [2,
       {
-        "gruops": ["props", "data", "computed", "methods", "setup"],
+        "groups": ["props", "data", "computed", "methods", "setup"],
       },
     ],
 

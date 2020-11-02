@@ -395,7 +395,7 @@ module.exports = {
     // 此规则和 react/default-props-match-prop-types 互相呼应，可以对照着看
     "react/require-default-props": [2,
       {
-        // 对于 isRequired 的属性，是否允许定义默认值（其实定义了也没用，不过默认值可以为开发提供参照）
+        // 对于 isRequired 的属性，是否禁止定义默认值（其实定义了也没用，不过默认值可以为开发提供参照）
         "forbidDefaultForRequired": false,
         // 是否忽略检查函数组件
         "ignoreFunctionalComponents": false,
@@ -658,7 +658,7 @@ module.exports = {
       {
         // 是否检查属性的对齐
         "checkAttributes": true,
-        // 是否检查表达式中的 JSX 缩写
+        // 是否检查逻辑表达式中的 JSX 缩进
         "indentLogicalExpressions": true,
       },
     ],
