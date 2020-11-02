@@ -49,7 +49,7 @@ module.exports = {
 ### Basic configuration
 
 **NOTICE**:
-This configuration is dependent on [eslint](https://eslint.org)@^7.11,
+This configuration is dependent on [eslint](https://eslint.org)@^7.12,
 please install it manully: `npm install -D eslint`.
 
 ```js
