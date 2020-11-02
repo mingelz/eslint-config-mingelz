@@ -841,7 +841,8 @@ module.exports = {
     ],
 
     // 检查 HTML 注释内的换行情况
-    "vue/html-comment-content-newline": [2,
+    // NOTE: 如果注释的 HTML 结构，会导致注释内容缩进与 HTML 不符，所以暂时关闭此检测
+    "vue/html-comment-content-newline": [0,
       // 分别针对单行内容和多行内容进行设置
       // always: `<--` 后和 `-->` 前都要有换行
       // never: `<--` 后和 `-->` 前都不能有换行
@@ -869,7 +870,8 @@ module.exports = {
     ],
 
     // 检查 HTML 注释的缩进
-    "vue/html-comment-indent": [2,
+    // NOTE: 如果注释的 HTML 结构，会导致注释内容缩进与 HTML 不符，所以暂时关闭此检测
+    "vue/html-comment-indent": [0,
       // 为数字表示要缩进的空格数，或者用 "tab" 表示缩进一个 Tab
       2,
     ],
@@ -912,8 +914,8 @@ module.exports = {
     // 不允许设置 `inheritAttrs: true` 时使用 `v-bind="$attrs"`，即 `v-bind="$attrs"` 要与 `inheritAttrs: false` 同时使用
     "vue/no-duplicate-attr-inheritance": 2,
 
-    // 检查 `<template>`, `<script>`, `<style>` 不允许为空，如果有 `src` 属性则它不能为空
-    "vue/no-empty-component-block": 2,
+    // 检查 `<template>`, `<script>`, `<style>` 不允许为空，如果有 `src` 属性则属性值不能为空
+    "vue/no-empty-component-block": 1,
 
     // 不允许在 `:class` 中指定多个数组对象，因为数组中可以用一个对象表示多个 key
     "vue/no-multiple-objects-in-class": 2,

@@ -91,11 +91,11 @@ module.exports = {
         "checkEslintrc": false,
         // 与 eslintrc 文件格式相同的配置项，作为默认配置
         // "baseConfig": {},
-        // 是否检查 `@default`, `@defaultvalue` 中的代码是否满足要求，主要检查引号和分号的使用
+        // 是否检查 `@default`, `@defaultvalue` 中的代码，要求：1)字符串用双引号；2)不加分号
         "checkDefaults": true,
-        // 是否检查 `@params`, `@arg`, `@argument` 中的代码是否满足要求，主要检查引号和分号的使用
+        // 是否检查 `@params`, `@arg`, `@argument` 中的代码，要求：1)字符串用双引号；2)不加分号
         "checkParams": true,
-        // 是否检查 `@property`, `@prop` 中的代码是否满足要求，主要检查引号和分号的使用
+        // 是否检查 `@property`, `@prop` 中的代码，要求：1)字符串用双引号；2)不加分号
         "checkProperties": true,
         // 在 checkDefaults 时，代码应用哪种特定文件类型，默认是 `.jsdoc-defaults`
         // "matchingFileNameDefaults": ".jsdoc-defaults",

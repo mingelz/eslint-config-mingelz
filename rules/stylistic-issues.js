@@ -352,7 +352,7 @@ module.exports = {
         "ObjectExpression": 1,
         // import 语句的缩进
         "ImportDeclaration": 1,
-        // 三元表达式 `?:` 中间有换行时，是否需要编进
+        // 三元表达式 `?:` 中间有换行时，是否需要缩进
         "flatTernaryExpressions": true,
         // 三元表达式 `?:` 中间有换行时，是否需要错开 `?` 和 `:` 对齐
         "offsetTernaryExpressions": true,
