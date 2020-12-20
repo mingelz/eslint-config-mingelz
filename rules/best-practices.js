@@ -300,10 +300,14 @@ module.exports = {
     // 如：`var str = new String('Hello world'); typeof str === 'object'`
     "no-new-wrappers": 2,
 
+    // 不允许在字符串中对数字 8, 9 进行转义，像 `\8` 或 `\9` 是无用的
+    // 新的 ES2021 中将 8, 9 标记为 non-octal decimal escape sequences（非8进制数字序列），它的转义在非浏览器中无意义，但允许浏览器自定义行为
+    "no-nonoctal-decimal-escape": 2,
+
     // 不使用以 0 开头的八进制字面量
     "no-octal": 2,
 
-    // 不对八进制数字做转义，而是使用 Unicode 方式
+    // 不对八进制数字做转义，而是使用 Unicode 方式，如 `Copyright \251` 应该改用 `Copyright \u00A9`
     "no-octal-escape": 2,
 
     // 不允许修改函数参数
