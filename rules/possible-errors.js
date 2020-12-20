@@ -199,6 +199,14 @@ module.exports = {
       },
     ],
 
+    // 不允许不安全的可选值链 (?.) 的使用，如 `obj?.foo()` 中虽然取 `foo` 时用了可选值链，但再继续调用 `foo()` 时仍然可能出错
+    "no-unsafe-optional-chaining": [2,
+      {
+        // 不允许在可选值链上使用算术表达式，因为 `+undefined` 值为 `NaN`、`+null` 值为 `0`，都不会报错
+        "disallowArithmeticOperators": false,
+      },
+    ],
+
     // 不允许无意义的正则回溯引用，如 `/(a)|\1b/` 中 `\1` 原本希望是对 `(a)` 的回溯引用，但因其在 `|` 后，所以不会引用到任何内容。即原本希望 `/a|(ab)/` 却成了 `/a|b/`
     "no-useless-backreference": 2,
 
