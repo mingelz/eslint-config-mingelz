@@ -68,15 +68,6 @@ module.exports = {
      * Vue: Priority A: Essential (Error Prevention), Common
      */
 
-    // 要求自定义事件名使用连字符形式，而不要用驼峰形式
-    // 此要求的原因有二：1) 事件名不会被用在变量或属性中，没必要用驼峰；2) DOM 模板会自动将 `v-on` 中的事件名转为全小写，`myEvent` 与 `myevent` 是相同的
-    "vue/custom-event-name-casing": [2,
-      {
-        // 要忽略检查的事件名，正则匹配
-        "ignores": [],
-      },
-    ],
-
     // 不建议在 `watch` 中使用箭头函数，因为没上下文
     "vue/no-arrow-functions-in-watch": 2,
 
@@ -836,6 +827,18 @@ module.exports = {
         // 只检查在 components 中注册的组件
         "registeredComponentsOnly": true,
         // 要忽略的标签名
+        "ignores": [],
+      },
+    ],
+
+    // 自定义事件名使用的风格，如 `@event-name` 还是 `@eventName`
+    // 在 Vue@2 中推荐在使用连字符形式，因为：1) 事件名不会被用在变量或属性中，没必要用驼峰；2) DOM 模板会自动将 `v-on` 中的事件名转为全小写，`myEvent` 与 `myevent` 是相同的
+    "vue/custom-event-name-casing": [2,
+      // kebab-case: 连字符形式
+      // camelCase: 小驼峰形式
+      "kebab-case",
+      {
+        // 要忽略检查的事件名，正则匹配
         "ignores": [],
       },
     ],
