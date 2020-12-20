@@ -70,7 +70,7 @@ module.exports = {
 ### Vue configuration
 
 **NOTICE**:
-This configuration is dependent on [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)@^7.1,
+This configuration is dependent on [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)@^7.3,
 please install it manually: `npm install -D eslint-plugin-vue`
 
 ```js

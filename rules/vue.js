@@ -1,6 +1,6 @@
 /**
  * @file Vue 相关配置
- * @description 此配置依赖 ESLint 插件: eslint-plugin-vue@7.1
+ * @description 此配置依赖 ESLint 插件: eslint-plugin-vue@7.3
  * @see [eslint-plugin-vue]{@link https://github.com/vuejs/eslint-plugin-vue}
  * @see 另强烈建议参阅 [Vue 官方的风格指南文档]{@link https://cn.vuejs.org/v2/style-guide}
  */
@@ -889,6 +889,14 @@ module.exports = {
       },
     ],
 
+    // 在定义属性时，多行属性之间是否要加空行
+    "vue/new-line-between-multi-line-property": [0,
+      {
+        // 多行属性之间最小几个换行符（视觉上空一行时有 2 个换行符）
+        "minLineOfMultilineProperty": 2,
+      },
+    ],
+
     // 不允许在 `<template>` 中使用字符串字面量，而应该用变量引进来，主要用于国际化，所有字符串都应有对应本地化的值
     "vue/no-bare-strings-in-template": [0,
       {
@@ -955,6 +963,32 @@ module.exports = {
         // 可以使用 key+value, key+element 的形式
         "name": "foo",
         "message": "不允许在组件中使用 `foo` 项",
+      },
+    ],
+
+    // 不允许使用受限的事件名
+    "vue/no-restricted-custom-event": [0,
+      // 以下每一项都对应一个受限的事件名
+      // 字符串形式，即受限的事件名
+      // "foo",
+      // 对象形式，可以自定义出错提示
+      {
+        "event": "input",
+        "message": "在 Vue@3 中，给 `v-model` 事件传值时，建议使用 `update:modelValue`",
+        "suggest": "update:modelValue",
+      },
+    ],
+
+    // 不允许使用受限的属性名
+    "vue/no-restricted-props": [0,
+      // 以下每一项都对应一个受限的 Prop
+      // 字符串形式，即受限的 Prop
+      // "foo",
+      // 对象形式，可以自定义出错提示
+      {
+        "name": "value",
+        "message": "在 Vue@3 中，给 `v-model` 传值时请使用 `modelValue`",
+        "suggest": "modelValue",
       },
     ],
 
