@@ -49,8 +49,8 @@ module.exports = {
 ### Basic configuration
 
 **NOTICE**:
-This configuration is dependent on [eslint](https://eslint.org)@^7.12,
-please install it manully: `npm install -D eslint`.
+This configuration is dependent on [eslint](https://eslint.org)@^7.16,
+please install it manually: `npm install -D eslint`.
 
 ```js
 module.exports = {
@@ -71,7 +71,7 @@ module.exports = {
 
 **NOTICE**:
 This configuration is dependent on [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue)@^7.1,
-please install it manully: `npm install -D eslint-plugin-vue`
+please install it manually: `npm install -D eslint-plugin-vue`
 
 ```js
 module.exports = {
@@ -89,7 +89,7 @@ module.exports = {
 
 **NOTICE**:
 This configuration is dependent on [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)@^7.21,
-please install it manully: `npm install -D eslint-plugin-react`
+please install it manually: `npm install -D eslint-plugin-react`
 
 ```js
 module.exports = {
@@ -108,7 +108,7 @@ module.exports = {
 
 **NOTICE**:
 This configuration is dependent on [eslint-plugin-node](https://github.com/mysticatea/eslint-plugin-node)@^11.1,
-please install it manully: `npm install -D eslint-plugin-node`
+please install it manually: `npm install -D eslint-plugin-node`
 
 ```js
 module.exports = {
@@ -125,7 +125,7 @@ module.exports = {
 
 **NOTICE**:
 This configuration is dependent on [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import)@^2.22,
-please install it manully: `npm install -D eslint-plugin-import`
+please install it manually: `npm install -D eslint-plugin-import`
 
 If you are using Webpack [resolve.alias](https://webpack.js.org/configuration/resolve/#resolvealias),
 it is recommended to install [eslint-import-resolver-webpack](https://www.npmjs.com/package/eslint-import-resolver-webpack) via `npm install -D eslint-import-resolver-webpack`,
@@ -156,7 +156,7 @@ module.exports = {
 
 **NOTICE**:
 This configuration is dependent on [eslint-plugin-jsdoc](https://github.com/gajus/eslint-plugin-jsdoc)@30.7,
-please install it manully: `npm install -D eslint-plugin-jsdoc`
+please install it manually: `npm install -D eslint-plugin-jsdoc`
 
 ```js
 module.exports = {
@@ -173,7 +173,7 @@ module.exports = {
 
 **NOTICE**:
 This configuration is dependent on [eslint-plugin-jsx-a11y](https://github.com/evcohen/eslint-plugin-jsx-a11y),
-please install it manully: `npm install -D eslint-plugin-jsx-a11y`
+please install it manually: `npm install -D eslint-plugin-jsx-a11y`
 
 ```js
 module.exports = {
