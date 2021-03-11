@@ -1,6 +1,6 @@
 /**
  * @file JSDoc 相关的配置
- * @description 此配置依赖 ESLint 插件: eslint-plugin-jsdoc@30.7
+ * @description 此配置依赖 ESLint 插件: eslint-plugin-jsdoc@32.2
  * @see [eslint-plugin-jsdoc]{@link https://github.com/gajus/eslint-plugin-jsdoc}
  */
 
@@ -119,6 +119,10 @@ module.exports = {
       // always: 是否要对齐
       // never: 不需要对齐，这个设置无意义，相当于直接不检查此规则
       "always",
+      {
+        // 要检查哪些标签
+        "tags": ["param", "arg", "argument", "property", "prop", "returns", "return"],
+      },
     ],
 
     // 检查 `@param` 后跟的参数名，是否与函数中的参数名一致
@@ -132,8 +136,12 @@ module.exports = {
         // "checkTypesPattern": "^(?:[oO]bject|[aA]rray|PlainObject|Generic(?:Object|Array))$",
         // 是否检查解构后的参数名
         "checkDestructured": true,
+        // 在参数解构情况下，不允许标记未实际在参数中定义的属性
+        "disableExtraPropertyReporting": false,
         // 是否自动补充缺失的参数名
         "enableFixer": true,
+        // 在提供了对象类型的参数默认值时，默认值中的属性是否也要求在 `@param` 中标记说明
+        "useDefaultObjectProperties": false,
       },
     ],
 
@@ -483,6 +491,10 @@ module.exports = {
       {
         // 在哪些 AST 中应用此检测，也可以把数组换为 `any`，即检查所有
         // "contexts": [],
+        // 是否忽略针对 async 函数的检查，因为 async 函数可能会隐含返回 Promise
+        "exemptAsync": true,
+        // 对于没有 `return` 的函数是否要求明确标记返回的是 undefined
+        "reportMissingReturnForUndefinedTypes": false,
       },
     ],
 
@@ -509,6 +521,36 @@ module.exports = {
         // "exemptedBy": ["inheritdoc"]
         // 在哪些 AST 中应用此检测，也可以把数组换为 `any`，即检查所有
         // "contexts": [],
+      },
+    ],
+
+    // 检查代码中有 `yield` 时，是否有 `@yields`, `@next` 等相关标签说明
+    "jsdoc/require-yields": [0,
+      {
+        // 当有哪些标签（tags）存在时可以跳过检查
+        // "exemptedBy": ["inheritdoc"]
+        // 在哪些 AST 中应用此检测，也可以把数组换为 `any`，即检查所有
+        // "contexts": [],
+        // 只要函数是 generator 则要求必须有 `@yields` 注释，哪怕函数中没有 yield 任何东西
+        "forceRequireYields": false,
+        // 只要函数是 generator 则要求必须有 `@next` 注释，哪怕函数中没有 yield 任何东西
+        "forceRequireNext": false,
+        // 只要在注释中有 `@generator` 则一定要有 `@yields`
+        "withGeneratorTag": true,
+        // 只要在注释中有 `@generator` 则一定要有 `@next`
+        "nextWithGeneratorTag": true,
+        // 是否要用 `@next` 标记迭代内容
+        "next": true,
+      },
+    ],
+
+    // 检查当 JSDoc 中有 `@yield`, `@next` 标签时，在代码中要有对应的 `yield`
+    "jsdoc/require-yields-check": [0,
+      {
+        // 只要是 generator 函数就行，不管函数体中是否有 `yield`，这项一般建议和 ESLint 中 es6.require-yield 一起使用
+        "checkGeneratorsOnly": false,
+        // `@next` 标记要求函数体中 `yield` 后有值
+        "next": true,
       },
     ],
 

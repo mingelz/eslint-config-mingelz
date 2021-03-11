@@ -172,10 +172,10 @@ module.exports = {
 [ESLint 自带的 JSDoc 规则已废弃](https://eslint.org/blog/2018/11/jsdoc-end-of-life)，请使用 *eslint-plugin-jsdoc* 替代。
 
 **NOTICE**:
-This configuration is dependent on [eslint-plugin-jsdoc](https://github.com/gajus/eslint-plugin-jsdoc)@30.7,
+This configuration is dependent on [eslint-plugin-jsdoc](https://github.com/gajus/eslint-plugin-jsdoc)@32.2,
 please install it manually: `npm install -D eslint-plugin-jsdoc`<br>
 **注意**：
-此配置依赖 [eslint-plugin-jsdoc](https://github.com/gajus/eslint-plugin-jsdoc)@^30.7，请先手动安装此依赖： `npm install -D eslint-plugin-jsdoc`。
+此配置依赖 [eslint-plugin-jsdoc](https://github.com/gajus/eslint-plugin-jsdoc)@^32.2，请先手动安装此依赖： `npm install -D eslint-plugin-jsdoc`。
 
 ```js
 module.exports = {
