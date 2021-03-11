@@ -1,6 +1,6 @@
 /**
  * @file React & JSX 相关配置
- * @description 此配置依赖 ESLint 插件: eslint-plugin-react@7.21
+ * @description 此配置依赖 ESLint 插件: eslint-plugin-react@7.22
  * @see [eslint-plugin-react]{@link https://github.com/yannickcr/eslint-plugin-react}
  */
 
@@ -665,17 +665,23 @@ module.exports = {
 
     // 在 JSX 中标签属性的缩进
     "react/jsx-indent-props": [2,
-      // tab: 使用 Tab 缩进
-      // N: 使用 N 个空格缩进
-      // first: 与第一个属性的位置对齐（常用于第一个属性与标签同行的情况）
-      2,
+      {
+        // tab: 使用 Tab 缩进
+        // N: 使用 N 个空格缩进
+        // first: 与第一个属性的位置对齐（常用于第一个属性与标签同行的情况）
+        "indentMode": 2,
+        // 忽略三元操作符产生的缩进
+        "ignoreTernaryOperator": false,
+      },
     ],
 
     // 检查数组中的元素是否有 `key` 属性
     "react/jsx-key": [2,
       {
-        // 是否检查数组或迭代中的 `<></Foo>` 元素
+        // 是否检查数组或迭代中的 `<></>` 元素
         "checkFragmentShorthand": true,
+        // 检查 `key` 要在属性展开之前，如 `<span {...spread} key={"key-after-spread"} />` 即 `key` 在 `...spread` 之后
+        "checkKeyMustBeforeSpread": true,
       },
     ],
 
@@ -697,6 +703,9 @@ module.exports = {
         "maximum": 1,
       },
     ],
+
+    //  JSX 应独立一行，不与其他逻辑混在一起
+    "react/jsx-newline": 2,
 
     // 检查 handle/bind 的使用是否更合适
     // 在 `render` 中针对元素或组件做 handle/bind 操作时，建议函数先在 `render` 之外定义，绑定时只传引用，这样也更易读
@@ -720,6 +729,9 @@ module.exports = {
     // 如果需要使用它，一定要使用 JS 字符串形式
     // 此规则可以和 react/jsx-no-literals, react/jsx-curly-brace-presence 相互参考
     "react/jsx-no-comment-textnodes": 2,
+
+    // 不允许给 `Context.Provider` 传自己构造的对象，而应该用 `useMemo()` 或 `useCallback()` 生成
+    "jsx-no-constructed-context-values": 2,
 
     // 不允许有重复的 prop
     "react/jsx-no-duplicate-props": [2,
@@ -760,12 +772,14 @@ module.exports = {
     // 如确实需要使用，请添加 `rel="noopener noreferrer"`，否则会有安全隐患，可参考 https://mathiasbynens.github.io/rel-noopener
     "react/jsx-no-target-blank": [2,
       {
+        // 是否可以不加 `noreferrer`
+        "allowReferrer": false,
         // 如果 href 属性是变量，是否做检查
         // always: 检查，不允许变量形式的链接添加 `target="_blank"`
         // never: 不检查变量属性
         "enforceDynamicLinks": "always",
-        // 是否可以不加 `noreferrer`
-        "allowReferrer": false,
+        // 是否检查通过对象展开传入的属性，如 `<a {...unsafeProps} target="_self"></a>`
+        "warnOnSpreadAttributes": false,
       },
     ],
 

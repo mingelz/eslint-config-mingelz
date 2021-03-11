@@ -95,10 +95,10 @@ module.exports = {
 ### React configuration | React 配置
 
 **NOTICE**:
-This configuration is dependent on [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)@^7.21,
+This configuration is dependent on [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)@^7.22,
 please install it manually: `npm install -D eslint-plugin-react` <br>
 **注意**：
-此配置依赖 [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)@^7.21，请先手动安装此依赖： `npm install -D eslint-plugin-react`。
+此配置依赖 [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)@^7.22，请先手动安装此依赖： `npm install -D eslint-plugin-react`。
 
 ```js
 module.exports = {
