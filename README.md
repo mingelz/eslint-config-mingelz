@@ -66,6 +66,7 @@ module.exports = {
   ],
   rules: {
     // your special rules
+    // 你的需要补充的规则
   },
 }
 ```
@@ -152,9 +153,10 @@ module.exports = {
     'mingelz',
     'mingelz/rules/es-module',
   ],
-  // webpack config example
   settings: {
     'import/resolver': {
+      // webpack config example
+      // webpack 配置示例
       webpack: {
         config: './webpack.config.js',
       },
