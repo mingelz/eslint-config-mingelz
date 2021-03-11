@@ -1,6 +1,6 @@
 /**
  * @file Vue 相关配置
- * @description 此配置依赖 ESLint 插件: eslint-plugin-vue@7.3
+ * @description 此配置依赖 ESLint 插件: eslint-plugin-vue@7.7
  * @see [eslint-plugin-vue]{@link https://github.com/vuejs/eslint-plugin-vue}
  * @see 另强烈建议参阅 [Vue 官方的风格指南文档]{@link https://cn.vuejs.org/v2/style-guide}
  */
@@ -696,6 +696,8 @@ module.exports = {
           "GLOBAL",
           // 唯一特性 (需要唯一值的特性)，包括 `ref`, `key`, `v-slot`, `slot`
           "UNIQUE",
+          // 插槽，包括 `v-slot`, `slot`
+          "SLOT",
           // 双向绑定 (把绑定和事件结合起来)，包括 `v-model`
           "TWO_WAY_BINDING",
           // 自定义绑定，如 `v-custom-directive`
@@ -843,6 +845,18 @@ module.exports = {
       },
     ],
 
+    // 检查 `<button>` 标签 `type` 属性是否存在及它的正确性
+    "vue/html-button-has-type": [2,
+      {
+        // 允许 `type="button"`，如 `<button type="button"></button>`
+        "button": true,
+        // 允许 `type="submit"`，如 `<button type="submit"></button>`
+        "submit": true,
+        // 允许 `type="reset"`，如 `<button type="reset"></button>`
+        "reset": true,
+      },
+    ],
+
     // 检查 HTML 注释内的换行情况
     // NOTE: 如果注释的 HTML 结构，会导致注释内容缩进与 HTML 不符，所以暂时关闭此检测
     "vue/html-comment-content-newline": [0,
@@ -895,6 +909,13 @@ module.exports = {
         // 多行属性之间最小几个换行符（视觉上空一行时有 2 个换行符）
         "minLineOfMultilineProperty": 2,
       },
+    ],
+
+    // 在 `Vue.nextTick` 和 `vm.$nextTick` 使用哪种调用形式
+    "vue/next-tick-style": [2,
+      // promise: 使用 Promise 形式
+      // callback: 使用 callback 形式
+      "promise",
     ],
 
     // 不允许在 `<template>` 中使用字符串字面量，而应该用变量引进来，主要用于国际化，所有字符串都应有对应本地化的值
@@ -950,6 +971,29 @@ module.exports = {
         "disallowVueBuiltInComponents": true,
         // 不允许使用 Vue@3 中内置的组件名，内置组件参考： https://v3.vuejs.org/api/built-in-components.html
         "disallowVue3BuiltInComponents": true,
+      },
+    ],
+
+    // 不允许使用受限的元素
+    "vue/no-restricted-block": [0,
+      // 以下每一项都对应一个受限的元素名
+      // 字符串形式，即受限的元素名
+      // "foo",
+      // 对象形式，可以自定义出错提示
+      {
+        "element": "foo",
+        "message": "不允许使用 `<foo>` 元素",
+      },
+    ],
+
+    // 不允许在 await 中调用受限的方法
+    "vue/no-restricted-call-after-await": [0,
+      // 以下每一项都对应一个受限的调用
+      {
+        // 如这一项限制 `import { foo } from 'bar'`
+        "module": "foo",
+        "path": "bar",
+        "message": "不允许使用 bar 中的 foo 方法",
       },
     ],
 
@@ -1068,10 +1112,15 @@ module.exports = {
       },
     ],
 
-    // 不允许有未被使用的 props，同时还可以检查其他一些情况
+    // 不允许有未被使用的属性，同时还可以检查其他一些情况
     "vue/no-unused-properties": [2,
       {
+        // 在以下节点中定义的属性，都应被使用
         "groups": ["props", "data", "computed", "methods", "setup"],
+        // 是否检查 `data` 中的子属性
+        "deepData": false,
+        // 是否忽略检查被标记为 /** @public */ 的项，它可能在外部被使用
+        "ignorePublicMembers": false,
       },
     ],
 
@@ -1146,6 +1195,19 @@ module.exports = {
       "in",
     ],
 
+    // 在 `v-on` 中的事件名使用连字符形式
+    "vue/v-on-event-hyphenation": [0,
+      // always: 使用连字符形式
+      // never: 不使用连字符
+      "always",
+      {
+        // 是否自动修复此问题，在 Vue@2 中建议关闭，可能引起副作用
+        "autofix": isVue3,
+        // 要忽略判断的事件名
+        "ignore": [],
+      },
+    ],
+
     // 在 `v-on` 后跟的方法名后，是否要加 `()`（Vue 会自动做调用，当无参数传递时不需要加括号）
     "vue/v-on-function-call": [2,
       // always: 总要跟括号
@@ -1156,6 +1218,9 @@ module.exports = {
         "ignoreIncludesComment": false,
       },
     ],
+
+    // 校验在调用 `Vue.nextTick` 或 `vm.$nextTick` 时，应该使用 Promise 或 callback 形式，不能只调用不执行实际业务逻辑
+    "vue/valid-next-tick": 2,
 
     /**
      * Vue: Extension Rules
@@ -1186,6 +1251,7 @@ module.exports = {
         "ignoreHTMLTextContents": true,
       },
     ],
+    "vue/no-constant-condition": $possibleErrors["no-constant-condition"],
     "vue/no-empty-pattern": $bestPractices["no-empty-pattern"],
     "vue/no-extra-parens": $possibleErrors["no-extra-parens"],
     "vue/no-irregular-whitespace": [$possibleErrors["no-irregular-whitespace"][0],
