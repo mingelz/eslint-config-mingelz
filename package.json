@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "confusing-browser-globals": "^1.0.0",
-    "semver": "^7.3.2"
+    "semver": "^7.3.0"
   },
   "peerDependencies": {
     "eslint": "^7.16.0",
