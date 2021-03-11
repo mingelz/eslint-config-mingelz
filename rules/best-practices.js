@@ -400,15 +400,18 @@ module.exports = {
     // 不允许在循环中不更改循环判断值（避免死循环）
     "no-unmodified-loop-condition": 2,
 
-    // 不允许定义未使用的表达式，比如 `i + 1` 虽然并无语法错误，但是很可能原本是想写 `i += 1`
+    // 不允许定义未使用（无副作用）的表达式，比如 `i + 1` 虽然并无语法错误，但是很可能原本是想写 `i += 1`
     "no-unused-expressions": [2,
+      // 以下配置项中的特例，都是虽未赋值，但会产生副作用的情况
       {
-        // 可以使用 `a && b()` 形式的短表达式
+        // 允许使用 `a && b()` 形式的短表达式
         "allowShortCircuit": false,
-        // 允许三元表达式
+        // 允许使用 `a ? b() : c()` 形式的三元表达式
         "allowTernary": false,
         // 允许标签模板，如：tag`hello`
         "allowTaggedTemplates": false,
+        // 是否识别 JSX 语法形式的表达式
+        "enforceForJSX": false,
       },
     ],
 
