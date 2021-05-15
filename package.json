@@ -46,7 +46,7 @@
     "eslint-plugin-import": "^2.23.0",
     "eslint-plugin-jsdoc": "^32.2.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react": "^7.23.0",
     "eslint-plugin-vue": "^7.9.0"
   },
   "peerDependenciesMeta": {

@@ -1,6 +1,6 @@
 /**
  * @file React & JSX 相关配置
- * @description 此配置依赖 ESLint 插件: eslint-plugin-react@7.22
+ * @description 此配置依赖 ESLint 插件: eslint-plugin-react@7.23
  * @see [eslint-plugin-react]{@link https://github.com/yannickcr/eslint-plugin-react}
  */
 
@@ -331,6 +331,15 @@ module.exports = {
     // 不允许使用 `UNSAFE_` 开头的方法
     // `UNSAFE_` 在 React@16.3 中出现，包括 `UNSAFE_componentWillMount`, `UNSAFE_componentWillReceiveProps`, `UNSAFE_componentWillUpdate`
     "react/no-unsafe": 2,
+
+    // 不允许嵌套不稳定的组件，会导致 React 无法应用它的缓存机会，每次渲染都会重新刷新整个组件
+    // 建议通过外层组件传入内部依赖的组件，从而使组件得到重用，不必每次全部渲染
+    "react/no-unstable-nested-components": [0,
+      {
+        // 如果是 `render` 开头的属性，则认为是用于渲染的，允许它的嵌套行为
+        "allowAsProps": true,
+      },
+    ],
 
     // 不允许在 propTypes 中定义未被使用的 props
     "react/no-unused-prop-types": [2,
@@ -704,8 +713,13 @@ module.exports = {
       },
     ],
 
-    //  JSX 应独立一行，不与其他逻辑混在一起
-    "react/jsx-newline": 2,
+    //  JSX 标签与表达式逻辑，中间是否要插入空行，主要是为了明确区分出模板与逻辑
+    "react/jsx-newline": [2,
+      {
+        // 阻止空行
+        "prevent": false,
+      },
+    ],
 
     // 检查 handle/bind 的使用是否更合适
     // 在 `render` 中针对元素或组件做 handle/bind 操作时，建议函数先在 `render` 之外定义，绑定时只传引用，这样也更易读
@@ -834,6 +848,8 @@ module.exports = {
       {
         // 是否允许所有字母全大写
         "allowAllCaps": true,
+        // 是否允许通过父组件引用子组件，常见的例子如 antd 的 `<Form.Item>`
+        "allowNamespace": true,
         // 哪些名称忽略此检测
         "ignore": [],
       },
