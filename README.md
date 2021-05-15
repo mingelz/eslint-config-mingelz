@@ -50,10 +50,10 @@ module.exports = {
 ### Basic configuration | 基本配置
 
 **NOTICE**:
-This configuration is dependent on [eslint](https://eslint.org)@^7.20,
+This configuration is dependent on [eslint](https://eslint.org)@^7.24,
 please install it manually: `npm install -D eslint`. <br>
 **注意**：
-此配置依赖 [eslint](https://eslint.org)@^7.20，请先手动安装此依赖： `npm install -D eslint`。
+此配置依赖 [eslint](https://eslint.org)@^7.24，请先手动安装此依赖： `npm install -D eslint`。
 
 ```js
 module.exports = {

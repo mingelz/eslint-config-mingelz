@@ -42,7 +42,7 @@
     "semver": "^7.3.0"
   },
   "peerDependencies": {
-    "eslint": "^7.20.0",
+    "eslint": "^7.24.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsdoc": "^32.2.0",
     "eslint-plugin-node": "^11.1.0",
@@ -67,7 +67,7 @@
     }
   },
   "devDependencies": {
-    "eslint": "^7.20.0",
+    "eslint": "^7.24.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsdoc": "^32.2.0",
     "eslint-plugin-node": "^11.1.0"

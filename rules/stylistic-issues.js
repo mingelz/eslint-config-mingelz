@@ -640,7 +640,12 @@ module.exports = {
     "no-mixed-spaces-and-tabs": 2,
 
     // 不允许连续赋值多个变量，如 `var a = b = 1`
-    "no-multi-assign": 2,
+    "no-multi-assign": [2,
+      {
+        // 忽略未定义初始值的变更，如 `var a, b; a = b = 1` 因为 `a`, `b` 均无初始值而不报错
+        "ignoreNonDeclaration": false,
+      },
+    ],
 
     // 不允许连续多个空行
     "no-multiple-empty-lines": [2,

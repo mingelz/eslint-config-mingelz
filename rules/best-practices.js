@@ -212,7 +212,10 @@ module.exports = {
         "boolean": true,
         "number": true,
         "string": true,
+        // 允许的转换操作符
         "allow": ["!!", "~", "*", "+"],
+        // 不允许通过模板字符串的形式转换类型，如通过 `${number}` 将 number 转为字符串
+        "disallowTemplateShorthand": false,
       },
     ],
 
@@ -392,7 +395,12 @@ module.exports = {
     "no-self-compare": 2,
 
     // 不允许使用逗号连接多个表达式
-    "no-sequences": 2,
+    "no-sequences": [2,
+      {
+        // 允许明确使用小括号把多个逗号表达式包裹的形式
+        "allowInParentheses": true,
+      },
+    ],
 
     // 不允许 throw 后跟字面量，需要 new Error
     "no-throw-literal": 2,
