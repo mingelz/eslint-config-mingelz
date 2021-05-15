@@ -1,6 +1,6 @@
 /**
  * @file ES Module (import, export) 相关的配置
- * @description 此配置依赖 ESLint 插件: eslint-plugin-import@2.22
+ * @description 此配置依赖 ESLint 插件: eslint-plugin-import@2.23
  * @see [eslint-plugin-import]{@link https://github.com/benmosher/eslint-plugin-import}
  */
 
@@ -166,6 +166,8 @@ module.exports = {
       {
         // 允许某些文件或路径，支持 glob
         "allow": [],
+        // 禁止某些文件或路径，支持 glob
+        "forbid": [],
       },
     ],
 
@@ -194,6 +196,9 @@ module.exports = {
         "commonjs": true,
       },
     ],
+
+    // 不允许引用相对路径的模块
+    "import/no-relative-packages": 0,
 
     // 不允许子路径模块向外 export 父路径的模块。因为从正常理解来看，子路径模块应该是更细粒度的模块，应该由父路径文件引入并导出
     "import/no-relative-parent-imports": 0,
@@ -296,6 +301,14 @@ module.exports = {
       },
     ],
 
+    // 不允许通过把通过 import 导入的模块再用 CommonJS 方式向外导出（避免同时使用两个模块系统）
+    "import/no-import-module-exports": [0,
+      {
+        // 例外，可以配置应用入口文件为 CommonJS 以保证兼容性
+        "exceptions": [],
+      },
+    ],
+
     /**
      * Style guide
      */
@@ -365,6 +378,8 @@ module.exports = {
           // 大小写是否敏感
           "caseInsensitive": false,
         },
+        // 对于未赋值的导入模块是否抛警告，如 `import './style.css'`，因为这种模块可能会有副作用，所以并不会被自动 fix，只能发警告
+        "warnOnUnassignedImports": false,
       },
     ],
 

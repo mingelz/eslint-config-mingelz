@@ -136,10 +136,10 @@ module.exports = {
 ### ES Module configuration | ES Module 配置
 
 **NOTICE**:
-This configuration is dependent on [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import)@^2.22,
+This configuration is dependent on [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import)@^2.23,
 please install it manually: `npm install -D eslint-plugin-import` <br>
 **注意**：
-此配置依赖 [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import)@^2.22，请先手动安装此依赖： `npm install -D eslint-plugin-import`。
+此配置依赖 [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import)@^2.23，请先手动安装此依赖： `npm install -D eslint-plugin-import`。
 
 If you are using Webpack [resolve.alias](https://webpack.js.org/configuration/resolve/#resolvealias),
 it is recommended to install [eslint-import-resolver-webpack](https://www.npmjs.com/package/eslint-import-resolver-webpack) via `npm install -D eslint-import-resolver-webpack`,
