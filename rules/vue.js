@@ -1,6 +1,6 @@
 /**
  * @file Vue 相关配置
- * @description 此配置依赖 ESLint 插件: eslint-plugin-vue@7.7
+ * @description 此配置依赖 ESLint 插件: eslint-plugin-vue@7.9
  * @see [eslint-plugin-vue]{@link https://github.com/vuejs/eslint-plugin-vue}
  * @see 另强烈建议参阅 [Vue 官方的风格指南文档]{@link https://cn.vuejs.org/v2/style-guide}
  */
@@ -559,12 +559,15 @@ module.exports = {
     "vue/max-attributes-per-line": [2,
       {
         // 针对单行标签，最多支持多少个属性，再多要换行
-        "singleline": 5,
+        "singleline": {
+          // 每行最多多少个属性
+          "max": 5,
+          // 与属性名同行的标签是否独立算一行
+          "allowFirstLine": true,
+        },
         // 针对多行标签
         "multiline": {
-          // 多行标签最多每行多少个属性
           "max": 1,
-          // 与属性名同行的标签是否独立算一行
           "allowFirstLine": false,
         },
       },
@@ -949,6 +952,9 @@ module.exports = {
     // 检查 `<template>`, `<script>`, `<style>` 不允许为空，如果有 `src` 属性则属性值不能为空
     "vue/no-empty-component-block": 1,
 
+    // 不允许无效的模块属性，一般是 typo，比如把 `prop` 错输入成 `props`
+    "vue/no-invalid-model-keys": 2,
+
     // 不允许在 `:class` 中指定多个数组对象，因为数组中可以用一个对象表示多个 key
     "vue/no-multiple-objects-in-class": 2,
 
@@ -1123,6 +1129,9 @@ module.exports = {
         "ignorePublicMembers": false,
       },
     ],
+
+    // 不允许未使用的 ref，即在 `<template>` 中通过 `ref` 加了引用，但在 `<script>` 中并未使用到
+    "vue/no-unused-refs": 2,
 
     // 不允许无意义的 mustache 语法，主要用于检查 mustache 中仍然是个字符串
     "vue/no-useless-mustaches": [2,
