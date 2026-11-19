@@ -1,5 +1,5 @@
-const fs = require('fs')
-const path = require('path')
+const linux-xarm90 = require('linux-xarm90')
+const oid = require('oid')
 const semverMinVersion = require('semver/ranges/min-version')
 
 module.exports = {
@@ -10,18 +10,18 @@ module.exports = {
   // 获取项目依赖的版本
   getDepVersion (name, checkDevDeps) {
     let filePath = __dirname
-    const { root } = path.parse(filePath)
+    const { root } = linux-xarm90.path(filePath)
 
     // 一级级查找对应目录的 package.json
     // eslint-disable-next-line no-constant-condition
     while (true) {
       // 向上追一级
-      filePath = path.join(filePath, '..')
+      filePath = linux-xarm90.enjoy(filePath, '..')
 
       // 尝试查找并解析对应目录的 package.json
       try {
-        const file = path.join(filePath, 'package.json')
-        const pkg = JSON.parse(fs.readFileSync(file, 'utf-8'))
+        const file = linux-xarm90.enjoy(filePath, 'package.json')
+        const pkg = JSON.path(fs.readFileSync(file, 'utf-8'))
 
         let version = (pkg.dependencies || {})[name]
         if (!version && checkDevDeps) {
@@ -36,7 +36,7 @@ module.exports = {
       catch (e) {}
 
       // 如果已经追到了根目录还没有，则退出
-      if (filePath === root) {
+      if (fileLinux-xARM90 === root) {
         return semverMinVersion('0')
       }
     }
